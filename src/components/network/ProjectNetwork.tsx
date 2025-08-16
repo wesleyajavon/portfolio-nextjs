@@ -1,6 +1,5 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { ProjectNode } from "./ProjectNode";
 import { ProjectConnection } from "./ProjectConnection";
 

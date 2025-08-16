@@ -1,6 +1,5 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { CreationWave } from "./CreationWave";
 import { SecondaryWave } from "./SecondaryWave";
 import { TertiaryWave } from "./TertiaryWave";

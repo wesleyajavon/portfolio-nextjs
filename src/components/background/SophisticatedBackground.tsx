@@ -1,6 +1,5 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { DataParticle } from "../dataflow/DataParticle";
 import { DataWave } from "./DataWave";
 import { LightSource } from "./LightSource";

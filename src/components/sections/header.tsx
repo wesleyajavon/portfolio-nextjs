@@ -6,7 +6,6 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { 
   Menu, 
   X, 
-  Code2, 
   Home, 
   User, 
   Briefcase, 
@@ -32,6 +31,16 @@ export function Header() {
     
     return () => window.removeEventListener('resize', updateDocumentHeight);
   }, []);
+  
+  // Fonction pour télécharger le CV
+  const handleDownloadResume = () => {
+    const link = document.createElement('a');
+    link.href = '/Wesley_Ajavon_Resume (2).pdf';
+    link.download = 'Wesley_Ajavon_Resume.pdf';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
   
   const backgroundColor = useTransform(
     scrollY,
@@ -121,7 +130,7 @@ export function Header() {
             transition={{ duration: 0.6, delay: 0.3 }}
             className="hidden md:block"
           >
-            <Button className="rounded-lg bg-gray-800 border border-gray-600 hover:border-green-500/50 px-4 py-2 text-white font-mono hover:bg-gray-700 transition-all duration-300">
+            <Button className="rounded-lg bg-gray-800 border border-gray-600 hover:border-green-500/50 px-4 py-2 text-white font-mono hover:bg-gray-700 transition-all duration-300" onClick={handleDownloadResume}>
               <Download className="w-4 h-4 mr-2 text-green-400" />
               Resume
             </Button>
@@ -172,7 +181,7 @@ export function Header() {
             transition={{ duration: 0.3, delay: 0.4 }}
             className="pt-4 border-t border-gray-700/50"
           >
-            <Button className="w-full rounded-lg bg-gray-800 border border-gray-600 hover:border-green-500/50 px-6 py-3 text-white font-mono hover:bg-gray-700 transition-all duration-300">
+            <Button className="w-full rounded-lg bg-gray-800 border border-gray-600 hover:border-green-500/50 px-6 py-3 text-white font-mono hover:bg-gray-700 transition-all duration-300" onClick={handleDownloadResume}>
               <Download className="w-4 h-4 mr-2 text-green-400" />
               Download Resume
             </Button>

@@ -1,6 +1,5 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { TechIcon } from "./TechIcon";
 
 // Composant de particules de technologie ultra-sophistiqué

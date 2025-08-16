@@ -348,7 +348,7 @@ export function Contact() {
           </h2>
           
           <p className="mb-8 text-white text-base sm:text-lg font-mono">
-            <span className="text-green-400">//</span>{" "}
+            <span className="text-green-400">{"//"}</span>{" "}
             <span className="text-white">Get in touch via email or social media!</span>
           </p>
         </motion.div>

@@ -5,20 +5,18 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { 
   Code2, 
-  Palette, 
-  Zap, 
-  Database, 
+  Database,
+  BookOpen,
   Globe, 
-  Smartphone, 
-  BookOpen, 
-  Target, 
-  User, 
-  Brain,
-  Sparkles,
   Star,
   CheckCircle,
-  Terminal
+  Terminal,
+  Target,
+  User,
+  Brain,
+  LucideIcon
 } from "lucide-react";
+import Image from "next/image";
 
 // Mapping des technologies vers leurs logos Icons8
 const getTechLogo = (techName: string) => {
@@ -252,29 +250,30 @@ const isImageUrl = (logo: string) => {
 
 // Composant pour afficher le logo (image ou emoji)
 const TechLogo = ({ tech, size = "w-4 h-4" }: { tech: string; size?: string }) => {
-  const [imageLoaded, setImageLoaded] = useState(false);
   const [imageError, setImageError] = useState(false);
   const logo = getTechLogo(tech);
-  
+
   // Si c'est un emoji, l'afficher directement
   if (!isImageUrl(logo)) {
     const emojiSize = size === "w-3 h-3" ? "text-xs" : "text-sm";
     return <span className={`${emojiSize} flex items-center justify-center`}>{logo}</span>;
   }
-  
-  // Si c'est une URL d'image, essayer de la charger
+
+  // Si c'est une URL d'image, essayer de la charger avec Next.js Image
   if (isImageUrl(logo)) {
     return (
       <>
-        {/* Image avec gestion d'erreur */}
-        <img 
-          src={logo} 
+        {/* Image avec gestion d'erreur silencieuse */}
+        <Image
+          src={logo}
           alt={tech}
+          width={16}
+          height={16}
           className={`${size} rounded-sm ${imageError ? 'hidden' : ''}`}
-          onLoad={() => setImageLoaded(true)}
           onError={() => setImageError(true)}
+          unoptimized
         />
-        
+
         {/* Emoji de fallback en cas d'erreur */}
         {imageError && (
           <span className={`${size === "w-3 h-3" ? "text-xs" : "text-sm"} flex items-center justify-center`}>
@@ -284,7 +283,7 @@ const TechLogo = ({ tech, size = "w-4 h-4" }: { tech: string; size?: string }) =
       </>
     );
   }
-  
+
   // Fallback final
   return <span className={`${size === "w-3 h-3" ? "text-xs" : "text-sm"} flex items-center justify-center`}>💻</span>;
 };
@@ -561,7 +560,7 @@ function CodePattern() {
 // Composant de carte de compétence avec style de code
 function SkillCard({ skill, index }: {
   skill: {
-    icon: any;
+    icon: LucideIcon;
     title: string;
     description: string;
     level: number;
@@ -569,7 +568,6 @@ function SkillCard({ skill, index }: {
   };
   index: number;
 }) {
-  const [isHovered, setIsHovered] = useState(false);
 
   // Diviser la description en compétences individuelles
   const skillItems = skill.description.split(', ');
@@ -650,7 +648,7 @@ function SkillCard({ skill, index }: {
 
 // Composant de carte de statistique avec style de code
 function StatCard({ stat, index }: {
-  stat: { icon: any; value: string; label: string; color: string };
+  stat: { icon: LucideIcon; value: string; label: string; color: string };
   index: number;
 }) {
   const [isHovered, setIsHovered] = useState(false);
@@ -662,62 +660,133 @@ function StatCard({ stat, index }: {
       transition={{ duration: 0.8, delay: index * 0.1 }}
       onHoverStart={() => setIsHovered(true)}
       onHoverEnd={() => setIsHovered(false)}
-      className="group relative bg-gray-900/50 border border-gray-700 rounded-lg p-6 text-center hover:border-green-500/50 hover:bg-gray-800/50 transition-all duration-300 font-mono"
+      whileHover={{ 
+        scale: 1.05,
+        y: -8,
+        transition: { duration: 0.3, ease: "easeOut" }
+      }}
+      className="group relative bg-gray-900/50 border border-gray-700 rounded-lg p-6 text-center hover:border-green-500/50 hover:bg-gray-800/50 transition-all duration-300 font-mono cursor-pointer"
     >
-      {/* Icône avec effet de lueur */}
+      {/* Effet de lueur au survol */}
+      <motion.div
+        className="absolute inset-0 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+        style={{ 
+          background: `radial-gradient(circle at center, ${stat.color}15, transparent 70%)`,
+          filter: 'blur(20px)'
+        }}
+        animate={{
+          scale: isHovered ? 1.1 : 1,
+          opacity: isHovered ? 1 : 0
+        }}
+        transition={{ duration: 0.5 }}
+      />
+
+      {/* Icône avec effet de lueur et animation */}
       <div className="relative inline-block mb-4">
-        <stat.icon className="w-12 h-12 text-green-400 mx-auto" />
+        <motion.div
+          animate={{
+            scale: isHovered ? 1.2 : 1,
+            rotate: isHovered ? [0, -5, 5, 0] : 0
+          }}
+          transition={{ 
+            scale: { duration: 0.3 },
+            rotate: { duration: 0.6, repeat: isHovered ? Infinity : 0, repeatType: "reverse" }
+          }}
+        >
+          <stat.icon className="w-12 h-12 text-green-400 mx-auto" />
+        </motion.div>
+        
+        {/* Lueur autour de l'icône */}
         <motion.div
           className="absolute -inset-3 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"
           style={{ 
-            background: `radial-gradient(circle, ${stat.color}20, transparent 70%)`,
+            background: `radial-gradient(circle, ${stat.color}30, transparent 70%)`,
             filter: 'blur(12px)'
           }}
+          animate={{
+            scale: isHovered ? 1.3 : 1,
+            opacity: isHovered ? 1 : 0
+          }}
+          transition={{ duration: 0.4 }}
         />
       </div>
 
-      {/* Valeur avec effet de compteur */}
+      {/* Valeur avec effet de compteur et animation au survol */}
       <motion.div
         className="text-3xl font-bold text-white mb-2"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: index * 0.1 + 0.3 }}
+        whileHover={{
+          scale: 1.1,
+          color: stat.color,
+          textShadow: `0 0 20px ${stat.color}`
+        }}
       >
         {stat.value}
       </motion.div>
 
-      {/* Label */}
-      <p className="text-gray-400 text-sm font-medium">{stat.label}</p>
+      {/* Label avec animation au survol */}
+      <motion.p 
+        className="text-gray-400 text-sm font-medium"
+        animate={{
+          color: isHovered ? "#ffffff" : "#9ca3af",
+          y: isHovered ? -2 : 0
+        }}
+        transition={{ duration: 0.3 }}
+      >
+        {stat.label}
+      </motion.p>
 
-      {/* Particules de code flottantes */}
+      {/* Particules de code flottantes avec animation au survol */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         {[
-          { x: 25, y: 35, symbol: '<' },
-          { x: 45, y: 55, symbol: '>' },
-          { x: 65, y: 75, symbol: '/' },
-          { x: 85, y: 25, symbol: '\\' }
+          { x: 25, y: 35, symbol: '<', color: 'text-blue-400' },
+          { x: 45, y: 55, symbol: '>', color: 'text-cyan-400' },
+          { x: 65, y: 75, symbol: '/', color: 'text-green-400' },
+          { x: 85, y: 25, symbol: '\\', color: 'text-purple-400' }
         ].map((particle, i) => (
           <motion.div
             key={i}
-            className="absolute text-blue-400/20 text-xs"
+            className={`absolute ${particle.color}/20 text-xs`}
             style={{
               left: `${particle.x}%`,
               top: `${particle.y}%`,
             }}
             animate={{
-              y: [0, -15, 0],
-              opacity: [0, 1, 0],
+              y: isHovered ? [0, -25, 0] : [0, -15, 0],
+              opacity: isHovered ? [0, 0.8, 0] : [0, 0.3, 0],
+              scale: isHovered ? [1, 1.5, 1] : [1, 1.2, 1],
+              rotate: isHovered ? [0, 180, 360] : [0, 0, 0]
             }}
             transition={{
-              duration: 2.5,
-              delay: i * 0.4,
+              duration: isHovered ? 1.5 : 2.5,
+              delay: i * 0.2,
               repeat: Infinity,
+              ease: "easeInOut"
             }}
           >
             {particle.symbol}
           </motion.div>
         ))}
       </div>
+
+      {/* Effet de bordure animée au survol */}
+      <motion.div
+        className="absolute inset-0 rounded-lg border-2 border-transparent"
+        style={{
+          background: `linear-gradient(45deg, ${stat.color}40, transparent, ${stat.color}40)`,
+          backgroundSize: '200% 200%'
+        }}
+        animate={{
+          backgroundPosition: isHovered ? ['0% 0%', '100% 100%', '0% 0%'] : ['0% 0%']
+        }}
+        transition={{ 
+          duration: isHovered ? 2 : 0,
+          repeat: isHovered ? Infinity : 0,
+          ease: "linear"
+        }}
+      />
     </motion.div>
   );
 }
@@ -786,7 +855,7 @@ export function About() {
       <FloatingCodeLine code="let future = 'Bright';" x={80} y={25} delay={4} color="#f97316" />
       <FloatingCodeLine code="class Developer {" x={35} y={85} delay={6} color="#22c55e" />
       <FloatingCodeLine code="  constructor() {" x={65} y={65} delay={8} color="#a855f7" />
-      <FloatingCodeLine code="    this.skills = 'Growing';" x={40} y={15} delay={10} color="#06b6d4" />
+              <FloatingCodeLine code="    this.skills = 'Growing';" x={40} y={15} delay={10} color="#06b6d4" />
       
       {/* Overlay de profondeur avec effet de brouillard */}
       <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-black/90" />
@@ -913,7 +982,7 @@ export function About() {
             <span className="text-blue-400">const</span>{" "}
             <span className="text-green-400">aboutMe</span>{" "}
             <span className="text-yellow-400">=</span>{" "}
-            <span className="text-cyan-400">"Developer";</span>
+            <span className="text-cyan-400">&quot;Developer&quot;;</span>
           </h2>
           
           <p className="text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed font-mono">
@@ -980,7 +1049,7 @@ export function About() {
                 transition={{ duration: 0.6, delay: 0.9 }}
                 className="text-lg"
               >
-                <span className="text-white">Now, I'm diving back into tech with renewed focus and curiosity, building interactive and responsive full-stack web apps using tools like Next.js, React, Node.js, and other frameworks.</span>
+                <span className="text-white">Now, I&apos;m diving back into tech with renewed focus and curiosity, building interactive and responsive full-stack web apps using tools like Next.js, React, Node.js, and other frameworks.</span>
               </motion.p>
               
               <motion.p 
@@ -989,7 +1058,7 @@ export function About() {
                 transition={{ duration: 0.6, delay: 1.0 }}
                 className="text-lg"
               >
-                <span className="text-white">Outside of tech and athletics, I'm also a pianist 🎹 — I love exploring the creative intersection between structure and expression, both in music and in code.</span>
+                <span className="text-white">Outside of tech and athletics, I&apos;m also a pianist 🎹 — I love exploring the creative intersection between structure and expression, both in music and in code.</span>
               </motion.p>
               
               <motion.p 
@@ -998,7 +1067,7 @@ export function About() {
                 transition={{ duration: 0.6, delay: 1.1 }}
                 className="text-lg"
               >
-                <span className="text-white">🧠 I'm always eager to learn, collaborate, and grow — and this portfolio reflects that journey toward a MERN and T3 tech stack career.</span>
+                <span className="text-white">🧠 I&apos;m always eager to learn, collaborate, and grow — and this portfolio reflects that journey toward a MERN and T3 tech stack career.</span>
               </motion.p>
             </div>
           </div>
@@ -1026,7 +1095,7 @@ export function About() {
                 { text: "Fast Learner : I quickly adapt to new technologies and frameworks.", color: "green" },
                 { text: "Project-Driven : I learn best by building real applications and solving problems.", color: "blue" },
                 { text: "Problem Solver : I enjoy debugging and finding elegant solutions to complex challenges.", color: "cyan" },
-                { text: "Team Player : I'm eager to collaborate, learn from others, and contribute to team success.", color: "green" },
+                { text: "Team Player : I&apos;m eager to collaborate, learn from others, and contribute to team success.", color: "green" },
                 { text: "Quality Focus : I write clean, maintainable code and follow best practices.", color: "blue" },
                 { text: "Growth Mindset : I see every challenge as an opportunity to learn and improve.", color: "cyan" }
               ].map((item, index) => (
@@ -1037,10 +1106,11 @@ export function About() {
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.6, delay: 1.4 + index * 0.1 }}
                 >
-                  <CheckCircle className={`w-5 h-5 mt-0.5 ${
-                    item.color === "green" ? "text-green-400" : 
-                    item.color === "blue" ? "text-blue-400" : "text-cyan-400"
-                  }`} />
+                  <CheckCircle className={`
+                    ${item.color === "green" ? "text-green-400" : 
+                      item.color === "blue" ? "text-blue-400" : "text-cyan-400"
+                    }`} 
+                  />
                   <p className="text-gray-300 leading-relaxed font-mono">
                     {item.text.split(' : ')[0]}
                     <span className="text-gray-400">: </span>

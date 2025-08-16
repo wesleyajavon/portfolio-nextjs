@@ -4,8 +4,17 @@ import { motion } from "framer-motion";
 import { FloatingTech } from "./FloatingTech";
 import { OrbitalParticle } from "./OrbitalParticle";
 
+interface ProjectNode {
+  id: number;
+  x: number;
+  y: number;
+  name: string;
+  color: string;
+  tech: string[];
+}
+
 // Composant de nœud de projet
-export function ProjectNode({ node }: { node: any }) {
+export function ProjectNode({ node }: { node: ProjectNode }) {
   return (
     <motion.div 
       className="absolute" 

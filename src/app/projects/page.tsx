@@ -30,13 +30,14 @@ import {
   ProjectConstruction,
   EnhancedCodeGrid
 } from "@/components/backgrounds";
+import Image from "next/image";
 
 // Mapping des technologies vers leurs logos Icons8
 const getTechLogo = (techName: string) => {
   const techLogos: { [key: string]: string } = {
     // Frontend
     'React': 'https://img.icons8.com/color/48/react-native.png',
-    'Next.js': 'https://img.icons8.com/color/48/next.js.png',
+    'Next.js': 'https://img.icons8.com/color/48/nextjs.png',
     'TypeScript': 'https://img.icons8.com/color/48/typescript.png',
     'Tailwind CSS': 'https://img.icons8.com/color/48/tailwind-css.png',
     'Vue.js': 'https://img.icons8.com/color/48/vue-js.png',
@@ -304,29 +305,30 @@ const isImageUrl = (logo: string) => {
 
 // Composant pour afficher le logo (image ou emoji)
 const TechLogo = ({ tech, size = "w-4 h-4" }: { tech: string; size?: string }) => {
-  const [imageLoaded, setImageLoaded] = useState(false);
   const [imageError, setImageError] = useState(false);
   const logo = getTechLogo(tech);
-  
+
   // Si c'est un emoji, l'afficher directement
   if (!isImageUrl(logo)) {
     const emojiSize = size === "w-3 h-3" ? "text-xs" : "text-sm";
     return <span className={`${emojiSize} flex items-center justify-center`}>{logo}</span>;
   }
-  
-  // Si c'est une URL d'image, essayer de la charger
+
+  // Si c'est une URL d'image, essayer de la charger avec Next.js Image
   if (isImageUrl(logo)) {
     return (
       <>
-        {/* Image avec gestion d'erreur */}
-        <img 
-          src={logo} 
+        {/* Image avec gestion d'erreur silencieuse */}
+        <Image
+          src={logo}
           alt={tech}
+          width={16}
+          height={16}
           className={`${size} rounded-sm ${imageError ? 'hidden' : ''}`}
-          onLoad={() => setImageLoaded(true)}
           onError={() => setImageError(true)}
+          unoptimized
         />
-        
+
         {/* Emoji de fallback en cas d'erreur */}
         {imageError && (
           <span className={`${size === "w-3 h-3" ? "text-xs" : "text-sm"} flex items-center justify-center`}>
@@ -336,7 +338,7 @@ const TechLogo = ({ tech, size = "w-4 h-4" }: { tech: string; size?: string }) =
       </>
     );
   }
-  
+
   // Fallback final
   return <span className={`${size === "w-3 h-3" ? "text-xs" : "text-sm"} flex items-center justify-center`}>💻</span>;
 };
@@ -729,7 +731,7 @@ export default function ProjectsPage() {
             <span className="text-blue-400">const</span>{" "}
             <span className="text-green-400">portfolio</span>{" "}
             <span className="text-yellow-400">=</span>{" "}
-            <span className="text-cyan-400">"Projects";</span>
+            <span className="text-cyan-400">&quot;Projects&quot;;</span>
           </h1>
           
           <p className="text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed font-mono">

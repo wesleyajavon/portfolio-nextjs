@@ -2,10 +2,17 @@
 
 import { motion } from "framer-motion";
 
+interface ProjectNode {
+  x: number;
+  y: number;
+  name: string;
+  color: string;
+}
+
 // Composant de connexion entre projets
 export function ProjectConnection({ startNode, endNode, distance, index }: {
-  startNode: any;
-  endNode: any;
+  startNode: ProjectNode;
+  endNode: ProjectNode;
   distance: number;
   index: number;
 }) {

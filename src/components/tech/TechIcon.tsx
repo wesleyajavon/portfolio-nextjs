@@ -4,8 +4,16 @@ import { motion } from "framer-motion";
 import { OrbitalTechParticle } from "./OrbitalTechParticle";
 import { TechRing } from "./TechRing";
 
+interface TechIconData {
+  x: number;
+  y: number;
+  color: string;
+  symbol: string;
+  category: string;
+}
+
 // Composant d'icône de technologie
-export function TechIcon({ icon, index }: { icon: any; index: number }) {
+export function TechIcon({ icon, index }: { icon: TechIconData; index: number }) {
   return (
     <motion.div
       className="absolute text-2xl"

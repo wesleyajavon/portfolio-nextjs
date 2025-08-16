@@ -1,6 +1,5 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { ConstructionParticle } from "./ConstructionParticle";
 import { ConstructionLine } from "./ConstructionLine";
 import { ConstructionShape } from "./ConstructionShape";

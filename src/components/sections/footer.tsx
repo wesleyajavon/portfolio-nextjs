@@ -3,12 +3,11 @@
 import * as React from "react";
 import { motion } from "framer-motion";
 import { 
-  Code2, 
+  Code2,
   Github, 
   Linkedin, 
-  Mail, 
+  Mail,
   ArrowUp,
-  Terminal,
   Heart,
   Coffee,
   Zap
@@ -48,10 +47,10 @@ export function Footer() {
                 <span className="text-2xl font-bold text-white font-mono">Wesley</span>
               </div>
               <p className="text-gray-400 font-mono leading-relaxed">
-                <span className="text-green-400">//</span>{" "}
+                <span className="text-green-400">{"//"}</span>{" "}
                 <span className="text-white">Full-stack developer crafting intuitive apps with React, Next.js, and Node.js.</span>
                 <br />
-                <span className="text-green-400">//</span>{" "}
+                <span className="text-green-400">{"//"}</span>{" "}
                 <span className="text-white">Building the future, one line of code at a time.</span>
               </p>
             </motion.div>
@@ -67,7 +66,7 @@ export function Footer() {
               <span className="text-blue-400">const</span>{" "}
               <span className="text-green-400">quickLinks</span>{" "}
               <span className="text-yellow-400">=</span>{" "}
-              <span className="text-cyan-400">"Navigation";</span>
+              <span className="text-cyan-400">&quot;Navigation&quot;;</span>
             </h3>
             <ul className="space-y-3">
               {[
@@ -99,7 +98,7 @@ export function Footer() {
               <span className="text-blue-400">const</span>{" "}
               <span className="text-green-400">techStack</span>{" "}
               <span className="text-yellow-400">=</span>{" "}
-              <span className="text-cyan-400">"Skills";</span>
+              <span className="text-cyan-400">&quot;Skills&quot;;</span>
             </h3>
             <ul className="space-y-3">
               {[
@@ -140,7 +139,7 @@ export function Footer() {
                   { icon: Github, href: "#", label: "GitHub", color: "hover:text-gray-300" },
                   { icon: Linkedin, href: "#", label: "LinkedIn", color: "hover:text-blue-400" },
                   { icon: Mail, href: "#", label: "Email", color: "hover:text-green-400" }
-                ].map((social, index) => (
+                ].map((social) => (
                   <motion.a
                     key={social.label}
                     href={social.href}

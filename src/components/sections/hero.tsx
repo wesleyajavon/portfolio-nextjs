@@ -4,16 +4,11 @@ import * as React from "react";
 import { useState, useEffect } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { 
-  ArrowRight, 
+  Code2, 
   Github, 
   Linkedin, 
   Mail, 
-  Download,
-  Terminal,
-  Code2,
-  Cpu,
-  Database,
-  Server
+  Download
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
@@ -369,6 +364,16 @@ export function Hero() {
   const y = useTransform(scrollY, [0, 4000], [0, -300]);
   const opacity = useTransform(scrollY, [0, 2000], [1, 0]);
 
+  // Fonction pour télécharger le CV
+  const handleDownloadCV = () => {
+    const link = document.createElement('a');
+    link.href = '/Wesley_Ajavon_Resume (2).pdf';
+    link.download = 'Wesley_Ajavon_Resume.pdf';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   return (
     <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden bg-black">
       {/* Arrière-plan captivant et sophistiqué */}
@@ -433,7 +438,7 @@ export function Hero() {
             transition={{ duration: 0.8, ease: "easeOut" }}
             className="inline-flex items-center rounded-lg border border-green-500/30 bg-green-500/10 backdrop-blur-sm px-4 py-2 text-sm font-mono text-green-400 mb-8 group hover:bg-green-500/20 hover:border-green-500/50 transition-all duration-300"
           >
-            <Terminal className="w-4 h-4 mr-2" />
+            <Code2 className="w-4 h-4 mr-2" />
             <span className="text-green-400 font-mono">
               STATUS: AVAILABLE_FOR_HIRE
             </span>
@@ -472,7 +477,7 @@ export function Hero() {
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 1, delay: 0.6 }}
               >
-                = "Wesley";
+                = &quot;Wesley&quot;;
               </motion.span>
             </h1>
           </motion.div>
@@ -484,10 +489,10 @@ export function Hero() {
             transition={{ duration: 1, delay: 0.7, ease: "easeOut" }}
             className="text-lg text-gray-400 max-w-4xl mx-auto mb-12 leading-relaxed font-mono"
           >
-            <span className="text-green-400">//</span>{" "}
+            <span className="text-green-400">{"//"}</span>{" "}
             <span className="text-white">Full-stack developer passionate about clean code and innovative solutions.</span>
             <br />
-            <span className="text-green-400">//</span>{" "}
+            <span className="text-green-400">{"//"}</span>{" "}
             <span className="text-white">Specialized in React, Next.js, Node.js with 10+ projects built from scratch.</span>
           </motion.p>
 
@@ -524,6 +529,7 @@ export function Hero() {
                 size="lg" 
                 variant="outline"
                 className="rounded-lg border-green-500/50 bg-green-500/10 backdrop-blur-sm px-8 py-4 text-lg font-mono font-semibold text-green-400 hover:bg-green-500/20 hover:border-green-500 transition-all duration-300"
+                onClick={handleDownloadCV}
               >
                 <Download className="mr-2 h-5 w-5" />
                 Download CV
@@ -539,9 +545,9 @@ export function Hero() {
             className="flex justify-center items-center gap-8"
           >
             {[
-              { icon: Github, label: "GitHub", href: "#", color: "text-gray-400 hover:text-white" },
-              { icon: Linkedin, label: "LinkedIn", href: "#", color: "text-blue-400 hover:text-blue-300" },
-              { icon: Mail, label: "Email", href: "#", color: "text-green-400 hover:text-green-300" }
+              { icon: Github, label: "GitHub", href: "https://github.com/wesleyajavon", color: "text-gray-400 hover:text-white" },
+              { icon: Linkedin, label: "LinkedIn", href: "https://www.linkedin.com/in/wesleyajv/", color: "text-blue-400 hover:text-blue-300" },
+              { icon: Mail, label: "Email", href: "mailto:wesleyajavon2203@hotmail.com", color: "text-green-400 hover:text-green-300" }
             ].map((social, index) => (
               <motion.a
                 key={social.label}
