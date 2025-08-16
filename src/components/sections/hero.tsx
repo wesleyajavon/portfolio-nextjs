@@ -16,6 +16,7 @@ import {
   Server
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 // Composant de ligne de code animée
 function CodeLine({ code, delay = 0, isTyping = false }: { 
@@ -88,92 +89,275 @@ function TerminalWindow() {
   );
 }
 
-// Composant de grille de code
-function CodeGrid() {
+// Composant de réseau de connexions dynamiques
+function ConnectionNetwork() {
+  const nodes = Array.from({ length: 25 }, (_, i) => ({
+    id: i,
+    x: (i * 3.6 + 12) % 88,
+    y: (i * 2.9 + 18) % 82,
+    size: (i % 4) + 1.5,
+    color: ["#00ffff", "#10b981", "#06b6d4", "#8b5cf6", "#f59e0b", "#ec4899"][i % 6],
+    pulse: i * 0.2,
+  }));
+
   return (
-    <div className="absolute inset-0 opacity-10 pointer-events-none">
-      <div className="absolute inset-0 bg-[linear-gradient(90deg,transparent_50%,rgba(0,255,0,0.1)_50%),linear-gradient(0deg,transparent_50%,rgba(0,255,0,0.1)_50%)] bg-[length:40px_40px]" />
+    <div className="absolute inset-0 overflow-hidden">
+      {nodes.map((node) => (
+        <motion.div
+          key={node.id}
+          className="absolute rounded-full"
+          style={{
+            left: `${node.x}%`,
+            top: `${node.y}%`,
+            width: node.size,
+            height: node.size,
+            backgroundColor: node.color,
+            boxShadow: `0 0 25px ${node.color}`,
+          }}
+          animate={{
+            scale: [1, 1.4, 1],
+            opacity: [0.4, 1, 0.4],
+            boxShadow: [
+              `0 0 25px ${node.color}`,
+              `0 0 50px ${node.color}`,
+              `0 0 25px ${node.color}`,
+            ],
+          }}
+          transition={{
+            duration: 3 + node.pulse,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
+      ))}
+      
+      {/* Lignes de connexion animées */}
+      {nodes.slice(0, 20).map((node, i) => {
+        const nextNode = nodes[(i + 1) % nodes.length];
+        const distance = Math.sqrt(Math.pow(nextNode.x - node.x, 2) + Math.pow(nextNode.y - node.y, 2));
+        
+        if (distance < 35) {
+          return (
+            <motion.div
+              key={`connection-${i}`}
+              className="absolute bg-gradient-to-r from-cyan-400/30 to-blue-400/30"
+              style={{
+                left: `${node.x}%`,
+                top: `${node.y}%`,
+                width: `${distance}%`,
+                height: "1.5px",
+                transformOrigin: "left center",
+                transform: `rotate(${Math.atan2(nextNode.y - node.y, nextNode.x - node.x) * 180 / Math.PI}deg)`,
+              }}
+              animate={{
+                opacity: [0, 0.6, 0],
+                scaleX: [0, 1, 0],
+              }}
+              transition={{
+                duration: 4,
+                delay: i * 0.3,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+            />
+          );
+        }
+        return null;
+      })}
     </div>
   );
 }
 
-// Composant de particules de code avec positions fixes pour éviter l'hydratation
-function CodeParticles() {
-  const particles = [
-    // Symboles de base
-    { id: 0, x: 5, y: 10, symbol: '{', color: 'text-green-400', size: 'text-xs' },
-    { id: 1, x: 15, y: 25, symbol: '}', color: 'text-green-400', size: 'text-xs' },
-    { id: 2, x: 25, y: 15, symbol: '[', color: 'text-blue-400', size: 'text-xs' },
-    { id: 3, x: 35, y: 35, symbol: ']', color: 'text-blue-400', size: 'text-xs' },
-    { id: 4, x: 45, y: 20, symbol: '(', color: 'text-cyan-400', size: 'text-xs' },
-    { id: 5, x: 55, y: 40, symbol: ')', color: 'text-cyan-400', size: 'text-xs' },
-    { id: 6, x: 65, y: 30, symbol: '<', color: 'text-yellow-400', size: 'text-xs' },
-    { id: 7, x: 75, y: 50, symbol: '>', color: 'text-yellow-400', size: 'text-xs' },
-    { id: 8, x: 85, y: 25, symbol: '/', color: 'text-purple-400', size: 'text-xs' },
-    { id: 9, x: 95, y: 45, symbol: '\\', color: 'text-purple-400', size: 'text-xs' },
-    
-    // Symboles avancés
-    { id: 10, x: 10, y: 60, symbol: '|', color: 'text-green-400', size: 'text-sm' },
-    { id: 11, x: 20, y: 70, symbol: ';', color: 'text-blue-400', size: 'text-sm' },
-    { id: 12, x: 30, y: 80, symbol: ':', color: 'text-cyan-400', size: 'text-sm' },
-    { id: 13, x: 40, y: 65, symbol: '=', color: 'text-yellow-400', size: 'text-sm' },
-    { id: 14, x: 50, y: 75, symbol: '+', color: 'text-purple-400', size: 'text-sm' },
-    { id: 15, x: 60, y: 85, symbol: '-', color: 'text-green-400', size: 'text-sm' },
-    { id: 16, x: 70, y: 55, symbol: '*', color: 'text-blue-400', size: 'text-sm' },
-    { id: 17, x: 80, y: 65, symbol: '&', color: 'text-cyan-400', size: 'text-sm' },
-    { id: 18, x: 90, y: 75, symbol: '^', color: 'text-yellow-400', size: 'text-sm' },
-    { id: 19, x: 15, y: 85, symbol: '%', color: 'text-purple-400', size: 'text-sm' },
-    
-    // Symboles spéciaux
-    { id: 20, x: 5, y: 45, symbol: '~', color: 'text-green-400', size: 'text-lg' },
-    { id: 21, x: 25, y: 55, symbol: '!', color: 'text-blue-400', size: 'text-lg' },
-    { id: 22, x: 45, y: 65, symbol: '?', color: 'text-cyan-400', size: 'text-lg' },
-    { id: 23, x: 65, y: 75, symbol: '@', color: 'text-yellow-400', size: 'text-lg' },
-    { id: 24, x: 85, y: 85, symbol: '#', color: 'text-purple-400', size: 'text-lg' },
-    
-    // Symboles de programmation
-    { id: 25, x: 12, y: 35, symbol: '=>', color: 'text-green-400', size: 'text-xs' },
-    { id: 26, x: 32, y: 45, symbol: '==', color: 'text-blue-400', size: 'text-xs' },
-    { id: 27, x: 52, y: 55, symbol: '!=', color: 'text-cyan-400', size: 'text-xs' },
-    { id: 28, x: 72, y: 65, symbol: '&&', color: 'text-yellow-400', size: 'text-xs' },
-    { id: 29, x: 92, y: 75, symbol: '||', color: 'text-purple-400', size: 'text-xs' },
-    
-    // Symboles de framework
-    { id: 30, x: 8, y: 15, symbol: '⚛', color: 'text-blue-400', size: 'text-sm' },
-    { id: 31, x: 28, y: 25, symbol: '⚡', color: 'text-yellow-400', size: 'text-sm' },
-    { id: 32, x: 48, y: 35, symbol: '🔧', color: 'text-green-400', size: 'text-sm' },
-    { id: 33, x: 68, y: 45, symbol: '🚀', color: 'text-purple-400', size: 'text-sm' },
-    { id: 34, x: 88, y: 55, symbol: '💻', color: 'text-cyan-400', size: 'text-sm' }
+// Composant d'ondes d'énergie
+function EnergyWaves() {
+  return (
+    <div className="absolute inset-0 overflow-hidden">
+      {Array.from({ length: 6 }, (_, i) => (
+        <motion.div
+          key={i}
+          className="absolute left-1/2 top-1/2 w-96 h-96 rounded-full border-2 border-current"
+          style={{
+            transform: "translate(-50%, -50%)",
+            borderColor: i % 2 === 0 ? "rgba(0, 255, 255, 0.15)" : "rgba(16, 185, 129, 0.12)",
+          }}
+          animate={{
+            scale: [0.3, 2, 0.3],
+            opacity: [0.6, 0, 0.6],
+            rotate: [0, 90, 180, 270, 360],
+          }}
+          transition={{
+            duration: 8 + i * 1.5,
+            repeat: Infinity,
+            ease: "easeOut",
+          }}
+        />
+      ))}
+    </div>
+  );
+}
+
+// Composant de particules de technologie avancées
+function TechParticles() {
+  const techIcons = [
+    { symbol: "⚛️", x: 8, y: 15, color: "#00ffff", size: 1.2 },
+    { symbol: "⚡", x: 92, y: 20, color: "#10b981", size: 1.1 },
+    { symbol: "🔧", x: 15, y: 80, color: "#06b6d4", size: 1.3 },
+    { symbol: "🚀", x: 85, y: 85, color: "#8b5cf6", size: 1.0 },
+    { symbol: "💻", x: 50, y: 12, color: "#f59e0b", size: 1.4 },
+    { symbol: "🌐", x: 45, y: 90, color: "#ec4899", size: 1.1 },
+    { symbol: "📱", x: 95, y: 65, color: "#22c55e", size: 1.2 },
+    { symbol: "🎨", x: 25, y: 45, color: "#06b6d4", size: 1.3 },
+    { symbol: "🔒", x: 75, y: 30, color: "#8b5cf6", size: 1.0 },
+    { symbol: "📊", x: 35, y: 95, color: "#f59e0b", size: 1.1 },
+    { symbol: "⚙️", x: 65, y: 18, color: "#ec4899", size: 1.2 },
+    { symbol: "🔮", x: 18, y: 70, color: "#22c55e", size: 1.3 },
+    { symbol: "🎯", x: 88, y: 55, color: "#06b6d4", size: 1.1 },
+    { symbol: "💡", x: 42, y: 25, color: "#8b5cf6", size: 1.4 },
+    { symbol: "🌟", x: 72, y: 75, color: "#f59e0b", size: 1.2 }
   ];
 
   return (
     <div className="absolute inset-0 overflow-hidden">
-      {particles.map((particle) => (
+      {techIcons.map((icon, i) => (
         <motion.div
-          key={particle.id}
-          className={`absolute ${particle.color}/40 ${particle.size} font-mono select-none`}
-          style={{ left: `${particle.x}%`, top: `${particle.y}%` }}
-          initial={{ opacity: 0, y: 20, scale: 0.8 }}
-          animate={{ 
-            opacity: [0, 0.8, 0], 
-            y: [-20, -40, -20], 
-            scale: [0.8, 1.2, 0.8],
-            rotate: [0, 5, -5, 0]
+          key={i}
+          className="absolute text-lg"
+          style={{
+            left: `${icon.x}%`,
+            top: `${icon.y}%`,
+            filter: `drop-shadow(0 0 12px ${icon.color})`,
+            fontSize: `${icon.size}rem`,
           }}
-          transition={{ 
-            duration: 4 + particle.id * 0.1, 
-            delay: particle.id * 0.15, 
-            repeat: Infinity, 
-            ease: "easeInOut" 
+          animate={{
+            y: [0, -25, 0],
+            x: [0, 12, 0],
+            rotate: [0, 180, 360],
+            scale: [1, 1.4, 1],
+            opacity: [0.3, 0.9, 0.3],
           }}
-          whileHover={{ 
-            scale: 1.5, 
-            opacity: 1,
-            transition: { duration: 0.2 }
+          transition={{
+            duration: 7 + i * 0.4,
+            repeat: Infinity,
+            ease: "easeInOut",
           }}
         >
-          {particle.symbol}
+          {icon.symbol}
         </motion.div>
+      ))}
+    </div>
+  );
+}
+
+// Composant d'effet de glitch matrix
+function MatrixGlitch() {
+  const glitchLines = Array.from({ length: 15 }, (_, i) => ({
+    id: i,
+    x: (i * 6.5) % 100,
+    delay: i * 0.4,
+  }));
+
+  return (
+    <div className="absolute inset-0 overflow-hidden opacity-15">
+      {glitchLines.map((line) => (
+        <motion.div
+          key={line.id}
+          className="absolute h-px bg-gradient-to-r from-transparent via-green-400 to-transparent"
+          style={{
+            left: `${line.x}%`,
+            top: `${(line.id * 6.5) % 100}%`,
+            width: "250px",
+          }}
+          animate={{
+            opacity: [0, 1, 0],
+            scaleX: [0, 1, 0],
+            x: [0, 25, 0],
+          }}
+          transition={{
+            duration: 3,
+            delay: line.delay,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
+      ))}
+    </div>
+  );
+}
+
+// Composant de vortex énergétique
+function EnergyVortex() {
+  return (
+    <div className="absolute inset-0 overflow-hidden">
+      <motion.div
+        className="absolute left-1/2 top-1/2 w-80 h-80 rounded-full"
+        style={{
+          transform: "translate(-50%, -50%)",
+          background: "conic-gradient(from 0deg, transparent, rgba(0, 255, 255, 0.2), transparent, rgba(16, 185, 129, 0.2), transparent)",
+        }}
+        animate={{
+          rotate: [0, 360],
+          scale: [1, 1.3, 1],
+        }}
+        transition={{
+          duration: 25,
+          repeat: Infinity,
+          ease: "linear",
+        }}
+      />
+      
+      <motion.div
+        className="absolute left-1/2 top-1/2 w-56 h-56 rounded-full"
+        style={{
+          transform: "translate(-50%, -50%)",
+          background: "conic-gradient(from 180deg, transparent, rgba(139, 92, 246, 0.25), transparent, rgba(245, 158, 11, 0.25), transparent)",
+        }}
+        animate={{
+          rotate: [360, 0],
+          scale: [1.3, 1, 1.3],
+        }}
+        transition={{
+          duration: 20,
+          repeat: Infinity,
+          ease: "linear",
+        }}
+      />
+    </div>
+  );
+}
+
+// Composant de flux de données
+function DataFlow() {
+  const dataStreams = Array.from({ length: 12 }, (_, i) => ({
+    id: i,
+    x: (i * 8.3) % 100,
+    delay: i * 0.6,
+    color: ["#00ffff", "#10b981", "#06b6d4", "#8b5cf6", "#f59e0b", "#ec4899"][i % 6],
+  }));
+
+  return (
+    <div className="absolute inset-0 overflow-hidden">
+      {dataStreams.map((stream) => (
+        <motion.div
+          key={stream.id}
+          className="absolute w-1 h-24 rounded-full"
+          style={{
+            left: `${stream.x}%`,
+            top: "-24px",
+            background: `linear-gradient(to bottom, ${stream.color}, transparent)`,
+            opacity: 0.3,
+          }}
+          animate={{
+            y: [0, 140],
+            opacity: [0, 0.7, 0],
+            scaleY: [0, 1, 0],
+          }}
+          transition={{
+            duration: 8,
+            delay: stream.delay,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
       ))}
     </div>
   );
@@ -187,9 +371,52 @@ export function Hero() {
 
   return (
     <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden bg-black">
-      {/* Fond avec motif de code */}
-      <CodeGrid />
-      <CodeParticles />
+      {/* Arrière-plan captivant et sophistiqué */}
+      <ConnectionNetwork />
+      <EnergyWaves />
+      <TechParticles />
+      <MatrixGlitch />
+      <EnergyVortex />
+      <DataFlow />
+      
+      {/* Overlay de profondeur avec effet de brouillard */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black/60" />
+      <div className="absolute inset-0 bg-gradient-to-r from-black/30 via-transparent to-black/30" />
+      
+      {/* Effet de lumière ambiante */}
+      <div className="absolute inset-0">
+        <motion.div
+          className="absolute top-1/4 left-1/4 w-96 h-96 rounded-full opacity-20 blur-3xl"
+          style={{
+            background: "radial-gradient(circle, rgba(0, 255, 255, 0.4) 0%, transparent 70%)",
+          }}
+          animate={{
+            x: [0, 100, 0],
+            y: [0, -50, 0],
+          }}
+          transition={{
+            duration: 20,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
+        
+        <motion.div
+          className="absolute bottom-1/4 right-1/4 w-80 h-80 rounded-full opacity-15 blur-3xl"
+          style={{
+            background: "radial-gradient(circle, rgba(139, 92, 246, 0.35) 0%, transparent 70%)",
+          }}
+          animate={{
+            x: [0, -80, 0],
+            y: [0, 60, 0],
+          }}
+          transition={{
+            duration: 25,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
+      </div>
       
       {/* Overlay subtil */}
       <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-black/50" />
@@ -276,15 +503,17 @@ export function Hero() {
               whileTap={{ scale: 0.95 }}
               className="group"
             >
-              <Button 
-                size="lg" 
-                className="relative overflow-hidden rounded-lg bg-green-600 hover:bg-green-700 px-8 py-4 text-lg font-mono font-semibold text-white border-0 transition-all duration-300"
-              >
-                <span className="relative z-10 flex items-center">
-                  <Code2 className="mr-2 h-5 w-5" />
-                  View Projects
-                </span>
-              </Button>
+              <Link href="/projects">
+                <Button 
+                  size="lg" 
+                  className="relative overflow-hidden rounded-lg bg-green-600 hover:bg-green-700 px-8 py-4 text-lg font-mono font-semibold text-white border-0 transition-all duration-300"
+                >
+                  <span className="relative z-10 flex items-center">
+                    <Code2 className="mr-2 h-5 w-5" />
+                    View Projects
+                  </span>
+                </Button>
+              </Link>
             </motion.div>
             
             <motion.div

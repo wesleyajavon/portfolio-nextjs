@@ -20,6 +20,544 @@ import {
   Terminal
 } from "lucide-react";
 
+// Mapping des technologies vers leurs logos Icons8
+const getTechLogo = (techName: string) => {
+  const techLogos: { [key: string]: string } = {
+    // Frontend
+    'React': 'https://img.icons8.com/color/48/react-native.png',
+    'Next.js': 'https://img.icons8.com/color/48/next.js.png',
+    'TypeScript': 'https://img.icons8.com/color/48/typescript.png',
+    'Tailwind CSS': 'https://img.icons8.com/color/48/tailwind-css.png',
+    'HTML5': 'https://img.icons8.com/color/48/html-5.png',
+    'CSS3': 'https://img.icons8.com/color/48/css3.png',
+    'JavaScript': 'https://img.icons8.com/color/48/javascript.png',
+    'ES6+': 'https://img.icons8.com/color/48/javascript.png',
+    
+    // Backend
+    'Node.js': 'https://img.icons8.com/color/48/nodejs.png',
+    'Express': 'https://img.icons8.com/color/48/express-js.png',
+    'MongoDB': 'https://img.icons8.com/color/48/mongodb.png',
+    'PostgreSQL': 'https://img.icons8.com/color/48/postgresql.png',
+    'REST APIs': 'https://img.icons8.com/color/48/api-settings.png',
+    
+    // Web Technologies
+    'Web APIs': 'https://img.icons8.com/color/48/web.png',
+    'PWA': 'https://img.icons8.com/color/48/progressive-web-apps.png',
+    
+    // Génériques
+    'Responsive Design': 'https://img.icons8.com/color/48/responsive-design.png',
+    'Authentication': 'https://img.icons8.com/color/48/authentication.png',
+    'Real-time': 'https://img.icons8.com/color/48/real-time.png',
+    'Payment Integration': 'https://img.icons8.com/color/48/payment-history.png',
+    'Admin Dashboard': 'https://img.icons8.com/color/48/admin-settings-male.png',
+    'Analytics': 'https://img.icons8.com/color/48/analytics.png',
+    'Video Conferencing': 'https://img.icons8.com/color/48/video-conference.png',
+    'Course Management': 'https://img.icons8.com/color/48/course.png',
+    'Progress Tracking': 'https://img.icons8.com/color/48/progress-indicator.png',
+    'Interactive Whiteboard': 'https://img.icons8.com/color/48/whiteboard.png',
+    'File Sharing': 'https://img.icons8.com/color/48/file-sharing.png',
+    'Syntax Highlighting': 'https://img.icons8.com/color/48/code.png',
+    'Code Organization': 'https://img.icons8.com/color/48/folder-structure.png',
+    'User Collections': 'https://img.icons8.com/color/48/user-group.png',
+    'Search & Filters': 'https://img.icons8.com/color/48/search.png',
+    'Social Sharing': 'https://img.icons8.com/color/48/share.png',
+    'API Integration': 'https://img.icons8.com/color/48/api-settings.png',
+    'Interactive Animations': 'https://img.icons8.com/color/48/animation.png',
+    'Dark/light Themes': 'https://img.icons8.com/color/48/theme.png',
+    'Blog System': 'https://img.icons8.com/color/48/blog.png',
+    'Contact Forms': 'https://img.icons8.com/color/48/form.png',
+    'Performance Optimization': 'https://img.icons8.com/color/48/performance.png',
+    'SEO Optimization': 'https://img.icons8.com/color/48/seo.png',
+    'Hero Section': 'https://img.icons8.com/color/48/hero.png',
+    'Feature Showcase': 'https://img.icons8.com/color/48/feature.png',
+    'Pricing Tables': 'https://img.icons8.com/color/48/price-tag.png',
+    'Testimonials': 'https://img.icons8.com/color/48/testimonial.png',
+    'Mobile Responsive': 'https://img.icons8.com/color/48/mobile.png',
+    'Real-time Analytics': 'https://img.icons8.com/color/48/analytics.png',
+    'Interactive Charts': 'https://img.icons8.com/color/48/chart.png',
+    'Custom Dashboards': 'https://img.icons8.com/color/48/dashboard.png',
+    'Data Export': 'https://img.icons8.com/color/48/export.png',
+    'User Permissions': 'https://img.icons8.com/color/48/permission.png',
+    'API Monitoring': 'https://img.icons8.com/color/48/monitoring.png',
+    'Carbon Footprint Tracking': 'https://img.icons8.com/color/48/eco-friendly.png',
+    'Goal Setting': 'https://img.icons8.com/color/48/goal.png',
+    'Progress Visualization': 'https://img.icons8.com/color/48/visualization.png',
+    'Community Challenges': 'https://img.icons8.com/color/48/community.png',
+    'Offline Support': 'https://img.icons8.com/color/48/offline.png',
+    'Push Notifications': 'https://img.icons8.com/color/48/notification.png',
+    'Real-time Editing': 'https://img.icons8.com/color/48/edit.png',
+    'Live Collaboration': 'https://img.icons8.com/color/48/collaboration.png',
+    'Version History': 'https://img.icons8.com/color/48/history.png',
+    'Code Comments': 'https://img.icons8.com/color/48/comment.png',
+    'File Management': 'https://img.icons8.com/color/48/file-management.png',
+    'Team Rooms': 'https://img.icons8.com/color/48/team.png'
+  };
+
+  // Mapping des emojis de fallback pour les technologies
+  const techEmojis: { [key: string]: string } = {
+    // Frontend
+    'React': '⚛️',
+    'Next.js': '⚡',
+    'TypeScript': '🔷',
+    'Tailwind CSS': '🎨',
+    'HTML5': '🌐',
+    'CSS3': '🎨',
+    'JavaScript': '🟨',
+    'ES6+': '🟨',
+    
+    // Backend
+    'Node.js': '🟢',
+    'Express': '🚀',
+    'MongoDB': '🍃',
+    'PostgreSQL': '🐘',
+    'REST APIs': '🔌',
+    
+    // Web Technologies
+    'Web APIs': '🌍',
+    'PWA': '📱',
+    
+    // Génériques
+    'Responsive Design': '📱',
+    'Authentication': '🔐',
+    'Real-time': '⚡',
+    'Payment Integration': '💳',
+    'Admin Dashboard': '📊',
+    'Analytics': '📈',
+    'Video Conferencing': '📹',
+    'Course Management': '📚',
+    'Progress Tracking': '📊',
+    'Interactive Whiteboard': '✏️',
+    'File Sharing': '📁',
+    'Syntax Highlighting': '✨',
+    'Code Organization': '🗂️',
+    'User Collections': '👥',
+    'Search & Filters': '🔍',
+    'Social Sharing': '📤',
+    'API Integration': '🔗',
+    'Interactive Animations': '🎭',
+    'Dark/light Themes': '🌓',
+    'Blog System': '📝',
+    'Contact Forms': '📧',
+    'Performance Optimization': '⚡',
+    'SEO Optimization': '🔍',
+    'Hero Section': '🎯',
+    'Feature Showcase': '✨',
+    'Pricing Tables': '💰',
+    'Testimonials': '💬',
+    'Mobile Responsive': '📱',
+    'Real-time Analytics': '📊',
+    'Interactive Charts': '📈',
+    'Custom Dashboards': '🎛️',
+    'Data Export': '📤',
+    'User Permissions': '🔐',
+    'API Monitoring': '📡',
+    'Carbon Footprint Tracking': '🌱',
+    'Goal Setting': '🎯',
+    'Progress Visualization': '📊',
+    'Community Challenges': '🏆',
+    'Offline Support': '📴',
+    'Push Notifications': '🔔',
+    'Real-time Editing': '✏️',
+    'Live Collaboration': '👥',
+    'Version History': '📜',
+    'Code Comments': '💬',
+    'File Management': '📁',
+    'Team Rooms': '🏠'
+  };
+
+  // Retourner l'icône Icons8 si disponible, sinon l'emoji de fallback
+  return techLogos[techName] || techEmojis[techName] || '💻'; // Icône par défaut si rien n'est trouvé
+};
+
+// Fonction helper pour obtenir l'emoji de fallback d'une technologie
+const getTechEmoji = (techName: string) => {
+  const techEmojis: { [key: string]: string } = {
+    // Frontend
+    'React': '⚛️',
+    'Next.js': '⚡',
+    'TypeScript': '🔷',
+    'Tailwind CSS': '🎨',
+    'HTML5': '🌐',
+    'CSS3': '🎨',
+    'JavaScript': '🟨',
+    'ES6+': '🟨',
+    
+    // Backend
+    'Node.js': '🟢',
+    'Express': '🚀',
+    'MongoDB': '🍃',
+    'PostgreSQL': '🐘',
+    'REST APIs': '🔌',
+    
+    // Web Technologies
+    'Web APIs': '🌍',
+    'PWA': '📱',
+    
+    // Génériques
+    'Responsive Design': '📱',
+    'Authentication': '🔐',
+    'Real-time': '⚡',
+    'Payment Integration': '💳',
+    'Admin Dashboard': '📊',
+    'Analytics': '📈',
+    'Video Conferencing': '📹',
+    'Course Management': '📚',
+    'Progress Tracking': '📊',
+    'Interactive Whiteboard': '✏️',
+    'File Sharing': '📁',
+    'Syntax Highlighting': '✨',
+    'Code Organization': '🗂️',
+    'User Collections': '👥',
+    'Search & Filters': '🔍',
+    'Social Sharing': '📤',
+    'API Integration': '🔗',
+    'Interactive Animations': '🎭',
+    'Dark/light Themes': '🌓',
+    'Blog System': '📝',
+    'Contact Forms': '📧',
+    'Performance Optimization': '⚡',
+    'SEO Optimization': '🔍',
+    'Hero Section': '🎯',
+    'Feature Showcase': '✨',
+    'Pricing Tables': '💰',
+    'Testimonials': '💬',
+    'Mobile Responsive': '📱',
+    'Real-time Analytics': '📊',
+    'Interactive Charts': '📈',
+    'Custom Dashboards': '🎛️',
+    'Data Export': '📤',
+    'User Permissions': '🔐',
+    'API Monitoring': '📡',
+    'Carbon Footprint Tracking': '🌱',
+    'Goal Setting': '🎯',
+    'Progress Visualization': '📊',
+    'Community Challenges': '🏆',
+    'Offline Support': '📴',
+    'Push Notifications': '🔔',
+    'Real-time Editing': '✏️',
+    'Live Collaboration': '👥',
+    'Version History': '📜',
+    'Code Comments': '💬',
+    'File Management': '📁',
+    'Team Rooms': '🏠'
+  };
+
+  return techEmojis[techName] || '💻';
+};
+
+// Fonction helper pour déterminer si le logo est une URL ou un emoji
+const isImageUrl = (logo: string) => {
+  return logo.startsWith('http');
+};
+
+// Composant pour afficher le logo (image ou emoji)
+const TechLogo = ({ tech, size = "w-4 h-4" }: { tech: string; size?: string }) => {
+  const [imageLoaded, setImageLoaded] = useState(false);
+  const [imageError, setImageError] = useState(false);
+  const logo = getTechLogo(tech);
+  
+  // Si c'est un emoji, l'afficher directement
+  if (!isImageUrl(logo)) {
+    const emojiSize = size === "w-3 h-3" ? "text-xs" : "text-sm";
+    return <span className={`${emojiSize} flex items-center justify-center`}>{logo}</span>;
+  }
+  
+  // Si c'est une URL d'image, essayer de la charger
+  if (isImageUrl(logo)) {
+    return (
+      <>
+        {/* Image avec gestion d'erreur */}
+        <img 
+          src={logo} 
+          alt={tech}
+          className={`${size} rounded-sm ${imageError ? 'hidden' : ''}`}
+          onLoad={() => setImageLoaded(true)}
+          onError={() => setImageError(true)}
+        />
+        
+        {/* Emoji de fallback en cas d'erreur */}
+        {imageError && (
+          <span className={`${size === "w-3 h-3" ? "text-xs" : "text-sm"} flex items-center justify-center`}>
+            {getTechEmoji(tech)}
+          </span>
+        )}
+      </>
+    );
+  }
+  
+  // Fallback final
+  return <span className={`${size === "w-3 h-3" ? "text-xs" : "text-sm"} flex items-center justify-center`}>💻</span>;
+};
+
+// Composant de forme géométrique flottante avec animation
+function FloatingShape({ 
+  shape, 
+  size, 
+  color, 
+  x, 
+  y, 
+  delay, 
+  duration 
+}: {
+  shape: "circle" | "square" | "triangle" | "hexagon";
+  size: number;
+  color: string;
+  x: number;
+  y: number;
+  delay: number;
+  duration: number;
+}) {
+  const getShape = () => {
+    switch (shape) {
+      case "circle":
+        return "rounded-full";
+      case "square":
+        return "rotate-45";
+      case "triangle":
+        return "w-0 h-0 border-l-transparent border-r-transparent border-b-transparent";
+      case "hexagon":
+        return "w-0 h-0 border-l-transparent border-r-transparent";
+      default:
+        return "rounded-full";
+    }
+  };
+
+  const getTriangleStyle = () => {
+    if (shape === "triangle") {
+      return {
+        borderLeft: `${size/2}px solid transparent`,
+        borderRight: `${size/2}px solid transparent`,
+        borderBottom: `${size}px solid ${color}`,
+      };
+    }
+    return {};
+  };
+
+  return (
+    <motion.div
+      className={`absolute ${getShape()}`}
+      style={{
+        left: `${x}%`,
+        top: `${y}%`,
+        width: shape === "triangle" ? 0 : size,
+        height: shape === "triangle" ? 0 : size,
+        backgroundColor: shape === "triangle" ? "transparent" : color,
+        ...getTriangleStyle(),
+      }}
+      animate={{
+        y: [0, -30, 0],
+        x: [0, 10, 0],
+        rotate: [0, 180, 360],
+        scale: [1, 1.2, 1],
+        opacity: [0.3, 0.8, 0.3],
+      }}
+      transition={{
+        duration: duration,
+        delay: delay,
+        repeat: Infinity,
+        ease: "easeInOut",
+      }}
+    />
+  );
+}
+
+// Composant de ligne de code flottante avec effet de glitch
+function FloatingCodeLine({ 
+  code, 
+  x, 
+  y, 
+  delay, 
+  color 
+}: {
+  code: string;
+  x: number;
+  y: number;
+  delay: number;
+  color: string;
+}) {
+  return (
+    <motion.div
+      className="absolute font-mono text-xs opacity-20 pointer-events-none"
+      style={{
+        left: `${x}%`,
+        top: `${y}%`,
+        color: color,
+      }}
+      animate={{
+        y: [0, -20, 0],
+        opacity: [0.1, 0.4, 0.1],
+        x: [0, 5, 0],
+      }}
+      transition={{
+        duration: 4,
+        delay: delay,
+        repeat: Infinity,
+        ease: "easeInOut",
+      }}
+    >
+      {code}
+    </motion.div>
+  );
+}
+
+// Composant de grille de particules avec connexions
+function ParticleGrid() {
+  const particles = Array.from({ length: 25 }, (_, i) => ({
+    id: i,
+    x: (i * 3.7 + 15) % 100,
+    y: (i * 2.9 + 25) % 100,
+    size: (i % 3) + 1.5,
+    color: ["#00ffff", "#10b981", "#06b6d4", "#8b5cf6", "#f59e0b"][i % 5],
+  }));
+
+  return (
+    <div className="absolute inset-0 overflow-hidden">
+      {particles.map((particle) => (
+        <motion.div
+          key={particle.id}
+          className="absolute rounded-full"
+          style={{
+            left: `${particle.x}%`,
+            top: `${particle.y}%`,
+            width: particle.size,
+            height: particle.size,
+            backgroundColor: particle.color,
+          }}
+          animate={{
+            scale: [1, 1.8, 1],
+            opacity: [0.4, 0.9, 0.4],
+          }}
+          transition={{
+            duration: 3 + particle.id * 0.1,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
+      ))}
+      
+      {/* Lignes de connexion entre particules */}
+      {particles.slice(0, 10).map((particle, i) => {
+        const nextParticle = particles[(i + 1) % particles.length];
+        return (
+          <motion.div
+            key={`line-${i}`}
+            className="absolute bg-gradient-to-r from-cyan-400/20 to-blue-400/20"
+            style={{
+              left: `${particle.x}%`,
+              top: `${particle.y}%`,
+              width: `${Math.sqrt(Math.pow(nextParticle.x - particle.x, 2) + Math.pow(nextParticle.y - particle.y, 2))}%`,
+              height: "1px",
+              transformOrigin: "left center",
+              transform: `rotate(${Math.atan2(nextParticle.y - particle.y, nextParticle.x - particle.x) * 180 / Math.PI}deg)`,
+            }}
+            animate={{
+              opacity: [0, 0.7, 0],
+            }}
+            transition={{
+              duration: 4,
+              delay: i * 0.2,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          />
+        );
+      })}
+    </div>
+  );
+}
+
+// Composant de gradient animé circulaire
+function AnimatedGradient() {
+  return (
+    <div className="absolute inset-0 overflow-hidden">
+      <motion.div
+        className="absolute inset-0 rounded-full blur-3xl"
+        style={{
+          background: "radial-gradient(circle, rgba(0, 255, 255, 0.1) 0%, rgba(16, 185, 129, 0.05) 30%, rgba(6, 182, 212, 0.03) 60%, transparent 100%)",
+        }}
+        animate={{
+          scale: [1, 1.5, 1],
+          x: [0, 100, 0],
+          y: [0, -50, 0],
+        }}
+        transition={{
+          duration: 20,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+      />
+      
+      <motion.div
+        className="absolute inset-0 rounded-full blur-3xl"
+        style={{
+          background: "radial-gradient(circle, rgba(139, 92, 246, 0.08) 0%, rgba(245, 158, 11, 0.05) 40%, rgba(0, 255, 255, 0.03) 70%, transparent 100%)",
+        }}
+        animate={{
+          scale: [1.5, 1, 1.5],
+          x: [0, -100, 0],
+          y: [0, 50, 0],
+        }}
+        transition={{
+          duration: 25,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+      />
+    </div>
+  );
+}
+
+// Composant de motif de code en arrière-plan
+function CodePattern() {
+  const codeLines = [
+    "const developer = 'Wesley';",
+    "function createPortfolio() {",
+    "  return <AmazingWebsite />;",
+    "}",
+    "class Skills {",
+    "  constructor() {",
+    "    this.level = 'Growing';",
+    "  }",
+    "}",
+    "const future = 'Bright';",
+    "export default developer;",
+    "const passion = 'Coding';",
+    "let creativity = 'Infinite';",
+    "class Innovation {",
+    "  static create() {",
+    "    return 'Magic';",
+    "  }",
+    "}"
+  ];
+
+  return (
+    <div className="absolute inset-0 opacity-12 overflow-hidden">
+      <div className="absolute inset-0 bg-[linear-gradient(90deg,transparent_50%,rgba(0,255,255,0.08)_50%),linear-gradient(0deg,transparent_50%,rgba(16,185,129,0.08)_50%)] bg-[length:80px_80px]" />
+      
+      {codeLines.map((line, i) => (
+        <motion.div
+          key={i}
+          className="absolute font-mono text-sm text-cyan-400/35"
+          style={{
+            left: `${(i * 12) % 85}%`,
+            top: `${(i * 10) % 95}%`,
+          }}
+          animate={{
+            opacity: [0.2, 0.5, 0.2],
+          }}
+          transition={{
+            duration: 3 + i * 0.2,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        >
+          {line}
+        </motion.div>
+      ))}
+    </div>
+  );
+}
+
 // Composant de carte de compétence avec style de code
 function SkillCard({ skill, index }: {
   skill: {
@@ -33,13 +571,14 @@ function SkillCard({ skill, index }: {
 }) {
   const [isHovered, setIsHovered] = useState(false);
 
+  // Diviser la description en compétences individuelles
+  const skillItems = skill.description.split(', ');
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 50 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8, delay: index * 0.1 }}
-      onHoverStart={() => setIsHovered(true)}
-      onHoverEnd={() => setIsHovered(false)}
       className="group relative bg-gray-900/50 border border-gray-700 rounded-lg p-6 hover:border-green-500/50 hover:bg-gray-800/50 transition-all duration-300 font-mono"
     >
       {/* Icône avec effet de lueur */}
@@ -57,31 +596,23 @@ function SkillCard({ skill, index }: {
         <span className="text-xs text-gray-500 font-mono">skill.js</span>
       </div>
 
-      {/* Titre et description */}
-      <h3 className="text-lg font-semibold text-white mb-2">{skill.title}</h3>
-      <p className="text-gray-400 text-sm mb-4 leading-relaxed">{skill.description}</p>
+      {/* Titre */}
+      <h3 className="text-lg font-semibold text-white mb-4">{skill.title}</h3>
 
-      {/* Barre de progression avec style de code */}
-      <div className="space-y-2">
-        <div className="flex justify-between text-xs text-gray-500">
-          <span>progress</span>
-          <span>{skill.level}%</span>
-        </div>
-        <div className="w-full bg-gray-800 rounded-full h-2 border border-gray-700">
+      {/* Badges des compétences */}
+      <div className="space-y-3">
+        {skillItems.map((skillItem, skillIndex) => (
           <motion.div
-            className="h-full rounded-full relative overflow-hidden"
-            style={{ backgroundColor: skill.color }}
-            initial={{ width: 0 }}
-            animate={{ width: `${skill.level}%` }}
-            transition={{ duration: 1, delay: index * 0.1 + 0.5 }}
+            key={skillIndex}
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.4, delay: index * 0.1 + skillIndex * 0.1 }}
+            className="inline-flex items-center justify-center rounded-lg border px-3 py-1 text-sm w-fit whitespace-nowrap shrink-0 gap-2 focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] transition-[color,box-shadow] overflow-hidden text-white border-white/20 bg-gray-800/50 hover:bg-gray-700/50"
           >
-            <motion.div
-              className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
-              animate={{ x: ["-100%", "100%"] }}
-              transition={{ duration: 2, repeat: Infinity, delay: index * 0.1 }}
-            />
+            <TechLogo tech={skillItem.trim()} size="w-4 h-4" />
+            <span>{skillItem.trim()}</span>
           </motion.div>
-        </div>
+        ))}
       </div>
 
       {/* Particules de code flottantes */}
@@ -225,13 +756,145 @@ export function About() {
 
   return (
     <section id="about" className="relative py-24 lg:py-32 overflow-hidden bg-black">
-      {/* Fond avec motif de code */}
-      <div className="absolute inset-0 opacity-5">
-        <div className="absolute inset-0 bg-[linear-gradient(90deg,transparent_50%,rgba(0,255,0,0.1)_50%),linear-gradient(0deg,transparent_50%,rgba(0,255,0,0.1)_50%)] bg-[length:60px_60px]" />
+      {/* Arrière-plan esthétique sophistiqué */}
+      <AnimatedGradient />
+      <CodePattern />
+      <ParticleGrid />
+      
+      {/* Formes géométriques flottantes - Plus visibles */}
+      <FloatingShape shape="circle" size={120} color="rgba(0, 255, 255, 0.25)" x={10} y={20} delay={0} duration={15} />
+      <FloatingShape shape="square" size={100} color="rgba(16, 185, 129, 0.22)" x={85} y={15} delay={2} duration={18} />
+      <FloatingShape shape="triangle" size={140} color="rgba(6, 182, 212, 0.20)" x={15} y={80} delay={4} duration={20} />
+      <FloatingShape shape="hexagon" size={110} color="rgba(139, 92, 246, 0.23)" x={80} y={75} delay={6} duration={16} />
+      <FloatingShape shape="circle" size={90} color="rgba(245, 158, 11, 0.24)" x={50} y={10} delay={8} duration={22} />
+      <FloatingShape shape="square" size={130} color="rgba(0, 255, 255, 0.18)" x={5} y={50} delay={10} duration={17} />
+      
+      {/* Formes supplémentaires pour plus d'impact visuel */}
+      <FloatingShape shape="circle" size={80} color="rgba(255, 99, 132, 0.20)" x={70} y={60} delay={3} duration={19} />
+      <FloatingShape shape="triangle" size={110} color="rgba(54, 162, 235, 0.21)" x={25} y={40} delay={7} duration={21} />
+      <FloatingShape shape="hexagon" size={95} color="rgba(255, 205, 86, 0.19)" x={90} y={45} delay={11} duration={14} />
+      
+      {/* Lignes de code flottantes - Plus visibles */}
+      <FloatingCodeLine code="const skills = ['React', 'Next.js', 'Node.js'];" x={20} y={30} delay={1} color="#00ffff" />
+      <FloatingCodeLine code="function buildPortfolio() {" x={70} y={40} delay={3} color="#10b981" />
+      <FloatingCodeLine code="  return <Amazing />;" x={25} y={70} delay={5} color="#06b6d4" />
+      <FloatingCodeLine code="}" x={75} y={85} delay={7} color="#8b5cf6" />
+      <FloatingCodeLine code="export default developer;" x={45} y={60} delay={9} color="#f59e0b" />
+      
+      {/* Lignes de code supplémentaires pour plus d'impact */}
+      <FloatingCodeLine code="const passion = 'Coding';" x={15} y={50} delay={2} color="#ec4899" />
+      <FloatingCodeLine code="let future = 'Bright';" x={80} y={25} delay={4} color="#f97316" />
+      <FloatingCodeLine code="class Developer {" x={35} y={85} delay={6} color="#22c55e" />
+      <FloatingCodeLine code="  constructor() {" x={65} y={65} delay={8} color="#a855f7" />
+      <FloatingCodeLine code="    this.skills = 'Growing';" x={40} y={15} delay={10} color="#06b6d4" />
+      
+      {/* Overlay de profondeur avec effet de brouillard */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-black/90" />
+      <div className="absolute inset-0 bg-gradient-to-r from-black/30 via-transparent to-black/30" />
+      
+      {/* Ondes animées en arrière-plan - Plus visibles */}
+      <div className="absolute inset-0 overflow-hidden">
+        <motion.div
+          className="absolute inset-0 opacity-25"
+          style={{
+            background: "radial-gradient(ellipse at center, rgba(0, 255, 255, 0.25) 0%, transparent 70%)",
+          }}
+          animate={{
+            scale: [1, 1.3, 1],
+            rotate: [0, 8, 0],
+          }}
+          transition={{
+            duration: 12,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
+        
+        <motion.div
+          className="absolute inset-0 opacity-20"
+          style={{
+            background: "radial-gradient(ellipse at center, rgba(16, 185, 129, 0.22) 0%, transparent 60%)",
+          }}
+          animate={{
+            scale: [1.3, 1, 1.3],
+            rotate: [0, -5, 0],
+          }}
+          transition={{
+            duration: 15,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
+        
+        {/* Troisième onde pour plus d'impact */}
+        <motion.div
+          className="absolute inset-0 opacity-18"
+          style={{
+            background: "radial-gradient(ellipse at center, rgba(139, 92, 246, 0.20) 0%, transparent 65%)",
+          }}
+          animate={{
+            scale: [1, 1.4, 1],
+            rotate: [0, 12, 0],
+          }}
+          transition={{
+            duration: 18,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
       </div>
       
-      {/* Overlay de profondeur */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/80" />
+      {/* Effet de lumière ambiante - Plus visible */}
+      <div className="absolute inset-0">
+        <motion.div
+          className="absolute top-1/4 left-1/4 w-96 h-96 rounded-full opacity-35 blur-3xl"
+          style={{
+            background: "radial-gradient(circle, rgba(0, 255, 255, 0.45) 0%, transparent 70%)",
+          }}
+          animate={{
+            x: [0, 120, 0],
+            y: [0, -60, 0],
+          }}
+          transition={{
+            duration: 18,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
+        
+        <motion.div
+          className="absolute bottom-1/4 right-1/4 w-80 h-80 rounded-full opacity-30 blur-3xl"
+          style={{
+            background: "radial-gradient(circle, rgba(139, 92, 246, 0.40) 0%, transparent 70%)",
+          }}
+          animate={{
+            x: [0, -100, 0],
+            y: [0, 80, 0],
+          }}
+          transition={{
+            duration: 22,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
+        
+        {/* Troisième source de lumière pour plus d'impact */}
+        <motion.div
+          className="absolute top-1/2 left-1/2 w-72 h-72 rounded-full opacity-25 blur-3xl"
+          style={{
+            background: "radial-gradient(circle, rgba(16, 185, 129, 0.35) 0%, transparent 70%)",
+          }}
+          animate={{
+            x: [0, 60, 0],
+            y: [0, 40, 0],
+          }}
+          transition={{
+            duration: 25,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
+      </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-6">
         {/* En-tête de section avec style de code */}

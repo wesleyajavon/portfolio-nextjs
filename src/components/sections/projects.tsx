@@ -19,6 +19,217 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
+// Mapping des technologies vers leurs logos Icons8
+const getTechLogo = (techName: string) => {
+  const techLogos: { [key: string]: string } = {
+    // Frontend
+    'React': 'https://img.icons8.com/color/48/react-native.png',
+    'Next.js': 'https://img.icons8.com/color/48/next.js.png',
+    'TypeScript': 'https://img.icons8.com/color/48/typescript.png',
+    'Tailwind CSS': 'https://img.icons8.com/color/48/tailwind-css.png',
+    'Vue.js': 'https://img.icons8.com/color/48/vue-js.png',
+    'Vite': 'https://img.icons8.com/color/48/vite.png',
+    
+    // Backend
+    'Node.js': 'https://img.icons8.com/color/48/nodejs.png',
+    'Express': 'https://img.icons8.com/color/48/express-js.png',
+    'MongoDB': 'https://img.icons8.com/color/48/mongodb.png',
+    'PostgreSQL': 'https://img.icons8.com/color/48/postgresql.png',
+    'Redis': 'https://img.icons8.com/color/48/redis.png',
+    'Docker': 'https://img.icons8.com/color/48/docker.png',
+    
+    // Web Technologies
+    'WebSocket': 'https://img.icons8.com/color/48/websocket.png',
+    'Socket.io': 'https://img.icons8.com/color/48/socket-io.png',
+    'Monaco': 'https://img.icons8.com/color/48/visual-studio-code.png',
+    'Monaco Editor': 'https://img.icons8.com/color/48/visual-studio-code.png',
+    'D3.js': 'https://img.icons8.com/color/48/d3-js.png',
+    'Chart.js': 'https://img.icons8.com/color/48/chart-js.png',
+    
+    // Mobile & Others
+    'React Native': 'https://img.icons8.com/color/48/react-native.png',
+    'Expo': 'https://img.icons8.com/color/48/expo.png',
+    'Firebase': 'https://img.icons8.com/color/48/firebase.png',
+    'AWS': 'https://img.icons8.com/color/48/amazon-web-services.png',
+    'Lambda': 'https://img.icons8.com/color/48/aws-lambda.png',
+    'DynamoDB': 'https://img.icons8.com/color/48/amazon-dynamodb.png',
+    'OpenAI': 'https://img.icons8.com/color/48/openai.png',
+    'FastAPI': 'https://img.icons8.com/color/48/fastapi.png',
+    'Solidity': 'https://img.icons8.com/color/48/solidity.png',
+    'Web3.js': 'https://img.icons8.com/color/48/web3-js.png',
+    'IPFS': 'https://img.icons8.com/color/48/ipfs.png',
+    'Stripe': 'https://img.icons8.com/color/48/stripe.png',
+    'Prisma': 'https://img.icons8.com/color/48/prisma.png',
+    'Auth.js': 'https://img.icons8.com/color/48/auth0.png',
+    'MDX': 'https://img.icons8.com/color/48/markdown.png',
+    'Zustand': 'https://img.icons8.com/color/48/zustand.png',
+    'Zod': 'https://img.icons8.com/color/48/zod.png',
+    'Redux': 'https://img.icons8.com/color/48/redux.png',
+    'NativeWind': 'https://img.icons8.com/color/48/tailwind-css.png',
+    'Framer Motion': 'https://img.icons8.com/color/48/framer.png',
+    'Motion.dev': 'https://img.icons8.com/color/48/framer.png'
+  };
+
+  // Mapping des emojis de fallback pour les technologies
+  const techEmojis: { [key: string]: string } = {
+    // Frontend
+    'React': '⚛️',
+    'Next.js': '⚡',
+    'TypeScript': '🔷',
+    'Tailwind CSS': '🎨',
+    'Vue.js': '💚',
+    'Vite': '🚀',
+    
+    // Backend
+    'Node.js': '🟢',
+    'Express': '🚀',
+    'MongoDB': '🍃',
+    'PostgreSQL': '🐘',
+    'Redis': '🔴',
+    'Docker': '🐳',
+    
+    // Web Technologies
+    'WebSocket': '🔌',
+    'Socket.io': '🔌',
+    'Monaco': '💻',
+    'Monaco Editor': '💻',
+    'D3.js': '📊',
+    'Chart.js': '📈',
+    
+    // Mobile & Others
+    'React Native': '📱',
+    'Expo': '📱',
+    'Firebase': '🔥',
+    'AWS': '☁️',
+    'Lambda': 'λ',
+    'DynamoDB': '🗄️',
+    'OpenAI': '🤖',
+    'FastAPI': '🐍',
+    'Solidity': '🔗',
+    'Web3.js': '🌐',
+    'IPFS': '🌐',
+    'Stripe': '💳',
+    'Prisma': '🗃️',
+    'Auth.js': '🔐',
+    'MDX': '📝',
+    'Zustand': '🐻',
+    'Zod': '🛡️',
+    'Redux': '🔄',
+    'NativeWind': '🎨',
+    'Framer Motion': '🎭',
+    'Motion.dev': '🎭',
+    
+    // Technologies supplémentaires identifiées dans les projets
+    'Prism.js': '✨',
+    'Vercel': '🚀'
+  };
+
+  // Retourner l'icône Icons8 si disponible, sinon l'emoji de fallback
+  return techLogos[techName] || techEmojis[techName] || '💻'; // Icône par défaut si rien n'est trouvé
+};
+
+// Fonction helper pour obtenir l'emoji de fallback d'une technologie
+const getTechEmoji = (techName: string) => {
+  const techEmojis: { [key: string]: string } = {
+    // Frontend
+    'React': '⚛️',
+    'Next.js': '⚡',
+    'TypeScript': '🔷',
+    'Tailwind CSS': '🎨',
+    'Vue.js': '💚',
+    'Vite': '🚀',
+    
+    // Backend
+    'Node.js': '🟢',
+    'Express': '🚀',
+    'MongoDB': '🍃',
+    'PostgreSQL': '🐘',
+    'Redis': '🔴',
+    'Docker': '🐳',
+    
+    // Web Technologies
+    'WebSocket': '🔌',
+    'Socket.io': '🔌',
+    'Monaco': '💻',
+    'Monaco Editor': '💻',
+    'D3.js': '📊',
+    'Chart.js': '📈',
+    
+    // Mobile & Others
+    'React Native': '📱',
+    'Expo': '📱',
+    'Firebase': '🔥',
+    'AWS': '☁️',
+    'Lambda': 'λ',
+    'DynamoDB': '🗄️',
+    'OpenAI': '🤖',
+    'FastAPI': '🐍',
+    'Solidity': '🔗',
+    'Web3.js': '🌐',
+    'IPFS': '🌐',
+    'Stripe': '💳',
+    'Prisma': '🗃️',
+    'Auth.js': '🔐',
+    'MDX': '📝',
+    'Zustand': '🐻',
+    'Zod': '🛡️',
+    'Redux': '🔄',
+    'NativeWind': '🎨',
+    'Framer Motion': '🎭',
+    'Motion.dev': '🎭',
+    
+    // Technologies supplémentaires identifiées dans les projets
+    'Prism.js': '✨',
+    'Vercel': '🚀'
+  };
+
+  return techEmojis[techName] || '💻';
+};
+
+// Fonction helper pour déterminer si le logo est une URL ou un emoji
+const isImageUrl = (logo: string) => {
+  return logo.startsWith('http');
+};
+
+// Composant pour afficher le logo (image ou emoji)
+const TechLogo = ({ tech, size = "w-4 h-4" }: { tech: string; size?: string }) => {
+  const [imageLoaded, setImageLoaded] = useState(false);
+  const [imageError, setImageError] = useState(false);
+  const logo = getTechLogo(tech);
+  
+  // Si c'est un emoji, l'afficher directement
+  if (!isImageUrl(logo)) {
+    const emojiSize = size === "w-3 h-3" ? "text-xs" : "text-sm";
+    return <span className={`${emojiSize} flex items-center justify-center`}>{logo}</span>;
+  }
+  
+  // Si c'est une URL d'image, essayer de la charger
+  if (isImageUrl(logo)) {
+    return (
+      <>
+        {/* Image avec gestion d'erreur */}
+        <img 
+          src={logo} 
+          alt={tech}
+          className={`${size} rounded-sm ${imageError ? 'hidden' : ''}`}
+          onLoad={() => setImageLoaded(true)}
+          onError={() => setImageError(true)}
+        />
+        
+        {/* Emoji de fallback en cas d'erreur */}
+        {imageError && (
+          <span className={`${size === "w-3 h-3" ? "text-xs" : "text-sm"} flex items-center justify-center`}>
+            {getTechEmoji(tech)}
+          </span>
+        )}
+      </>
+    );
+  }
+  
+  // Fallback final
+  return <span className={`${size === "w-3 h-3" ? "text-xs" : "text-sm"} flex items-center justify-center`}>💻</span>;
+};
+
 // Composant pour la grille de code en arrière-plan
 function CodeGrid() {
   return (
@@ -125,6 +336,331 @@ function CodeParticles() {
           }}
         >
           {particle.symbol}
+        </motion.div>
+      ))}
+    </div>
+  );
+}
+
+// Composant de réseau de connexions de projets
+function ProjectNetwork() {
+  const projectNodes = [
+    { id: 0, x: 20, y: 25, name: "Next Ventures", color: "#DB2777" },
+    { id: 1, x: 80, y: 30, name: "Zenith Minds", color: "#2932CB" },
+    { id: 2, x: 15, y: 70, name: "Snippix", color: "#14B8A6" },
+    { id: 3, x: 75, y: 75, name: "Portfolio", color: "#7E22CE" },
+    { id: 4, x: 50, y: 50, name: "StarForge", color: "#DB2777" },
+  ];
+
+  return (
+    <div className="absolute inset-0 overflow-hidden">
+      {projectNodes.map((node) => (
+        <motion.div
+          key={node.id}
+          className="absolute"
+          style={{
+            left: `${node.x}%`,
+            top: `${node.y}%`,
+          }}
+        >
+          {/* Nœud principal */}
+          <motion.div
+            className="absolute w-4 h-4 rounded-full"
+            style={{
+              backgroundColor: node.color,
+              boxShadow: `0 0 20px ${node.color}`,
+            }}
+            animate={{
+              scale: [1, 1.3, 1],
+              opacity: [0.6, 1, 0.6],
+            }}
+            transition={{
+              duration: 3,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          />
+          
+          {/* Anneaux concentriques */}
+          <motion.div
+            className="absolute w-8 h-8 rounded-full border border-current"
+            style={{
+              left: "-8px",
+              top: "-8px",
+              borderColor: node.color,
+              opacity: 0.3,
+            }}
+            animate={{
+              scale: [1, 1.5, 1],
+              opacity: [0.3, 0, 0.3],
+            }}
+            transition={{
+              duration: 4,
+              repeat: Infinity,
+              ease: "easeOut",
+            }}
+          />
+          
+          {/* Nom du projet */}
+          <motion.div
+            className="absolute text-xs font-mono text-white/60 whitespace-nowrap"
+            style={{
+              left: "20px",
+              top: "0px",
+              color: node.color,
+            }}
+            animate={{
+              opacity: [0.4, 0.8, 0.4],
+            }}
+            transition={{
+              duration: 2,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          >
+            {node.name}
+          </motion.div>
+        </motion.div>
+      ))}
+      
+      {/* Lignes de connexion entre projets */}
+      {projectNodes.map((node, i) => {
+        const nextNode = projectNodes[(i + 1) % projectNodes.length];
+        const distance = Math.sqrt(Math.pow(nextNode.x - node.x, 2) + Math.pow(nextNode.y - node.y, 2));
+        
+        if (distance < 60) {
+          return (
+            <motion.div
+              key={`project-connection-${i}`}
+              className="absolute bg-gradient-to-r from-pink-500/30 to-blue-500/30"
+              style={{
+                left: `${node.x}%`,
+                top: `${node.y}%`,
+                width: `${distance}%`,
+                height: "1px",
+                transformOrigin: "left center",
+                transform: `rotate(${Math.atan2(nextNode.y - node.y, nextNode.x - node.x) * 180 / Math.PI}deg)`,
+              }}
+              animate={{
+                opacity: [0, 0.6, 0],
+                scaleX: [0, 1, 0],
+              }}
+              transition={{
+                duration: 4,
+                delay: i * 0.8,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+            />
+          );
+        }
+        return null;
+      })}
+    </div>
+  );
+}
+
+// Composant de flux de données animés
+function DataFlow() {
+  const dataStreams = Array.from({ length: 8 }, (_, i) => ({
+    id: i,
+    x: (i * 12) % 100,
+    delay: i * 0.5,
+    color: ["#00ffff", "#10b981", "#06b6d4", "#8b5cf6", "#f59e0b", "#ec4899", "#22c55e", "#06b6d4"][i % 8],
+  }));
+
+  return (
+    <div className="absolute inset-0 overflow-hidden">
+      {dataStreams.map((stream) => (
+        <motion.div
+          key={stream.id}
+          className="absolute w-1 h-20 rounded-full"
+          style={{
+            left: `${stream.x}%`,
+            top: "-20px",
+            background: `linear-gradient(to bottom, ${stream.color}, transparent)`,
+            opacity: 0.4,
+          }}
+          animate={{
+            y: [0, 120],
+            opacity: [0, 0.8, 0],
+            scaleY: [0, 1, 0],
+          }}
+          transition={{
+            duration: 6,
+            delay: stream.delay,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
+      ))}
+    </div>
+  );
+}
+
+// Composant d'ondes de création
+function CreationWaves() {
+  return (
+    <div className="absolute inset-0 overflow-hidden">
+      {Array.from({ length: 6 }, (_, i) => (
+        <motion.div
+          key={i}
+          className="absolute left-1/2 top-1/2 w-80 h-80 rounded-full border border-current"
+          style={{
+            transform: "translate(-50%, -50%)",
+            borderColor: i % 2 === 0 ? "rgba(0, 255, 255, 0.2)" : "rgba(16, 185, 129, 0.2)",
+          }}
+          animate={{
+            scale: [0.2, 1.8, 0.2],
+            opacity: [0.6, 0, 0.6],
+            rotate: [0, 180, 360],
+          }}
+          transition={{
+            duration: 8,
+            delay: i * 1.2,
+            repeat: Infinity,
+            ease: "easeOut",
+          }}
+        />
+      ))}
+    </div>
+  );
+}
+
+// Composant de particules de technologie
+function TechParticles() {
+  const techIcons = [
+    { symbol: "⚛️", x: 10, y: 20, color: "#00ffff" },
+    { symbol: "⚡", x: 90, y: 15, color: "#10b981" },
+    { symbol: "🔧", x: 5, y: 80, color: "#06b6d4" },
+    { symbol: "🚀", x: 85, y: 85, color: "#8b5cf6" },
+    { symbol: "💻", x: 50, y: 10, color: "#f59e0b" },
+    { symbol: "🌐", x: 45, y: 90, color: "#ec4899" },
+    { symbol: "📱", x: 95, y: 60, color: "#22c55e" },
+    { symbol: "🎨", x: 25, y: 40, color: "#06b6d4" },
+    { symbol: "🔒", x: 70, y: 25, color: "#8b5cf6" },
+    { symbol: "📊", x: 30, y: 90, color: "#f59e0b" },
+  ];
+
+  return (
+    <div className="absolute inset-0 overflow-hidden">
+      {techIcons.map((icon, i) => (
+        <motion.div
+          key={i}
+          className="absolute text-lg"
+          style={{
+            left: `${icon.x}%`,
+            top: `${icon.y}%`,
+            filter: `drop-shadow(0 0 8px ${icon.color})`,
+          }}
+          animate={{
+            y: [0, -15, 0],
+            x: [0, 8, 0],
+            rotate: [0, 15, -15, 0],
+            scale: [1, 1.2, 1],
+          }}
+          transition={{
+            duration: 5 + i * 0.3,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        >
+          {icon.symbol}
+        </motion.div>
+      ))}
+    </div>
+  );
+}
+
+// Composant d'effet de construction de projet
+function ProjectConstruction() {
+  const constructionElements = Array.from({ length: 15 }, (_, i) => ({
+    id: i,
+    x: (i * 6.5) % 100,
+    y: (i * 4.3) % 100,
+    type: ["block", "line", "dot"][i % 3],
+    color: ["#00ffff", "#10b981", "#06b6d4", "#8b5cf6", "#f59e0b"][i % 5],
+    delay: i * 0.2,
+  }));
+
+  return (
+    <div className="absolute inset-0 overflow-hidden opacity-30">
+      {constructionElements.map((element) => (
+        <motion.div
+          key={element.id}
+          className="absolute"
+          style={{
+            left: `${element.x}%`,
+            top: `${element.y}%`,
+            backgroundColor: element.color,
+          }}
+          animate={{
+            opacity: [0, 1, 0],
+            scale: [0, 1, 0],
+            rotate: [0, 90, 180, 270, 360],
+          }}
+          transition={{
+            duration: 3,
+            delay: element.delay,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        >
+          {element.type === "block" && (
+            <div className="w-2 h-2 rounded-sm" />
+          )}
+          {element.type === "line" && (
+            <div className="w-3 h-0.5 rounded-full" />
+          )}
+          {element.type === "dot" && (
+            <div className="w-1 h-1 rounded-full" />
+          )}
+        </motion.div>
+      ))}
+    </div>
+  );
+}
+
+// Composant de grille de code améliorée
+function EnhancedCodeGrid() {
+  return (
+    <div className="absolute inset-0 opacity-8 overflow-hidden">
+      <div className="absolute inset-0 bg-[linear-gradient(90deg,transparent_50%,rgba(0,255,255,0.08)_50%),linear-gradient(0deg,transparent_50%,rgba(16,185,129,0.08)_50%)] bg-[length:80px_80px]" />
+      
+      {/* Lignes de code flottantes */}
+      {Array.from({ length: 12 }, (_, i) => (
+        <motion.div
+          key={i}
+          className="absolute font-mono text-xs text-cyan-400/25"
+          style={{
+            left: `${(i * 8) % 90}%`,
+            top: `${(i * 7) % 95}%`,
+          }}
+          animate={{
+            opacity: [0.1, 0.4, 0.1],
+            x: [0, 10, 0],
+          }}
+          transition={{
+            duration: 4 + i * 0.3,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        >
+          {[
+            "const project = 'Amazing';",
+            "function build() {",
+            "  return <Awesome />;",
+            "}",
+            "class Innovation {",
+            "  create() {",
+            "    return 'Magic';",
+            "  }",
+            "}",
+            "export default project;",
+            "const future = 'Bright';",
+            "let creativity = 'Infinite';",
+            "const passion = 'Coding';"
+          ][i]}
         </motion.div>
       ))}
     </div>
@@ -275,6 +811,7 @@ function ProjectDetails({ selectedProject }: {
                   key={index}
                   className="inline-flex items-center justify-center rounded-lg border px-3 py-1 text-sm w-fit whitespace-nowrap shrink-0 gap-2 focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] transition-[color,box-shadow] overflow-hidden text-black dark:text-white border-white-3 dark:bg-neutral-900 dark:border-white/[0.14] bg-white-2 [a&]:hover:bg-primary/90"
                 >
+                  <TechLogo tech={tech} />
                   {tech}
                 </span>
               ))}
@@ -373,9 +910,52 @@ export function Projects() {
 
   return (
     <section id="projects" className="relative mx-auto mt-28 w-full max-w-7xl py-10">
-      {/* Arrière-plan avec grille et particules */}
-      <CodeGrid />
-      <CodeParticles />
+      {/* Arrière-plan captivant et unique pour les projets */}
+      <ProjectNetwork />
+      <DataFlow />
+      <CreationWaves />
+      <TechParticles />
+      <ProjectConstruction />
+      <EnhancedCodeGrid />
+      
+      {/* Overlay de profondeur avec effet de brouillard */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-black/90" />
+      <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-black/40" />
+      
+      {/* Effet de lumière ambiante */}
+      <div className="absolute inset-0">
+        <motion.div
+          className="absolute top-1/4 left-1/4 w-96 h-96 rounded-full opacity-25 blur-3xl"
+          style={{
+            background: "radial-gradient(circle, rgba(0, 255, 255, 0.4) 0%, transparent 70%)",
+          }}
+          animate={{
+            x: [0, 100, 0],
+            y: [0, -50, 0],
+          }}
+          transition={{
+            duration: 20,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
+        
+        <motion.div
+          className="absolute bottom-1/4 right-1/4 w-80 h-80 rounded-full opacity-20 blur-3xl"
+          style={{
+            background: "radial-gradient(circle, rgba(139, 92, 246, 0.35) 0%, transparent 70%)",
+          }}
+          animate={{
+            x: [0, -80, 0],
+            y: [0, 60, 0],
+          }}
+          transition={{
+            duration: 25,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
+      </div>
       
       {/* En-tête de section avec style de code */}
       <motion.h2 
