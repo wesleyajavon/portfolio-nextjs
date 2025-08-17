@@ -6,18 +6,15 @@ import { ProjectConnection } from "./ProjectConnection";
 // Composant de réseau de projets connectés ultra-sophistiqué
 export function ProjectNetwork() {
   const projectNodes = [
-    { id: 0, x: 20, y: 25, name: "Next Ventures", color: "#DB2777", category: "Full Stack", tech: ["React", "Next.js", "MongoDB"] },
-    { id: 1, x: 80, y: 30, name: "Zenith Minds", color: "#2932CB", category: "Full Stack", tech: ["Node.js", "Socket.io", "PostgreSQL"] },
-    { id: 2, x: 15, y: 70, name: "Snippix", color: "#14B8A6", category: "Full Stack", tech: ["Vue.js", "Express", "MongoDB"] },
-    { id: 3, x: 75, y: 75, name: "Portfolio", color: "#7E22CE", category: "Frontend", tech: ["Next.js", "Framer Motion", "TypeScript"] },
-    { id: 4, x: 50, y: 50, name: "StarForge", color: "#DB2777", category: "Frontend", tech: ["React", "Vite", "Tailwind"] },
-    { id: 5, x: 35, y: 15, name: "TechFlow", color: "#3B82F6", category: "Full Stack", tech: ["D3.js", "Chart.js", "PostgreSQL"] },
-    { id: 6, x: 65, y: 85, name: "EcoTracker", color: "#10B981", category: "Mobile", tech: ["React Native", "Expo", "Firebase"] },
-    { id: 7, x: 90, y: 60, name: "CodeCollab", color: "#EA580C", category: "Full Stack", tech: ["WebSocket", "Monaco", "Redis"] },
-    { id: 8, x: 25, y: 45, name: "DataViz", color: "#EC4899", category: "Analytics", tech: ["D3.js", "Python", "Pandas"] },
-    { id: 9, x: 70, y: 40, name: "CloudSync", color: "#22C55E", category: "Backend", tech: ["AWS", "Lambda", "DynamoDB"] },
-    { id: 10, x: 45, y: 80, name: "AI Chat", color: "#06B6D4", category: "AI/ML", tech: ["OpenAI", "FastAPI", "Redis"] },
-    { id: 11, x: 85, y: 10, name: "BlockChain", color: "#F59E0B", category: "Web3", tech: ["Solidity", "Web3.js", "IPFS"] }
+    { id: 0, x: 85, y: 10, name: "YouCode", color: "#F59E0B", category: "Full Stack", tech: ["Next.js", "NextAuth", "TypeScript", "PostgreSQL", "Grok AI"] },
+    { id: 1, x: 80, y: 30, name: "Finly", color: "#10B981", category: "Full Stack", tech: ["Next.js", "React", "TypeScript", "PostgreSQL"] },
+    { id: 2, x: 15, y: 70, name: "Task Manager", color: "#EA580C", category: "Full Stack", tech: ["React", "Node.js", "Express.js", "MongoDB", "TypeScript", "JWT"] },
+    { id: 3, x: 75, y: 75, name: "Chef Claude", color: "#7E22CE", category: "Full Stack", tech: ["React", "Claude AI", "API"] },
+    { id: 4, x: 50, y: 50, name: "Blog API", color: "#14B8A6", category: "Full Stack", tech: ["Node.js", "Express.js", "SQLite", "JWT"] },
+    { id: 5, x: 35, y: 15, name: "Assembly", color: "#DB2777", category: "Frontend", tech: ["React", "JavaScript", "CSS Modules", "Fetch API"] },
+    { id: 6, x: 65, y: 85, name: "Tenzies", color: "#3B82F6", category: "Frontend", tech: ["React", "JavaScript", "HTML", "CSS"] },
+    { id: 7, x: 90, y: 60, name: "Meme Generator", color: "#EA580C", category: "Frontend", tech: ["React", "JavaScript", "HTML", "CSS"] },
+    { id: 8, x: 25, y: 45, name: "Portfolio", color: "#7E22CE", category: "Frontend", tech: ["Next.js", "Framer Motion", "TypeScript"] },
   ];
 
   return (

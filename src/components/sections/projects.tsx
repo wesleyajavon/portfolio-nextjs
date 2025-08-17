@@ -915,24 +915,45 @@ export function Projects() {
 
       {/* Bouton "Voir plus de projets" avec style de code */}
       <motion.a 
-        className="group flex w-fit items-center justify-center gap-3 px-6 py-4 rounded-xl bg-gradient-to-r from-green-600 to-blue-600 border-2 border-green-400 text-white transition-all duration-150 hover:from-green-500 hover:to-blue-500 hover:scale-105 mx-auto md:mt-20 font-mono shadow-xl shadow-green-500/30 relative z-20"
+        className="group flex w-fit items-center justify-center gap-3 px-6 py-4 rounded-xl bg-gradient-to-r from-slate-800 to-gray-900 border border-gray-600/50 text-white transition-all duration-300 hover:from-slate-700 hover:to-gray-800 hover:border-green-500/50 hover:scale-105 mx-auto md:mt-20 font-mono shadow-xl shadow-black/50 relative z-20 backdrop-blur-sm"
         href="/projects"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.5 }}
+        whileHover={{ y: -5 }}
       >
-        <span className="text-green-400 font-semibold">function</span>{" "}
-        <span className="text-white font-semibold">viewMoreProjects</span>
-        <span className="text-yellow-400">()</span>
-        <div className="size-[30px] overflow-hidden rounded-full border-2 border-green-400 bg-green-500/20 transition-all duration-150 group-hover:bg-green-500/40 group-hover:scale-110">
-          <div className="flex w-12 -translate-x-1/2 transition-transform duration-500 ease-in-out group-hover:translate-x-0">
-            <span className="flex size-6">
-              <ArrowRight className="m-auto size-[16px] text-green-400" />
-            </span>
-            <span className="flex size-6">
-              <ArrowRight className="m-auto size-[16px] text-green-400" />
-            </span>
+        <div className="flex items-center gap-3">
+          <span className="text-green-400 font-semibold">const</span>
+          <span className="text-white font-semibold">explorePortfolio</span>
+          <span className="text-yellow-400">=</span>
+          <span className="text-cyan-400">()</span>
+          <span className="text-green-400">=&gt;</span>
+          <span className="text-white">"</span>
+          <span className="text-cyan-400">View All Projects</span>
+          <span className="text-white">"</span>
+        </div>
+        
+        {/* Icône animée avec effet de code */}
+        <div className="relative ml-2">
+          <div className="w-8 h-8 rounded-lg border border-green-500/50 bg-green-500/10 transition-all duration-300 group-hover:border-green-400 group-hover:bg-green-500/20 group-hover:scale-110">
+            <div className="flex items-center justify-center h-full">
+              <ArrowRight className="w-4 h-4 text-green-400 transition-transform duration-300 group-hover:translate-x-1" />
+            </div>
           </div>
+          
+          {/* Effet de particule au survol */}
+          <motion.div
+            className="absolute -top-1 -right-1 w-2 h-2 bg-green-400 rounded-full opacity-0"
+            animate={{
+              scale: [0, 1, 0],
+              opacity: [0, 1, 0],
+            }}
+            transition={{
+              duration: 1.5,
+              repeat: Infinity,
+              delay: 0.5,
+            }}
+          />
         </div>
       </motion.a>
     </section>

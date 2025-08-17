@@ -16,281 +16,13 @@ import {
   Brain,
   LucideIcon,
   ToolCaseIcon,
-  GitBranchIcon
+  GitBranchIcon,
+  GraduationCapIcon
 } from "lucide-react";
 import Image from "next/image";
+import { TechLogoWithText } from "@/components/ui/TechLogo";
 
-// Mapping des technologies vers leurs logos Icons8
-const getTechLogo = (techName: string) => {
-  const techLogos: { [key: string]: string } = {
-    // Frontend
-    'React': 'https://img.icons8.com/color/48/react-native.png',
-    'Next.js': 'https://img.icons8.com/color/48/next.js.png',
-    'TypeScript': 'https://img.icons8.com/color/48/typescript.png',
-    'Tailwind CSS': 'https://img.icons8.com/color/48/tailwind-css.png',
-    'HTML5': 'https://img.icons8.com/color/48/html-5.png',
-    'CSS3': 'https://img.icons8.com/color/48/css3.png',
-    'JavaScript': 'https://img.icons8.com/color/48/javascript.png',
-    'ES6+': 'https://img.icons8.com/color/48/javascript.png',
-    
-    // Backend
-    'Node.js': 'https://img.icons8.com/color/48/nodejs.png',
-    'Express': 'https://img.icons8.com/color/48/express-js.png',
-    'MongoDB': 'https://img.icons8.com/color/48/mongodb.png',
-    'PostgreSQL': 'https://img.icons8.com/color/48/postgresql.png',
-    'REST APIs': 'https://img.icons8.com/color/48/api-settings.png',
-    
-    // Web Technologies
-    'Web APIs': 'https://img.icons8.com/color/48/web.png',
-    'PWA': 'https://img.icons8.com/color/48/progressive-web-apps.png',
-    
-    // Génériques
-    'Responsive Design': 'https://img.icons8.com/color/48/responsive-design.png',
-    'Authentication': 'https://img.icons8.com/color/48/authentication.png',
-    'Real-time': 'https://img.icons8.com/color/48/real-time.png',
-    'Payment Integration': 'https://img.icons8.com/color/48/payment-history.png',
-    'Admin Dashboard': 'https://img.icons8.com/color/48/admin-settings-male.png',
-    'Analytics': 'https://img.icons8.com/color/48/analytics.png',
-    'Video Conferencing': 'https://img.icons8.com/color/48/video-conference.png',
-    'Course Management': 'https://img.icons8.com/color/48/course.png',
-    'Progress Tracking': 'https://img.icons8.com/color/48/progress-indicator.png',
-    'Interactive Whiteboard': 'https://img.icons8.com/color/48/whiteboard.png',
-    'File Sharing': 'https://img.icons8.com/color/48/file-sharing.png',
-    'Syntax Highlighting': 'https://img.icons8.com/color/48/code.png',
-    'Code Organization': 'https://img.icons8.com/color/48/folder-structure.png',
-    'User Collections': 'https://img.icons8.com/color/48/user-group.png',
-    'Search & Filters': 'https://img.icons8.com/color/48/search.png',
-    'Social Sharing': 'https://img.icons8.com/color/48/share.png',
-    'API Integration': 'https://img.icons8.com/color/48/api-settings.png',
-    'Interactive Animations': 'https://img.icons8.com/color/48/animation.png',
-    'Dark/light Themes': 'https://img.icons8.com/color/48/theme.png',
-    'Blog System': 'https://img.icons8.com/color/48/blog.png',
-    'Contact Forms': 'https://img.icons8.com/color/48/form.png',
-    'Performance Optimization': 'https://img.icons8.com/color/48/performance.png',
-    'SEO Optimization': 'https://img.icons8.com/color/48/seo.png',
-    'Hero Section': 'https://img.icons8.com/color/48/hero.png',
-    'Feature Showcase': 'https://img.icons8.com/color/48/feature.png',
-    'Pricing Tables': 'https://img.icons8.com/color/48/price-tag.png',
-    'Testimonials': 'https://img.icons8.com/color/48/testimonial.png',
-    'Mobile Responsive': 'https://img.icons8.com/color/48/mobile.png',
-    'Real-time Analytics': 'https://img.icons8.com/color/48/analytics.png',
-    'Interactive Charts': 'https://img.icons8.com/color/48/chart.png',
-    'Custom Dashboards': 'https://img.icons8.com/color/48/dashboard.png',
-    'Data Export': 'https://img.icons8.com/color/48/export.png',
-    'User Permissions': 'https://img.icons8.com/color/48/permission.png',
-    'API Monitoring': 'https://img.icons8.com/color/48/monitoring.png',
-    'Carbon Footprint Tracking': 'https://img.icons8.com/color/48/eco-friendly.png',
-    'Goal Setting': 'https://img.icons8.com/color/48/goal.png',
-    'Progress Visualization': 'https://img.icons8.com/color/48/visualization.png',
-    'Community Challenges': 'https://img.icons8.com/color/48/community.png',
-    'Offline Support': 'https://img.icons8.com/color/48/offline.png',
-    'Push Notifications': 'https://img.icons8.com/color/48/notification.png',
-    'Real-time Editing': 'https://img.icons8.com/color/48/edit.png',
-    'Live Collaboration': 'https://img.icons8.com/color/48/collaboration.png',
-    'Version History': 'https://img.icons8.com/color/48/history.png',
-    'Code Comments': 'https://img.icons8.com/color/48/comment.png',
-    'File Management': 'https://img.icons8.com/color/48/file-management.png',
-    'Team Rooms': 'https://img.icons8.com/color/48/team.png'
-  };
-
-  // Mapping des emojis de fallback pour les technologies
-  const techEmojis: { [key: string]: string } = {
-    // Frontend
-    'React': '⚛️',
-    'Next.js': '⚡',
-    'TypeScript': '🔷',
-    'Tailwind CSS': '🎨',
-    'HTML5': '🌐',
-    'CSS3': '🎨',
-    'JavaScript': '🟨',
-    'ES6+': '🟨',
-    
-    // Backend
-    'Node.js': '🟢',
-    'Express': '🚀',
-    'MongoDB': '🍃',
-    'PostgreSQL': '🐘',
-    'REST APIs': '🔌',
-    
-    // Web Technologies
-    'Web APIs': '🌍',
-    'PWA': '📱',
-    'Grok AI': '🤖',
-    'Redis': '🗂️',
-    
-    // Génériques
-    'Responsive Design': '📱',
-    'Authentication': '🔐',
-    'Real-time': '⚡',
-    'Payment Integration': '💳',
-    'Admin Dashboard': '📊',
-    'Analytics': '📈',
-    'Video Conferencing': '📹',
-    'Course Management': '📚',
-    'Progress Tracking': '📊',
-    'Interactive Whiteboard': '✏️',
-    'File Sharing': '📁',
-    'Syntax Highlighting': '✨',
-    'Code Organization': '🗂️',
-    'User Collections': '👥',
-    'Search & Filters': '🔍',
-    'Social Sharing': '📤',
-    'API Integration': '🔗',
-    'Interactive Animations': '🎭',
-    'Dark/light Themes': '🌓',
-    'Blog System': '📝',
-    'Contact Forms': '📧',
-    'Performance Optimization': '⚡',
-    'SEO Optimization': '🔍',
-    'Hero Section': '🎯',
-    'Feature Showcase': '✨',
-    'Pricing Tables': '💰',
-    'Testimonials': '💬',
-    'Mobile Responsive': '📱',
-    'Real-time Analytics': '📊',
-    'Interactive Charts': '📈',
-    'Custom Dashboards': '🎛️',
-    'Data Export': '📤',
-    'User Permissions': '🔐',
-    'API Monitoring': '📡',
-    'Carbon Footprint Tracking': '🌱',
-    'Goal Setting': '🎯',
-    'Progress Visualization': '📊',
-    'Community Challenges': '🏆',
-    'Offline Support': '📴',
-    'Push Notifications': '🔔',
-    'Real-time Editing': '✏️',
-    'Live Collaboration': '👥',
-    'Version History': '📜',
-    'Code Comments': '💬',
-    'File Management': '📁',
-    'Team Rooms': '🏠'
-  };
-
-  // Retourner l'icône Icons8 si disponible, sinon l'emoji de fallback
-  return techLogos[techName] || techEmojis[techName] || '💻'; // Icône par défaut si rien n'est trouvé
-};
-
-// Fonction helper pour obtenir l'emoji de fallback d'une technologie
-const getTechEmoji = (techName: string) => {
-  const techEmojis: { [key: string]: string } = {
-    // Frontend
-    'React': '⚛️',
-    'Next.js': '⚡',
-    'TypeScript': '🔷',
-    'Tailwind CSS': '🎨',
-    'HTML5': '🌐',
-    'CSS3': '🎨',
-    'JavaScript': '🟨',
-    'ES6+': '🟨',
-    
-    // Backend
-    'Node.js': '🟢',
-    'Express': '🚀',
-    'MongoDB': '🍃',
-    'PostgreSQL': '🐘',
-    'REST APIs': '🔌',
-    
-    // Web Technologies
-    'Web APIs': '🌍',
-    'PWA': '📱',
-    
-    // Génériques
-    'Responsive Design': '📱',
-    'Authentication': '🔐',
-    'Real-time': '⚡',
-    'Payment Integration': '💳',
-    'Admin Dashboard': '📊',
-    'Analytics': '📈',
-    'Video Conferencing': '📹',
-    'Course Management': '📚',
-    'Progress Tracking': '📊',
-    'Interactive Whiteboard': '✏️',
-    'File Sharing': '📁',
-    'Syntax Highlighting': '✨',
-    'Code Organization': '🗂️',
-    'User Collections': '👥',
-    'Search & Filters': '🔍',
-    'Social Sharing': '📤',
-    'API Integration': '🔗',
-    'Interactive Animations': '🎭',
-    'Dark/light Themes': '🌓',
-    'Blog System': '📝',
-    'Contact Forms': '📧',
-    'Performance Optimization': '⚡',
-    'SEO Optimization': '🔍',
-    'Hero Section': '🎯',
-    'Feature Showcase': '✨',
-    'Pricing Tables': '💰',
-    'Testimonials': '💬',
-    'Mobile Responsive': '📱',
-    'Real-time Analytics': '📊',
-    'Interactive Charts': '📈',
-    'Custom Dashboards': '🎛️',
-    'Data Export': '📤',
-    'User Permissions': '🔐',
-    'API Monitoring': '📡',
-    'Carbon Footprint Tracking': '🌱',
-    'Goal Setting': '🎯',
-    'Progress Visualization': '📊',
-    'Community Challenges': '🏆',
-    'Offline Support': '📴',
-    'Push Notifications': '🔔',
-    'Real-time Editing': '✏️',
-    'Live Collaboration': '👥',
-    'Version History': '📜',
-    'Code Comments': '💬',
-    'File Management': '📁',
-    'Team Rooms': '🏠'
-  };
-
-  return techEmojis[techName] || '💻';
-};
-
-// Fonction helper pour déterminer si le logo est une URL ou un emoji
-const isImageUrl = (logo: string) => {
-  return logo.startsWith('http');
-};
-
-// Composant pour afficher le logo (image ou emoji)
-const TechLogo = ({ tech, size = "w-4 h-4" }: { tech: string; size?: string }) => {
-  const [imageError, setImageError] = useState(false);
-  const logo = getTechLogo(tech);
-
-  // Si c'est un emoji, l'afficher directement
-  if (!isImageUrl(logo)) {
-    const emojiSize = size === "w-3 h-3" ? "text-xs" : "text-sm";
-    return <span className={`${emojiSize} flex items-center justify-center`}>{logo}</span>;
-  }
-
-  // Si c'est une URL d'image, essayer de la charger avec Next.js Image
-  if (isImageUrl(logo)) {
-    return (
-      <>
-        {/* Image avec gestion d'erreur silencieuse */}
-        <Image
-          src={logo}
-          alt={tech}
-          width={16}
-          height={16}
-          className={`${size} rounded-sm ${imageError ? 'hidden' : ''}`}
-          onError={() => setImageError(true)}
-          unoptimized
-        />
-
-        {/* Emoji de fallback en cas d'erreur */}
-        {imageError && (
-          <span className={`${size === "w-3 h-3" ? "text-xs" : "text-sm"} flex items-center justify-center`}>
-            {getTechEmoji(tech)}
-          </span>
-        )}
-      </>
-    );
-  }
-
-  // Fallback final
-  return <span className={`${size === "w-3 h-3" ? "text-xs" : "text-sm"} flex items-center justify-center`}>💻</span>;
-};
+// Utilisation du composant TechLogo centralisé
 
 // Composant de forme géométrique flottante avec animation
 function FloatingShape({ 
@@ -349,10 +81,9 @@ function FloatingShape({
       }}
       animate={{
         y: [0, -30, 0],
-        x: [0, 10, 0],
+        x: [0, 15, 0],
         rotate: [0, 180, 360],
         scale: [1, 1.2, 1],
-        opacity: [0.3, 0.8, 0.3],
       }}
       transition={{
         duration: duration,
@@ -364,35 +95,34 @@ function FloatingShape({
   );
 }
 
-// Composant de ligne de code flottante avec effet de glitch
+// Composant de ligne de code flottante
 function FloatingCodeLine({ 
   code, 
   x, 
   y, 
   delay, 
-  color 
+  duration 
 }: {
   code: string;
   x: number;
   y: number;
   delay: number;
-  color: string;
+  duration: number;
 }) {
   return (
     <motion.div
-      className="absolute font-mono text-xs opacity-20 pointer-events-none"
+      className="absolute font-mono text-xs text-green-400 opacity-30"
       style={{
         left: `${x}%`,
         top: `${y}%`,
-        color: color,
       }}
       animate={{
         y: [0, -20, 0],
-        opacity: [0.1, 0.4, 0.1],
-        x: [0, 5, 0],
+        opacity: [0.3, 0.6, 0.3],
+        scale: [1, 1.1, 1],
       }}
       transition={{
-        duration: 4,
+        duration: duration,
         delay: delay,
         repeat: Infinity,
         ease: "easeInOut",
@@ -403,14 +133,14 @@ function FloatingCodeLine({
   );
 }
 
-// Composant de grille de particules avec connexions
+// Composant de grille de particules
 function ParticleGrid() {
-  const particles = Array.from({ length: 25 }, (_, i) => ({
+  const particles = Array.from({ length: 50 }, (_, i) => ({
     id: i,
-    x: (i * 3.7 + 15) % 100,
-    y: (i * 2.9 + 25) % 100,
-    size: (i % 3) + 1.5,
-    color: ["#00ffff", "#10b981", "#06b6d4", "#8b5cf6", "#f59e0b"][i % 5],
+    x: (i * 7.2) % 100,
+    y: (i * 5.8) % 100,
+    size: (i % 3) + 1,
+    delay: i * 0.1,
   }));
 
   return (
@@ -418,70 +148,41 @@ function ParticleGrid() {
       {particles.map((particle) => (
         <motion.div
           key={particle.id}
-          className="absolute rounded-full"
+          className="absolute rounded-full bg-cyan-400/20"
           style={{
             left: `${particle.x}%`,
             top: `${particle.y}%`,
             width: particle.size,
             height: particle.size,
-            backgroundColor: particle.color,
           }}
           animate={{
-            scale: [1, 1.8, 1],
-            opacity: [0.4, 0.9, 0.4],
+            scale: [0, 1, 0],
+            opacity: [0, 0.6, 0],
           }}
           transition={{
-            duration: 3 + particle.id * 0.1,
+            duration: 4,
+            delay: particle.delay,
             repeat: Infinity,
             ease: "easeInOut",
           }}
         />
       ))}
-      
-      {/* Lignes de connexion entre particules */}
-      {particles.slice(0, 10).map((particle, i) => {
-        const nextParticle = particles[(i + 1) % particles.length];
-        return (
-          <motion.div
-            key={`line-${i}`}
-            className="absolute bg-gradient-to-r from-cyan-400/20 to-blue-400/20"
-            style={{
-              left: `${particle.x}%`,
-              top: `${particle.y}%`,
-              width: `${Math.sqrt(Math.pow(nextParticle.x - particle.x, 2) + Math.pow(nextParticle.y - particle.y, 2))}%`,
-              height: "1px",
-              transformOrigin: "left center",
-              transform: `rotate(${Math.atan2(nextParticle.y - particle.y, nextParticle.x - particle.x) * 180 / Math.PI}deg)`,
-            }}
-            animate={{
-              opacity: [0, 0.7, 0],
-            }}
-            transition={{
-              duration: 4,
-              delay: i * 0.2,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
-          />
-        );
-      })}
     </div>
   );
 }
 
-// Composant de gradient animé circulaire
+// Composant de gradient animé
 function AnimatedGradient() {
   return (
     <div className="absolute inset-0 overflow-hidden">
       <motion.div
-        className="absolute inset-0 rounded-full blur-3xl"
+        className="absolute inset-0 opacity-20"
         style={{
-          background: "radial-gradient(circle, rgba(0, 255, 255, 0.1) 0%, rgba(16, 185, 129, 0.05) 30%, rgba(6, 182, 212, 0.03) 60%, transparent 100%)",
+          background: "linear-gradient(45deg, #00ffff, #10b981, #8b5cf6, #f59e0b, #ec4899)",
+          backgroundSize: "400% 400%",
         }}
         animate={{
-          scale: [1, 1.5, 1],
-          x: [0, 100, 0],
-          y: [0, -50, 0],
+          backgroundPosition: ["0% 0%", "100% 100%", "0% 0%"],
         }}
         transition={{
           duration: 20,
@@ -489,67 +190,40 @@ function AnimatedGradient() {
           ease: "easeInOut",
         }}
       />
-      
-      <motion.div
-        className="absolute inset-0 rounded-full blur-3xl"
-        style={{
-          background: "radial-gradient(circle, rgba(139, 92, 246, 0.08) 0%, rgba(245, 158, 11, 0.05) 40%, rgba(0, 255, 255, 0.03) 70%, transparent 100%)",
-        }}
-        animate={{
-          scale: [1.5, 1, 1.5],
-          x: [0, -100, 0],
-          y: [0, 50, 0],
-        }}
-        transition={{
-          duration: 25,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
-      />
     </div>
   );
 }
 
-// Composant de motif de code en arrière-plan
+// Composant de motif de code
 function CodePattern() {
   const codeLines = [
-    "const developer = 'Wesley';",
-    "function createPortfolio() {",
-    "  return <AmazingWebsite />;",
-    "}",
-    "class Skills {",
-    "  constructor() {",
-    "    this.level = 'Growing';",
-    "  }",
-    "}",
-    "const future = 'Bright';",
-    "export default developer;",
-    "const passion = 'Coding';",
-    "let creativity = 'Infinite';",
-    "class Innovation {",
-    "  static create() {",
-    "    return 'Magic';",
-    "  }",
+    "const developer = {",
+    "  name: 'Wesley',",
+    "  passion: 'Coding',",
+    "  skills: ['React', 'Node.js']",
+    "};",
+    "function create() {",
+    "  return 'Amazing Apps';",
     "}"
   ];
 
   return (
-    <div className="absolute inset-0 opacity-12 overflow-hidden">
-      <div className="absolute inset-0 bg-[linear-gradient(90deg,transparent_50%,rgba(0,255,255,0.08)_50%),linear-gradient(0deg,transparent_50%,rgba(16,185,129,0.08)_50%)] bg-[length:80px_80px]" />
-      
+    <div className="absolute inset-0 overflow-hidden opacity-10">
       {codeLines.map((line, i) => (
         <motion.div
           key={i}
-          className="absolute font-mono text-sm text-cyan-400/35"
+          className="absolute font-mono text-xs text-green-400"
           style={{
-            left: `${(i * 12) % 85}%`,
-            top: `${(i * 10) % 95}%`,
+            left: `${(i * 12) % 80}%`,
+            top: `${(i * 15) % 90}%`,
           }}
           animate={{
-            opacity: [0.2, 0.5, 0.2],
+            opacity: [0.1, 0.3, 0.1],
+            x: [0, 10, 0],
           }}
           transition={{
-            duration: 3 + i * 0.2,
+            duration: 8,
+            delay: i * 0.5,
             repeat: Infinity,
             ease: "easeInOut",
           }}
@@ -561,427 +235,178 @@ function CodePattern() {
   );
 }
 
-// Composant de carte de compétence avec style de code
-function SkillCard({ skill, index }: {
-  skill: {
-    icon: LucideIcon;
-    title: string;
-    description: string;
-    level: number;
-    color: string;
-  };
-  index: number;
+// Composant de carte de compétence
+function SkillCard({ 
+  icon: Icon, 
+  title, 
+  description, 
+  color, 
+  delay 
+}: {
+  icon: LucideIcon;
+  title: string;
+  description: string;
+  color: string;
+  delay: number;
 }) {
-
-  // Diviser la description en compétences individuelles
-  const skillItems = skill.description.split(', ');
-
   return (
     <motion.div
+      className="group relative overflow-hidden rounded-2xl border border-gray-700/50 bg-gray-900/30 backdrop-blur-sm p-6"
       initial={{ opacity: 0, y: 50 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.8, delay: index * 0.1 }}
-      className="group relative bg-gray-900/50 border border-gray-700 rounded-lg p-6 hover:border-green-500/50 hover:bg-gray-800/50 transition-all duration-150 font-mono"
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8, delay }}
+      whileHover={{ y: -10, scale: 1.02 }}
     >
-      {/* Icône avec effet de lueur */}
-      <div className="flex items-center justify-between mb-4">
-        <div className="relative">
-          <skill.icon className={`w-8 h-8 ${skill.color === "#00ffff" ? "text-cyan-400" : skill.color === "#10b981" ? "text-green-400" : "text-blue-400"}`} />
-          <motion.div
-            className="absolute -inset-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-150"
-            style={{ 
-              background: `radial-gradient(circle, ${skill.color}20, transparent 70%)`,
-              filter: 'blur(8px)'
-            }}
-          />
+      {/* Ligne de gradient en haut */}
+      <div 
+        className="absolute inset-x-0 top-0 h-px z-10" 
+        style={{
+          background: `linear-gradient(90deg, transparent 5%, ${color} 35%, ${color} 50%, ${color} 65%, transparent 95%)`
+        }}
+      />
+      
+      {/* Fond avec gradient coloré */}
+      <div 
+        className="absolute inset-0 -z-10 opacity-20"
+        style={{
+          background: `linear-gradient(135deg, ${color}20 0%, ${color}10 100%)`
+        }}
+      />
+      
+      <div className="text-center">
+        <div 
+          className="inline-flex items-center justify-center w-16 h-16 rounded-full mb-4 mx-auto"
+          style={{
+            backgroundColor: `${color}20`,
+            border: `2px solid ${color}40`
+          }}
+        >
+          <Icon className="w-8 h-8" style={{ color }} />
         </div>
-        <span className="text-xs text-gray-500 font-mono">skill.js</span>
-      </div>
-
-      {/* Titre */}
-      <h3 className="text-lg font-semibold text-white mb-4">{skill.title}</h3>
-
-      {/* Barre de progression */}
-      <div className="mb-4">
-        <div className="flex items-center justify-between mb-2">
-          <span className="text-sm text-gray-400 font-mono">Level</span>
-          <span className="text-sm text-white font-mono">{skill.level}%</span>
-        </div>
-        <div className="w-full bg-gray-700 rounded-full h-2">
-          <motion.div
-            className="h-2 rounded-full transition-all duration-1000 ease-out"
-            style={{ 
-              backgroundColor: skill.color,
-              width: `${skill.level}%`
-            }}
-            initial={{ width: 0 }}
-            animate={{ width: `${skill.level}%` }}
-            transition={{ duration: 1, delay: index * 0.1 + 0.3 }}
-          />
-        </div>
-      </div>
-
-      {/* Badges des compétences */}
-      <div className="space-y-3">
-        {skillItems.map((skillItem, skillIndex) => (
-          <motion.div
-            key={skillIndex}
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.4, delay: index * 0.1 + skillIndex * 0.1 }}
-            className="inline-flex items-center justify-center rounded-lg border px-3 py-1 text-sm w-fit whitespace-nowrap shrink-0 gap-2 focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] transition-[color,box-shadow] overflow-hidden text-white border-white/20 bg-gray-800/50 hover:bg-gray-700/50"
-          >
-            <TechLogo tech={skillItem.trim()} size="w-4 h-4" />
-            <span>{skillItem.trim()}</span>
-          </motion.div>
-        ))}
-      </div>
-
-      {/* Particules de code flottantes */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        {[
-          { x: 15, y: 25, symbol: '<' },
-          { x: 35, y: 45, symbol: '>' },
-          { x: 55, y: 65, symbol: '/' },
-          { x: 75, y: 85, symbol: '\\' }
-        ].map((particle, i) => (
-          <motion.div
-            key={i}
-            className="absolute text-blue-400/20 text-xs"
-            style={{
-              left: `${particle.x}%`,
-              top: `${particle.y}%`,
-            }}
-            animate={{
-              y: [0, -15, 0],
-              opacity: [0, 1, 0],
-            }}
-            transition={{
-              duration: 2.5,
-              delay: i * 0.4,
-              repeat: Infinity,
-            }}
-          >
-            {particle.symbol}
-          </motion.div>
-        ))}
+        
+        <h3 className="text-xl font-bold text-white mb-3 font-mono">
+          {title}
+        </h3>
+        
+        <p className="text-gray-400 text-sm leading-relaxed">
+          {description}
+        </p>
       </div>
     </motion.div>
   );
 }
 
-// Composant de carte de statistique avec style de code
-function StatCard({ stat, index }: {
-  stat: { icon: LucideIcon; value: string; label: string; color: string };
-  index: number;
+// Composant de statistique animée
+function AnimatedStat({ 
+  icon: Icon, 
+  value, 
+  label, 
+  color, 
+  delay 
+}: {
+  icon: LucideIcon;
+  value: string | number;
+  label: string;
+  color: string;
+  delay: number;
 }) {
-  const [isHovered, setIsHovered] = useState(false);
-
   return (
     <motion.div
-      initial={{ opacity: 0, scale: 0.8 }}
-      animate={{ opacity: 1, scale: 1 }}
-      transition={{ duration: 0.8, delay: index * 0.1 }}
-      onHoverStart={() => setIsHovered(true)}
-      onHoverEnd={() => setIsHovered(false)}
-      whileHover={{ 
-        scale: 1.05,
-        y: -8,
-        transition: { duration: 0.3, ease: "easeOut" }
-      }}
-      className="group relative bg-gray-900/50 border border-gray-700 rounded-lg p-6 text-center hover:border-green-500/50 hover:bg-gray-800/50 transition-all duration-150 font-mono cursor-pointer"
+      className="text-center"
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8, delay }}
     >
-      {/* Effet de lueur au survol */}
-      <motion.div
-        className="absolute inset-0 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-        style={{ 
-          background: `radial-gradient(circle at center, ${stat.color}15, transparent 70%)`,
-          filter: 'blur(20px)'
-        }}
-        animate={{
-          scale: isHovered ? 1.1 : 1,
-          opacity: isHovered ? 1 : 0
-        }}
-        transition={{ duration: 0.5 }}
-      />
-
-      {/* Icône avec effet de lueur et animation */}
-      <div className="relative inline-block mb-4">
-        <motion.div
-          animate={{
-            scale: isHovered ? 1.2 : 1,
-            rotate: isHovered ? [0, -5, 5, 0] : 0
-          }}
-          transition={{ 
-            scale: { duration: 0.3 },
-            rotate: { duration: 0.6 }
-          }}
-        >
-          <stat.icon className="w-12 h-12 text-green-400 mx-auto" />
-        </motion.div>
-        
-        {/* Lueur autour de l'icône */}
-        <motion.div
-          className="absolute -inset-3 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-150"
-          style={{ 
-            background: `radial-gradient(circle, ${stat.color}30, transparent 70%)`,
-            filter: 'blur(12px)'
-          }}
-          animate={{
-            scale: isHovered ? 1.3 : 1,
-            opacity: isHovered ? 1 : 0
-          }}
-          transition={{ duration: 0.4 }}
-        />
+      <div className={`text-4xl mb-2 ${color}`}>
+        <Icon className="w-12 h-12 mx-auto" />
       </div>
-
-      {/* Valeur avec effet de compteur et animation au survol */}
-      <motion.div
-        className="text-3xl font-bold text-white mb-2"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: index * 0.1 + 0.3 }}
-        whileHover={{
-          scale: 1.1,
-          color: stat.color,
-          textShadow: `0 0 20px ${stat.color}`
-        }}
-      >
-        {stat.value}
-      </motion.div>
-
-      {/* Label avec animation au survol */}
-      <motion.p 
-        className="text-gray-400 text-sm font-medium"
-        animate={{
-          color: isHovered ? "#ffffff" : "#9ca3af",
-          y: isHovered ? -2 : 0
-        }}
-        transition={{ duration: 0.3 }}
-      >
-        {stat.label}
-      </motion.p>
-
-      {/* Particules de code flottantes avec animation au survol */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        {[
-          { x: 25, y: 35, symbol: '<', color: 'text-blue-400' },
-          { x: 45, y: 55, symbol: '>', color: 'text-cyan-400' },
-          { x: 65, y: 75, symbol: '/', color: 'text-green-400' },
-          { x: 85, y: 25, symbol: '\\', color: 'text-purple-400' }
-        ].map((particle, i) => (
-          <motion.div
-            key={i}
-            className={`absolute ${particle.color}/20 text-xs`}
-            style={{
-              left: `${particle.x}%`,
-              top: `${particle.y}%`,
-            }}
-            animate={{
-              y: isHovered ? [0, -25, 0] : [0, -15, 0],
-              opacity: isHovered ? [0, 0.8, 0] : [0, 0.3, 0],
-              scale: isHovered ? [1, 1.5, 1] : [1, 1.2, 1],
-              rotate: isHovered ? [0, 180, 360] : [0, 0, 0]
-            }}
-            transition={{
-              duration: isHovered ? 1.5 : 2.5,
-              delay: i * 0.2,
-              repeat: Infinity,
-              ease: "easeInOut"
-            }}
-          >
-            {particle.symbol}
-          </motion.div>
-        ))}
+      <div className="text-2xl font-bold text-white mb-1 font-mono">
+        {value}
       </div>
-
-      {/* Effet de bordure animée au survol */}
-      <motion.div
-        className="absolute inset-0 rounded-lg border-2 border-transparent"
-        style={{
-          background: `linear-gradient(45deg, ${stat.color}40, transparent, ${stat.color}40)`,
-          backgroundSize: '200% 200%'
-        }}
-        animate={{
-          backgroundPosition: isHovered ? ['0% 0%', '100% 100%', '0% 0%'] : ['0% 0%']
-        }}
-        transition={{ 
-          duration: isHovered ? 2 : 0,
-          repeat: isHovered ? Infinity : 0,
-          ease: "linear"
-        }}
-      />
+      <div className="text-gray-400 text-sm">{label}</div>
     </motion.div>
+  );
+}
+
+// Composant de technologie avec logo
+function TechWithLogo({ tech }: { tech: string }) {
+  return (
+    <div className="flex items-center gap-2 px-3 py-1 rounded-lg border border-gray-600/50 bg-gray-800/50 text-gray-300 hover:border-gray-500/50 transition-colors">
+      <TechLogoWithText tech={tech} size="sm" />
+      {tech}
+    </div>
   );
 }
 
 export function About() {
-  const skills = [
-    {
-      icon: Code2,
-      title: "Frontend Development",
-      description: "React, Next.js, TypeScript, Tailwind CSS, Responsive Design, ShadCN/UI, TanStack Query",
-      level: 85,
-      color: "#00ffff"
-    },
-    {
-      icon: Database,
-      title: "Backend Development",
-      description: "Node.js, Express, MongoDB, PostgreSQL, REST APIs, Prisma ORM, JWT Authentication",
-      level: 95,
-      color: "#10b981"
-    },
-    {
-      icon: Globe,
-      title: "Web Technologies",
-      description: "HTML5, CSS3, JavaScript ES6+, Web APIs, PWA, Grok AI, Redis",
-      level: 90,
-      color: "#06b6d4"
-    },
-    {
-      icon: GitBranchIcon,
-      title: "Tools & Workflow",
-      description: "Git, GitHub, Postman, VS Code, Cursor",
-      level: 100,
-      color: "#10b981"
-    },
-    {
-      icon: ToolCaseIcon,
-      title: "Deployment & CI/CD",
-      description: "Vercel, Render, CI/CD basics, Docker",
-      level: 80,
-      color: "#06b6d4"
-    }
+  const [selectedCategory, setSelectedCategory] = useState("all");
+
+  const categories = [
+    { id: "all", label: "All", icon: Code2 },
+    { id: "frontend", label: "Frontend", icon: Globe },
+    { id: "backend", label: "Backend", icon: ToolCaseIcon },
+    { id: "ai-ml", label: "AI/ML", icon: Brain },
+    { id: "tools", label: "Tools", icon: ToolCaseIcon },
   ];
 
-  const stats = [
-    { icon: BookOpen, value: "10+", label: "Projects Built", color: "#00ffff" },
-    { icon: Target, value: "Entry", label: "Level Position", color: "#10b981" },
-    { icon: User, value: "Self", label: "Taught Developer", color: "#06b6d4" },
-    { icon: Brain, value: "Learning", label: "Mode", color: "#8b5cf6" }
-  ];
+  const technologies = {
+    frontend: ["React", "Next.js", "TypeScript", "Tailwind CSS", "Vite", "CSS", "HTML", "JavaScript"],
+    backend: ["Node.js", "Express", "MongoDB", "PostgreSQL", "Redis", "Docker", "SQLite"],
+    "ai-ml": ["Claude AI", "OpenAI", "Grok AI", "AI Integration", "API Integration"],
+    tools: ["Git", "GitHub", "Postman", "VS Code", "Cursor", "Prisma"]
+  };
+
+  const filteredTechs = selectedCategory === "all" 
+    ? Object.values(technologies).flat()
+    : technologies[selectedCategory as keyof typeof technologies] || [];
 
   return (
-    <section id="about" className="relative py-24 lg:py-32 overflow-hidden bg-black">
-      {/* Arrière-plan esthétique sophistiqué */}
+    <section id="about" className="relative py-24 overflow-hidden bg-black">
+      {/* Arrière-plan sophistiqué et esthétique */}
+      <FloatingShape shape="circle" size={80} color="#00ffff" x={10} y={20} delay={0} duration={8} />
+      <FloatingShape shape="square" size={60} color="#10b981" x={85} y={15} delay={2} duration={10} />
+      <FloatingShape shape="triangle" size={70} color="#8b5cf6" x={15} y={80} delay={4} duration={12} />
+      <FloatingShape shape="hexagon" size={50} color="#f59e0b" x={80} y={75} delay={6} duration={9} />
+      
+      <FloatingCodeLine code="const passion = 'coding';" x={20} y={30} delay={1} duration={7} />
+      <FloatingCodeLine code="function create() {" x={70} y={40} delay={3} duration={11} />
+      <FloatingCodeLine code="  return 'amazing';" x={25} y={70} delay={5} duration={8} />
+      <FloatingCodeLine code="}" x={75} y={85} delay={7} duration={10} />
+      
+      <ParticleGrid />
       <AnimatedGradient />
       <CodePattern />
-      <ParticleGrid />
       
-      {/* Formes géométriques flottantes - Plus visibles */}
-      <FloatingShape shape="circle" size={120} color="rgba(0, 255, 255, 0.25)" x={10} y={20} delay={0} duration={15} />
-      <FloatingShape shape="square" size={100} color="rgba(16, 185, 129, 0.22)" x={85} y={15} delay={2} duration={18} />
-      <FloatingShape shape="triangle" size={140} color="rgba(6, 182, 212, 0.20)" x={15} y={80} delay={4} duration={20} />
-      <FloatingShape shape="hexagon" size={110} color="rgba(139, 92, 246, 0.23)" x={80} y={75} delay={6} duration={16} />
-      <FloatingShape shape="circle" size={90} color="rgba(245, 158, 11, 0.24)" x={50} y={10} delay={8} duration={22} />
-      <FloatingShape shape="square" size={130} color="rgba(0, 255, 255, 0.18)" x={5} y={50} delay={10} duration={17} />
-      
-      {/* Formes supplémentaires pour plus d'impact visuel */}
-      <FloatingShape shape="circle" size={80} color="rgba(255, 99, 132, 0.20)" x={70} y={60} delay={3} duration={19} />
-      <FloatingShape shape="triangle" size={110} color="rgba(54, 162, 235, 0.21)" x={25} y={40} delay={7} duration={21} />
-      <FloatingShape shape="hexagon" size={95} color="rgba(255, 205, 86, 0.19)" x={90} y={45} delay={11} duration={14} />
-      
-
-      
-      {/* Overlay de profondeur avec effet de brouillard */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-black/90" />
+      {/* Overlay de profondeur */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black/60" />
       <div className="absolute inset-0 bg-gradient-to-r from-black/30 via-transparent to-black/30" />
       
-      {/* Ondes animées en arrière-plan - Plus visibles */}
-      <div className="absolute inset-0 overflow-hidden">
-        <motion.div
-          className="absolute inset-0 opacity-25"
-          style={{
-            background: "radial-gradient(ellipse at center, rgba(0, 255, 255, 0.25) 0%, transparent 70%)",
-          }}
-          animate={{
-            scale: [1, 1.3, 1],
-            rotate: [0, 8, 0],
-          }}
-          transition={{
-            duration: 12,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        />
-        
-        <motion.div
-          className="absolute inset-0 opacity-20"
-          style={{
-            background: "radial-gradient(ellipse at center, rgba(16, 185, 129, 0.22) 0%, transparent 60%)",
-          }}
-          animate={{
-            scale: [1.3, 1, 1.3],
-            rotate: [0, -5, 0],
-          }}
-          transition={{
-            duration: 15,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        />
-        
-        {/* Troisième onde pour plus d'impact */}
-        <motion.div
-          className="absolute inset-0 opacity-18"
-          style={{
-            background: "radial-gradient(ellipse at center, rgba(139, 92, 246, 0.20) 0%, transparent 65%)",
-          }}
-          animate={{
-            scale: [1, 1.4, 1],
-            rotate: [0, 12, 0],
-          }}
-          transition={{
-            duration: 18,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        />
-      </div>
-      
-      {/* Effet de lumière ambiante - Plus visible */}
+      {/* Effet de lumière ambiante */}
       <div className="absolute inset-0">
         <motion.div
-          className="absolute top-1/4 left-1/4 w-96 h-96 rounded-full opacity-35 blur-3xl"
+          className="absolute top-1/4 left-1/4 w-96 h-96 rounded-full opacity-20 blur-3xl"
           style={{
-            background: "radial-gradient(circle, rgba(0, 255, 255, 0.45) 0%, transparent 70%)",
+            background: "radial-gradient(circle, rgba(0, 255, 255, 0.4) 0%, transparent 70%)",
           }}
           animate={{
-            x: [0, 120, 0],
-            y: [0, -60, 0],
+            x: [0, 100, 0],
+            y: [0, -50, 0],
           }}
           transition={{
-            duration: 18,
+            duration: 20,
             repeat: Infinity,
             ease: "easeInOut",
           }}
         />
         
         <motion.div
-          className="absolute bottom-1/4 right-1/4 w-80 h-80 rounded-full opacity-30 blur-3xl"
+          className="absolute bottom-1/4 right-1/4 w-80 h-80 rounded-full opacity-15 blur-3xl"
           style={{
-            background: "radial-gradient(circle, rgba(139, 92, 246, 0.40) 0%, transparent 70%)",
+            background: "radial-gradient(circle, rgba(139, 92, 246, 0.35) 0%, transparent 70%)",
           }}
           animate={{
-            x: [0, -100, 0],
-            y: [0, 80, 0],
-          }}
-          transition={{
-            duration: 22,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        />
-        
-        {/* Troisième source de lumière pour plus d'impact */}
-        <motion.div
-          className="absolute top-1/2 left-1/2 w-72 h-72 rounded-full opacity-25 blur-3xl"
-          style={{
-            background: "radial-gradient(circle, rgba(16, 185, 129, 0.35) 0%, transparent 70%)",
-          }}
-          animate={{
-            x: [0, 60, 0],
-            y: [0, 40, 0],
+            x: [0, -80, 0],
+            y: [0, 60, 0],
           }}
           transition={{
             duration: 25,
@@ -990,17 +415,20 @@ export function About() {
           }}
         />
       </div>
-
+      
+      {/* Overlay subtil */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-black/50" />
+      
       <div className="relative z-10 max-w-7xl mx-auto px-6">
-        {/* En-tête de section avec style de code */}
+        {/* En-tête de section */}
         <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1 }}
           className="text-center mb-20"
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1 }}
         >
           <div className="inline-flex items-center rounded-lg border border-green-500/30 bg-green-500/10 backdrop-blur-sm px-4 py-2 text-sm font-mono text-green-400 mb-6">
-            <Terminal className="w-4 h-4 mr-2" />
+            <Code2 className="w-4 h-4 mr-2" />
             about.js
           </div>
           
@@ -1012,138 +440,275 @@ export function About() {
           </h2>
           
           <p className="text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed font-mono">
-            <span className="text-white">Passionate about clean code, problem-solving, and continuous learning.</span>
+            <span className="text-white">Passionate about creating innovative solutions and pushing the boundaries</span>
             <br />
-            <span className="text-white">Building innovative solutions with modern web technologies.</span>
+            <span className="text-white">of what's possible in web development.</span>
           </p>
         </motion.div>
 
-        {/* Grille des statistiques */}
+        {/* Statistiques */}
         <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.2 }}
-          className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-20"
+          className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-20"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
         >
-          {stats.map((stat, index) => (
-            <StatCard key={index} stat={stat} index={index} />
-          ))}
+          <AnimatedStat 
+            icon={Code2} 
+            value="10+" 
+            label="Projects Built" 
+            color="text-cyan-400" 
+            delay={0.1} 
+          />
+          <AnimatedStat 
+            icon={GraduationCapIcon} 
+            value="Entry" 
+            label="Level position" 
+            color="text-yellow-400" 
+            delay={0.2} 
+          />
+          <AnimatedStat 
+            icon={User} 
+            value="100%" 
+            label="Passion" 
+            color="text-green-400" 
+            delay={0.3} 
+          />
+          <AnimatedStat 
+            icon={Brain} 
+            value="∞" 
+            label="Learning" 
+            color="text-purple-400" 
+            delay={0.4} 
+          />
         </motion.div>
 
-        {/* Grille des compétences */}
+        {/* Compétences principales */}
         <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.4 }}
-          className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20"
+          className="mb-20"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
         >
-          {skills.map((skill, index) => (
-            <SkillCard key={index} skill={skill} index={index} />
-          ))}
+          <h3 className="text-3xl font-bold text-white text-center mb-12 font-mono">
+            <span className="text-blue-400">function</span>{" "}
+            <span className="text-green-400">getSkills</span>
+            <span className="text-yellow-400">()</span>
+          </h3>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <SkillCard
+              icon={Globe}
+              title="Frontend Development"
+              description="Building responsive and interactive user interfaces with modern frameworks and tools."
+              color="#3B82F6"
+              delay={0.1}
+            />
+            <SkillCard
+              icon={ToolCaseIcon}
+              title="Backend Development"
+              description="Creating robust server-side applications and APIs with scalable architectures."
+              color="#10B981"
+              delay={0.2}
+            />
+            <SkillCard
+              icon={Database}
+              title="Database Design"
+              description="Designing efficient database schemas and optimizing data operations."
+              color="#8B5CF6"
+              delay={0.3}
+            />
+            <SkillCard
+              icon={Brain}
+              title="AI Integration"
+              description="Integrating AI services and building intelligent applications with Claude, OpenAI, and Grok AI."
+              color="#8B5CF6"
+              delay={0.4}
+            />
+            <SkillCard
+              icon={ToolCaseIcon}
+              title="Development Tools"
+              description="Using modern development tools and practices for efficient workflows and code quality."
+              color="#EC4899"
+              delay={0.5}
+            />
+            <SkillCard
+              icon={CheckCircle}
+              title="Problem Solving"
+              description="Analyzing complex problems and implementing creative solutions."
+              color="#06B6D4"
+              delay={0.6}
+            />
+          </div>
         </motion.div>
 
-        {/* Section de présentation personnelle */}
+        {/* Technologies */}
         <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.6 }}
-          className="bg-gray-900/30 border border-gray-700 rounded-lg p-8 lg:p-12 backdrop-blur-sm"
+          className="mb-20"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.6 }}
         >
+          <h3 className="text-3xl font-bold text-white text-center mb-12 font-mono">
+            <span className="text-blue-400">const</span>{" "}
+            <span className="text-green-400">techStack</span>{" "}
+            <span className="text-yellow-400">=</span>{" "}
+            <span className="text-cyan-400">[...];</span>
+          </h3>
+          
+          {/* Filtres de catégorie */}
+          <div className="flex flex-wrap gap-3 justify-center mb-8">
+            {categories.map((category) => (
+              <motion.button
+                key={category.id}
+                onClick={() => setSelectedCategory(category.id)}
+                className={`flex items-center gap-2 px-4 py-2 rounded-lg border transition-all duration-200 font-mono text-sm ${
+                  selectedCategory === category.id
+                    ? "border-green-500/50 bg-green-500/20 text-green-400"
+                    : "border-gray-600/50 bg-gray-800/50 text-gray-300 hover:border-gray-500/50 hover:bg-gray-700/50"
+                }`}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <category.icon className="w-4 h-4" />
+                {category.label}
+              </motion.button>
+            ))}
+          </div>
+          
+          {/* Grille des technologies */}
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            {filteredTechs.map((tech, index) => (
+              <motion.div
+                key={tech}
+                initial={{ opacity: 0, scale: 0.8 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+              >
+                <TechWithLogo tech={tech} />
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
+
+        {/* Mon parcours */}
+        <motion.div
+          className="mb-20"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.8 }}
+        >
+          <h3 className="text-3xl font-bold text-white text-center mb-12 font-mono">
+            <span className="text-blue-400">function</span>{" "}
+            <span className="text-green-400">myJourney</span>
+            <span className="text-yellow-400">()</span>
+          </h3>
+          
           <div className="max-w-4xl mx-auto">
-            <div className="flex items-center gap-3 mb-8">
-              <h3 className="text-2xl font-bold text-white font-mono">
-                <span className="text-blue-400">function</span>{" "}
-                <span className="text-green-400">myJourney</span>
-                <span className="text-yellow-400">()</span>
-              </h3>
-              <Star className="w-6 h-6 text-yellow-400 animate-pulse" />
-            </div>
-            
-            <div className="space-y-6 text-gray-300 leading-relaxed font-mono">
-              <motion.p 
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.6, delay: 0.8 }}
-                className="text-lg"
+            <div className="space-y-8">
+              <motion.div
+                className="flex items-start gap-6"
+                initial={{ opacity: 0, x: -50 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.8, delay: 0.1 }}
               >
-                <span className="text-white">After graduating from the University of Luxembourg with a Bachelor in Computer Sciences, I took a break from coding to fully commit to my college soccer career and pursue a Master in Business Analytics—an experience that shaped my discipline, resilience, and teamwork. ⚽️😎</span>
-              </motion.p>
+                <div className="flex-shrink-0 w-12 h-12 rounded-full bg-blue-500/20 border border-blue-500/40 flex items-center justify-center">
+                  <Code2 className="w-6 h-6 text-blue-400" />
+                </div>
+                <div>
+                  <h4 className="text-xl font-bold text-white mb-2 font-mono">Self-Taught Developer</h4>
+                  <p className="text-gray-400 leading-relaxed">
+                    Started my journey by learning web development fundamentals through online resources, 
+                    tutorials, and hands-on projects. Built a strong foundation in HTML, CSS, and JavaScript.
+                  </p>
+                </div>
+              </motion.div>
               
-              <motion.p 
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.6, delay: 0.9 }}
-                className="text-lg"
+              <motion.div
+                className="flex items-start gap-6"
+                initial={{ opacity: 0, x: -50 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.8, delay: 0.2 }}
               >
-                <span className="text-white">Now, I&apos;m diving back into tech with renewed focus and curiosity, building interactive and responsive full-stack web apps using tools like Next.js, React, Node.js, and other frameworks.</span>
-              </motion.p>
+                <div className="flex-shrink-0 w-12 h-12 rounded-full bg-green-500/20 border border-green-500/40 flex items-center justify-center">
+                  <BookOpen className="w-6 h-6 text-green-400" />
+                </div>
+                <div>
+                  <h4 className="text-xl font-bold text-white mb-2 font-mono">Framework Mastery</h4>
+                  <p className="text-gray-400 leading-relaxed">
+                    Progressed to modern frameworks like React and Next.js, learning state management, 
+                    routing, and advanced concepts. Explored backend development with Node.js and databases.
+                  </p>
+                </div>
+              </motion.div>
               
-              <motion.p 
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.6, delay: 1.0 }}
-                className="text-lg"
+              <motion.div
+                className="flex items-start gap-6"
+                initial={{ opacity: 0, x: -50 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.8, delay: 0.3 }}
               >
-                <span className="text-white">Outside of tech and athletics, I&apos;m also a pianist 🎹 — I love exploring the creative intersection between structure and expression, both in music and in code.</span>
-              </motion.p>
-              
-              <motion.p 
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.6, delay: 1.1 }}
-                className="text-lg"
-              >
-                <span className="text-white">🧠 I&apos;m always eager to learn, collaborate, and grow — and this portfolio reflects that journey toward a MERN and T3 tech stack career.</span>
-              </motion.p>
+                <div className="flex-shrink-0 w-12 h-12 rounded-full bg-purple-500/20 border border-purple-500/40 flex items-center justify-center">
+                  <Target className="w-6 h-6 text-purple-400" />
+                </div>
+                <div>
+                  <h4 className="text-xl font-bold text-white mb-2 font-mono">Project Portfolio</h4>
+                  <p className="text-gray-400 leading-relaxed">
+                    Built a diverse portfolio of 10+ projects showcasing different technologies and 
+                    problem-solving approaches. Each project represents a learning milestone and skill demonstration.
+                  </p>
+                </div>
+              </motion.div>
             </div>
           </div>
         </motion.div>
 
-        {/* Section des qualités personnelles */}
+        {/* Pourquoi me choisir */}
         <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 1.2 }}
-          className="bg-gray-900/30 border border-gray-700 rounded-lg p-8 lg:p-12 backdrop-blur-sm mt-8"
+          className="text-center"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 1.0 }}
         >
+          <h3 className="text-3xl font-bold text-white mb-12 font-mono">
+            <span className="text-blue-400">function</span>{" "}
+            <span className="text-green-400">whyChooseMe</span>
+            <span className="text-yellow-400">()</span>
+          </h3>
+          
           <div className="max-w-4xl mx-auto">
-            <div className="flex items-center gap-3 mb-8">
-              <h3 className="text-2xl font-bold text-white font-mono">
-                <span className="text-blue-400">function</span>{" "}
-                <span className="text-green-400">whyChooseMe</span>
-                <span className="text-yellow-400">()</span>
-              </h3>
-              <Star className="w-6 h-6 text-yellow-400 animate-pulse" />
-            </div>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {[
-                { text: "Fast Learner : I quickly adapt to new technologies and frameworks.", color: "green" },
-                { text: "Project-Driven : I learn best by building real applications and solving problems.", color: "blue" },
-                { text: "Problem Solver : I enjoy debugging and finding elegant solutions to complex challenges.", color: "cyan" },
-                { text: "Team Player : I&apos;m eager to collaborate, learn from others, and contribute to team success.", color: "green" },
-                { text: "Quality Focus : I write clean, maintainable code and follow best practices.", color: "blue" },
-                { text: "Growth Mindset : I see every challenge as an opportunity to learn and improve.", color: "cyan" }
-              ].map((item, index) => (
-                <motion.div 
-                  key={index}
-                  className="flex items-start space-x-3"
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.6, delay: 1.4 + index * 0.1 }}
-                >
-                  <CheckCircle className={`
-                    ${item.color === "green" ? "text-green-400" : 
-                      item.color === "blue" ? "text-blue-400" : "text-cyan-400"
-                    }`} 
-                  />
-                  <p className="text-gray-300 leading-relaxed font-mono">
-                    {item.text.split(' : ')[0]}
-                    <span className="text-gray-400">: </span>
-                    {item.text.split(' : ')[1]}
-                  </p>
-                </motion.div>
-              ))}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <motion.div
+                className="text-center p-6 rounded-2xl border border-gray-700/50 bg-gray-900/30 backdrop-blur-sm"
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.1 }}
+              >
+                <div className="w-16 h-16 rounded-full bg-green-500/20 border border-green-500/40 flex items-center justify-center mx-auto mb-4">
+                  <CheckCircle className="w-8 h-8 text-green-400" />
+                </div>
+                <h4 className="text-xl font-bold text-white mb-3 font-mono">Proven Track Record</h4>
+                <p className="text-gray-400">
+                  Demonstrated ability to deliver high-quality projects with clean code, 
+                  modern architecture, and excellent user experience.
+                </p>
+              </motion.div>
+              
+              <motion.div
+                className="text-center p-6 rounded-2xl border border-gray-700/50 bg-gray-900/30 backdrop-blur-sm"
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+              >
+                <div className="w-16 h-16 rounded-full bg-blue-500/20 border border-blue-500/40 flex items-center justify-center mx-auto mb-4">
+                  <GitBranchIcon className="w-8 h-8 text-blue-400" />
+                </div>
+                <h4 className="text-xl font-bold text-white mb-3 font-mono">Continuous Learning</h4>
+                <p className="text-gray-400">
+                  Always staying updated with the latest technologies and best practices, 
+                  ensuring modern and efficient solutions.
+                </p>
+              </motion.div>
             </div>
           </div>
         </motion.div>

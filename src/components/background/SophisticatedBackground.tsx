@@ -1,9 +1,7 @@
 "use client";
 
-import { DataParticle } from "../dataflow/DataParticle";
 import { DataWave } from "./DataWave";
 import { LightSource } from "./LightSource";
-import { FloatingCodeLine } from "./FloatingCodeLine";
 import { TechSymbol } from "./TechSymbol";
 
 // Composant d'arrière-plan sophistiqué et esthétique
@@ -46,11 +44,6 @@ export function SophisticatedBackground() {
         }} />
       </div>
       
-      {/* Particules de données techniques - réduites de 60 à 20 pour de meilleures performances */}
-      {Array.from({ length: 20 }, (_, i) => (
-        <DataParticle key={`data-particle-${i}`} index={i} />
-      ))}
-      
       {/* Ondes de données techniques - réduites de 5 à 3 */}
       {Array.from({ length: 1 }, (_, i) => (
         <DataWave key={`data-wave-${i}`} index={i} />
@@ -80,27 +73,6 @@ export function SophisticatedBackground() {
       {/* Effet de vignette technique */}
       <div className="absolute inset-0 bg-radial-gradient from-transparent via-transparent to-black/25" />
       
-      {/* Code technique flottant - réduit de 15 à 8 lignes */}
-      {/* <div className="absolute inset-0 opacity-8">
-        {Array.from({ length: 8 }, (_, i) => (
-          <FloatingCodeLine 
-            key={`tech-code-${i}`}
-            index={i}
-            code={[
-              "const code = 'elegant';",
-              "function innovate() {",
-              "  return 'future';",
-              "}",
-              "class Technology {",
-              "  evolve() {",
-              "    return 'amazing';",
-              "  }",
-              "}",
-              "export default innovation;"
-            ][i]}
-          />
-        ))}
-      </div> */}
       
       {/* Grille de données techniques - CSS pur */}
       <div className="absolute inset-0 opacity-4">

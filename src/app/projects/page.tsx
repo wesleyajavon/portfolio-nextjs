@@ -1,22 +1,13 @@
 "use client";
 
-import * as React from "react";
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { 
+  Search, 
   ArrowLeft, 
-  Github, 
+  Terminal, 
   ExternalLink, 
-  Terminal,
-  Code2,
-  Globe,
-  Smartphone,
-  Database,
-  Server,
-  Filter,
-  Search,
-  Star,
-  Zap,
+  Github,
   Eye,
   Heart
 } from "lucide-react";
@@ -24,342 +15,19 @@ import Link from "next/link";
 import {
   SophisticatedBackground,
   ProjectNetwork,
-  CreationWaves,
-  DataFlow,
+  ConnectionNetwork,
+  EnergyWaves,
   TechParticles,
-  ProjectConstruction,
-  EnhancedCodeGrid
+  MatrixGlitch,
+  EnergyVortex,
+  DataFlow,
+  FloatingTechStack,
+  TechConnections
 } from "@/components/backgrounds";
 import Image from "next/image";
+import { TechLogoWithText } from "@/components/ui/TechLogo";
 
-// Mapping des technologies vers leurs logos Icons8
-const getTechLogo = (techName: string) => {
-  const techLogos: { [key: string]: string } = {
-    // Frontend
-    'React': 'https://img.icons8.com/color/48/react-native.png',
-    'Next.js': 'https://img.icons8.com/color/48/nextjs.png',
-    'TypeScript': 'https://img.icons8.com/color/48/typescript.png',
-    'Tailwind CSS': 'https://img.icons8.com/color/48/tailwind-css.png',
-    'Vue.js': 'https://img.icons8.com/color/48/vue-js.png',
-    'Vite': 'https://img.icons8.com/color/48/vite.png',
-    'CSS': 'https://img.icons8.com/color/48/css3.png',
-    'CSS Modules': 'https://img.icons8.com/color/48/css3.png',
-    'HTML': 'https://img.icons8.com/color/48/html-5.png',
-    'JavaScript': 'https://img.icons8.com/color/48/javascript.png',
-    'JavaScript (ES6+)': 'https://img.icons8.com/color/48/javascript.png',
-    
-    // Backend
-    'Node.js': 'https://img.icons8.com/color/48/nodejs.png',
-    'Express': 'https://img.icons8.com/color/48/express-js.png',
-    'Express.js': 'https://img.icons8.com/color/48/express-js.png',
-    'MongoDB': 'https://img.icons8.com/color/48/mongodb.png',
-    'PostgreSQL': 'https://img.icons8.com/color/48/postgresql.png',
-    'Redis': 'https://img.icons8.com/color/48/redis.png',
-    'Docker': 'https://img.icons8.com/color/48/docker.png',
-    'SQLite': 'https://img.icons8.com/color/48/sqlite.png',
-    
-    // Web Technologies
-    'WebSocket': 'https://img.icons8.com/color/48/websocket.png',
-    'Socket.io': 'https://img.icons8.com/color/48/socket-io.png',
-    'Monaco': 'https://img.icons8.com/color/48/visual-studio-code.png',
-    'Monaco Editor': 'https://img.icons8.com/color/48/visual-studio-code.png',
-    'D3.js': 'https://img.icons8.com/color/48/d3-js.png',
-    'Chart.js': 'https://img.icons8.com/color/48/chart-js.png',
-    'API': 'https://img.icons8.com/color/48/api-settings.png',
-    'Fetch API': 'https://img.icons8.com/color/48/api-settings.png',
-    
-    // Authentication & Security
-    'NextAuth': 'https://img.icons8.com/color/48/authentication.png',
-    'JWT authentication': 'https://img.icons8.com/color/48/authentication.png',
-    
-    // AI & Machine Learning
-    'Claude Anthropic AI': 'https://img.icons8.com/color/48/artificial-intelligence.png',
-    
-    // Mobile & Others
-    'React Native': 'https://img.icons8.com/color/48/react-native.png',
-    'Expo': 'https://img.icons8.com/color/48/expo.png',
-    'Firebase': 'https://img.icons8.com/color/48/firebase.png',
-    'AWS': 'https://img.icons8.com/color/48/amazon-web-services.png',
-    'Lambda': 'https://img.icons8.com/color/48/aws-lambda.png',
-    'DynamoDB': 'https://img.icons8.com/color/48/amazon-dynamodb.png',
-    'OpenAI': 'https://img.icons8.com/color/48/openai.png',
-    'FastAPI': 'https://img.icons8.com/color/48/fastapi.png',
-    'Solidity': 'https://img.icons8.com/color/48/solidity.png',
-    'Web3.js': 'https://img.icons8.com/color/48/web3-js.png',
-    'IPFS': 'https://img.icons8.com/color/48/ipfs.png',
-    'Stripe': 'https://img.icons8.com/color/48/stripe.png',
-    'Prisma': 'https://img.icons8.com/color/48/prisma.png',
-    'Auth.js': 'https://img.icons8.com/color/48/auth0.png',
-    'MDX': 'https://img.icons8.com/color/48/markdown.png',
-    'Zustand': 'https://img.icons8.com/color/48/zustand.png',
-    'Zod': 'https://img.icons8.com/color/48/zod.png',
-    'Redux': 'https://img.icons8.com/color/48/redux.png',
-    'NativeWind': 'https://img.icons8.com/color/48/tailwind-css.png',
-    'Framer Motion': 'https://img.icons8.com/color/48/framer.png'
-  };
-
-  // Mapping des emojis de fallback pour les technologies
-  const techEmojis: { [key: string]: string } = {
-    // Frontend
-    'React': '⚛️',
-    'Next.js': '⚡',
-    'TypeScript': '🔷',
-    'Tailwind CSS': '🎨',
-    'Vue.js': '💚',
-    'Vite': '🚀',
-    
-    // Backend
-    'Node.js': '🟢',
-    'Express': '🚀',
-    'MongoDB': '🍃',
-    'PostgreSQL': '🐘',
-    'Redis': '🔴',
-    'Docker': '🐳',
-    
-    // Web Technologies
-    'WebSocket': '🔌',
-    'Socket.io': '🔌',
-    'Monaco': '💻',
-    'Monaco Editor': '💻',
-    'D3.js': '📊',
-    'Chart.js': '📈',
-    
-    // Mobile & Others
-    'React Native': '📱',
-    'Expo': '📱',
-    'Firebase': '🔥',
-    'AWS': '☁️',
-    'Lambda': 'λ',
-    'DynamoDB': '🗄️',
-    'OpenAI': '🤖',
-    'FastAPI': '🐍',
-    'Solidity': '🔗',
-    'Web3.js': '🌐',
-    'IPFS': '🌐',
-    'Stripe': '💳',
-    'Prisma': '🗃️',
-    'Auth.js': '🔐',
-    'MDX': '📝',
-    'Zustand': '🐻',
-    'Zod': '🛡️',
-    'Redux': '🔄',
-    'NativeWind': '🎨',
-    'Framer Motion': '🎭',
-    
-    // Technologies supplémentaires identifiées dans les projets
-    'Prism.js': '✨',
-    'Vercel': '🚀',
-    
-    // Technologies génériques et fonctionnalités
-    'REST APIs': '🔌',
-    'Web APIs': '🌍',
-    'PWA': '📱',
-    'Responsive Design': '📱',
-    'Authentication': '🔐',
-    'Real-time': '⚡',
-    'Payment Integration': '💳',
-    'Admin Dashboard': '📊',
-    'Analytics': '📈',
-    'Video Conferencing': '📹',
-    'Course Management': '📚',
-    'Progress Tracking': '📊',
-    'Interactive Whiteboard': '✏️',
-    'File Sharing': '📁',
-    'Syntax Highlighting': '✨',
-    'Code Organization': '🗂️',
-    'User Collections': '👥',
-    'Search & Filters': '🔍',
-    'Social Sharing': '📤',
-    'API Integration': '🔗',
-    'Interactive Animations': '🎭',
-    'Dark/light Themes': '🌓',
-    'Blog System': '📝',
-    'Contact Forms': '📧',
-    'Performance Optimization': '⚡',
-    'SEO Optimization': '🔍',
-    'Hero Section': '🎯',
-    'Feature Showcase': '✨',
-    'Pricing Tables': '💰',
-    'Testimonials': '💬',
-    'Mobile Responsive': '📱',
-    'Real-time Analytics': '📊',
-    'Interactive Charts': '📈',
-    'Custom Dashboards': '🎛️',
-    'Data Export': '📤',
-    'User Permissions': '🔐',
-    'API Monitoring': '📡',
-    'Carbon Footprint Tracking': '🌱',
-    'Goal Setting': '🎯',
-    'Progress Visualization': '📊',
-    'Community Challenges': '🏆',
-    'Offline Support': '📴',
-    'Push Notifications': '🔔',
-    'Real-time Editing': '✏️',
-    'Live Collaboration': '👥',
-    'Version History': '📜',
-    'Code Comments': '💬',
-    'File Management': '📁',
-    'Team Rooms': '🏠'
-  };
-
-  // Retourner l'icône Icons8 si disponible, sinon l'emoji de fallback
-  return techLogos[techName] || techEmojis[techName] || '💻'; // Icône par défaut si rien n'est trouvé
-};
-
-
-
-// Fonction helper pour obtenir l'emoji de fallback d'une technologie
-const getTechEmoji = (techName: string) => {
-  const techEmojis: { [key: string]: string } = {
-    // Frontend
-    'React': '⚛️',
-    'Next.js': '⚡',
-    'TypeScript': '🔷',
-    'Tailwind CSS': '🎨',
-    'Vue.js': '💚',
-    'Vite': '🚀',
-    
-    // Backend
-    'Node.js': '🟢',
-    'Express': '🚀',
-    'MongoDB': '🍃',
-    'PostgreSQL': '🐘',
-    'Redis': '🔴',
-    'Docker': '🐳',
-    
-    // Web Technologies
-    'WebSocket': '🔌',
-    'Socket.io': '🔌',
-    'Monaco': '💻',
-    'Monaco Editor': '💻',
-    'D3.js': '📊',
-    'Chart.js': '📈',
-    
-    // Mobile & Others
-    'React Native': '📱',
-    'Expo': '📱',
-    'Firebase': '🔥',
-    'AWS': '☁️',
-    'Lambda': 'λ',
-    'DynamoDB': '🗄️',
-    'OpenAI': '🤖',
-    'FastAPI': '🐍',
-    'Solidity': '🔗',
-    'Web3.js': '🌐',
-    'IPFS': '🌐',
-    'Stripe': '💳',
-    'Prisma': '🗃️',
-    'Auth.js': '🔐',
-    'MDX': '📝',
-    'Zustand': '🐻',
-    'Zod': '🛡️',
-    'Redux': '🔄',
-    'NativeWind': '🎨',
-    'Framer Motion': '🎭',
-    
-    // Technologies supplémentaires identifiées dans les projets
-    'Prism.js': '✨',
-    'Vercel': '🚀',
-    
-    // Technologies génériques et fonctionnalités
-    'REST APIs': '🔌',
-    'Web APIs': '🌍',
-    'PWA': '📱',
-    'Responsive Design': '📱',
-    'Authentication': '🔐',
-    'Real-time': '⚡',
-    'Payment Integration': '💳',
-    'Admin Dashboard': '📊',
-    'Analytics': '📈',
-    'Video Conferencing': '📹',
-    'Course Management': '📚',
-    'Progress Tracking': '📊',
-    'Interactive Whiteboard': '✏️',
-    'File Sharing': '📁',
-    'Syntax Highlighting': '✨',
-    'Code Organization': '🗂️',
-    'User Collections': '👥',
-    'Search & Filters': '🔍',
-    'Social Sharing': '📤',
-    'API Integration': '🔗',
-    'Interactive Animations': '🎭',
-    'Dark/light Themes': '🌓',
-    'Blog System': '📝',
-    'Contact Forms': '📧',
-    'Performance Optimization': '⚡',
-    'SEO Optimization': '🔍',
-    'Hero Section': '🎯',
-    'Feature Showcase': '✨',
-    'Pricing Tables': '💰',
-    'Testimonials': '💬',
-    'Mobile Responsive': '📱',
-    'Real-time Analytics': '📊',
-    'Interactive Charts': '📈',
-    'Custom Dashboards': '🎛️',
-    'Data Export': '📤',
-    'User Permissions': '🔐',
-    'API Monitoring': '📡',
-    'Carbon Footprint Tracking': '🌱',
-    'Goal Setting': '🎯',
-    'Progress Visualization': '📊',
-    'Community Challenges': '🏆',
-    'Offline Support': '📴',
-    'Push Notifications': '🔔',
-    'Real-time Editing': '✏️',
-    'Live Collaboration': '👥',
-    'Version History': '📜',
-    'Code Comments': '💬',
-    'File Management': '📁',
-    'Team Rooms': '🏠'
-  };
-
-  return techEmojis[techName] || '💻';
-};
-
-// Fonction helper pour déterminer si le logo est une URL ou un emoji
-const isImageUrl = (logo: string) => {
-  return logo.startsWith('http');
-};
-
-// Composant pour afficher le logo (image ou emoji)
-const TechLogo = ({ tech, size = "w-4 h-4" }: { tech: string; size?: string }) => {
-  const [imageError, setImageError] = useState(false);
-  const logo = getTechLogo(tech);
-
-  // Si c'est un emoji, l'afficher directement
-  if (!isImageUrl(logo)) {
-    const emojiSize = size === "w-3 h-3" ? "text-xs" : "text-sm";
-    return <span className={`${emojiSize} flex items-center justify-center`}>{logo}</span>;
-  }
-
-  // Si c'est une URL d'image, essayer de la charger avec Next.js Image
-  if (isImageUrl(logo)) {
-    return (
-      <>
-        {/* Image avec gestion d'erreur silencieuse */}
-        <Image
-          src={logo}
-          alt={tech}
-          width={16}
-          height={16}
-          className={`${size} rounded-sm ${imageError ? 'hidden' : ''}`}
-          onError={() => setImageError(true)}
-          unoptimized
-        />
-
-        {/* Emoji de fallback en cas d'erreur */}
-        {imageError && (
-          <span className={`${size === "w-3 h-3" ? "text-xs" : "text-sm"} flex items-center justify-center`}>
-            {getTechEmoji(tech)}
-          </span>
-        )}
-      </>
-    );
-  }
-
-  // Fallback final
-  return <span className={`${size === "w-3 h-3" ? "text-xs" : "text-sm"} flex items-center justify-center`}>💻</span>;
-};
+// Utilisation du composant TechLogo centralisé
 
 // Composant de carte de projet améliorée
 function ProjectCard({ project, index }: {
@@ -372,7 +40,7 @@ function ProjectCard({ project, index }: {
     liveUrl?: string;
     githubUrl?: string;
     accentColor: string;
-    category: string;
+    category: string[];
     difficulty: string;
     features: string[];
   };
@@ -411,316 +79,327 @@ function ProjectCard({ project, index }: {
             <h3 className="text-2xl font-bold text-white mb-2 font-mono">
               {project.title}
             </h3>
-            <p className="text-gray-300 text-sm leading-relaxed mb-3">
+            <p className="text-gray-400 text-sm mb-3">
               {project.description}
             </p>
             
-            {/* Métadonnées du projet */}
-            <div className="flex items-center gap-4 text-xs text-gray-400 mb-4">
-              <span className="flex items-center gap-1">
-                <Code2 className="w-3 h-3" />
-                {project.category}
-              </span>
-              <span className="flex items-center gap-1">
-                <Zap className="w-3 h-3" />
+            {/* Badges de catégorie et difficulté */}
+            <div className="flex gap-2 mb-4">
+              {project.category.map((cat, catIndex) => (
+                <span key={catIndex} className="px-2 py-1 text-xs rounded-full bg-blue-500/20 text-blue-400 border border-blue-500/30">
+                  {cat}
+                </span>
+              ))}
+              <span className="px-2 py-1 text-xs rounded-full bg-orange-500/20 text-orange-400 border border-orange-500/30">
                 {project.difficulty}
               </span>
             </div>
           </div>
           
-          {/* Icône de catégorie */}
-          <div className="ml-4 p-3 rounded-full bg-gray-800/50 border border-gray-600/50">
-            {project.category === 'Frontend' && <Globe className="w-6 h-6 text-blue-400" />}
-            {project.category === 'Full Stack' && <Server className="w-6 h-6 text-green-400" />}
-            {project.category === 'Mobile' && <Smartphone className="w-6 h-6 text-purple-400" />}
-            {project.category === 'Backend' && <Database className="w-6 h-6 text-cyan-400" />}
+          {/* Actions */}
+          <div className="flex gap-2 ml-4">
+            {project.liveUrl && (
+              <motion.a
+                href={project.liveUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-2 rounded-lg bg-gray-800/50 border border-gray-600/50 text-gray-300 hover:bg-gray-700/50 hover:border-gray-500/50 transition-colors"
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <ExternalLink className="w-4 h-4" />
+              </motion.a>
+            )}
+            
+            {project.githubUrl && (
+              <motion.a
+                href={project.githubUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-2 rounded-lg bg-gray-800/50 border border-gray-600/50 text-gray-300 hover:bg-gray-700/50 hover:border-gray-500/50 transition-colors"
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <Github className="w-4 h-4" />
+              </motion.a>
+            )}
           </div>
         </div>
         
         {/* Image du projet */}
-        <div className="relative mb-6 overflow-hidden rounded-xl">
-          <motion.img 
+        <div className="relative mb-4 rounded-lg overflow-hidden">
+          <Image
             src={project.image}
             alt={project.title}
-            className="w-full h-48 object-cover"
-            animate={{
-              scale: isHovered ? 1.1 : 1,
-            }}
-            transition={{ duration: 0.3 }}
+            width={400}
+            height={250}
+            className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-105"
           />
           
           {/* Overlay au survol */}
-          <motion.div
-            className="absolute inset-0 bg-black/60 flex items-center justify-center"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: isHovered ? 1 : 0 }}
-            transition={{ duration: 0.3 }}
-          >
-            <div className="flex gap-4">
-              {project.liveUrl && (
-                <motion.a
-                  href={project.liveUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="p-3 rounded-full bg-white/20 backdrop-blur-sm border border-white/30 text-white hover:bg-white/30 transition-colors"
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <ExternalLink className="w-5 h-5" />
-                </motion.a>
-              )}
-              {project.githubUrl && (
-                <motion.a
-                  href={project.githubUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="p-3 rounded-full bg-white/20 backdrop-blur-sm border border-white/30 text-white hover:bg-white/30 transition-colors"
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <Github className="w-5 h-5" />
-                </motion.a>
-              )}
+          <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+            <div className="text-center text-white">
+              <Eye className="w-8 h-8 mx-auto mb-2" />
+              <p className="text-sm">View Project</p>
             </div>
-          </motion.div>
+          </div>
         </div>
         
         {/* Technologies utilisées */}
         <div className="mb-4">
-          <h4 className="text-sm font-semibold text-gray-300 mb-2">Technologies</h4>
+                      <h4 className="text-sm font-semibold text-gray-300 mb-2">Technologies:</h4>
           <div className="flex flex-wrap gap-2">
             {project.technologies.map((tech, techIndex) => (
               <span
                 key={techIndex}
                 className="px-3 py-1 text-xs rounded-full border border-gray-600/50 bg-gray-800/50 text-gray-300 hover:border-gray-500/50 transition-colors flex items-center gap-2"
               >
-                <TechLogo tech={tech} size="w-3 h-3" />
+                <TechLogoWithText tech={tech} size="sm" />
                 {tech}
               </span>
             ))}
           </div>
         </div>
         
-        {/* Fonctionnalités clés */}
-        <div className="mb-4">
-          <h4 className="text-sm font-semibold text-gray-300 mb-2">Key Features</h4>
-          <ul className="space-y-1">
+        {/* Fonctionnalités */}
+        <div>
+                      <h4 className="text-sm font-semibold text-gray-300 mb-2">Features:</h4>
+          <ul className="text-xs text-gray-400 space-y-1">
             {project.features.slice(0, 3).map((feature, featureIndex) => (
-              <li key={featureIndex} className="flex items-center gap-2 text-xs text-gray-400">
-                <div className="w-1.5 h-1.5 rounded-full bg-green-400/60" />
+              <li key={featureIndex} className="flex items-center gap-2">
+                <div className="w-1.5 h-1.5 rounded-full bg-green-400"></div>
                 {feature}
               </li>
             ))}
+            {project.features.length > 3 && (
+                              <li className="text-gray-500 italic">
+                  +{project.features.length - 3} more features
+                </li>
+            )}
           </ul>
-        </div>
-        
-        {/* Actions */}
-        <div className="flex items-center justify-between pt-4 border-t border-gray-700/50">
-          <div className="flex items-center gap-4 text-sm text-gray-400">
-            <span className="flex items-center gap-1">
-              <Eye className="w-4 h-4" />
-              View Project
-            </span>
-          </div>
-          
-          <motion.button
-            className="px-4 py-2 rounded-lg text-sm font-medium transition-all duration-150"
-            style={{
-              backgroundColor: project.accentColor,
-              color: 'white',
-            }}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            Explore
-          </motion.button>
         </div>
       </div>
     </motion.div>
   );
 }
 
-// Composant de filtre
-function FilterSection({ activeFilter, setActiveFilter, technologies }: {
-  activeFilter: string;
-  setActiveFilter: (filter: string) => void;
+// Composant de section de filtres
+function FilterSection({ 
+  activeFilter, 
+  setActiveFilter, 
+  technologies 
+}: { 
+  activeFilter: string; 
+  setActiveFilter: (filter: string) => void; 
   technologies: string[];
 }) {
+  const categories = ["All", "Frontend", "Backend", "Full Stack", "AI/ML"];
+
   return (
     <div className="mb-8">
-      <div className="flex items-center gap-4 mb-4">
-        <Filter className="w-5 h-5 text-gray-400" />
-        <h3 className="text-lg font-semibold text-white">Filter by Technology</h3>
-      </div>
-      
-      <div className="flex flex-wrap gap-3">
-        <motion.button
-          className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-150 ${
-            activeFilter === 'All' 
-              ? 'bg-green-500 text-white' 
-              : 'bg-gray-800/50 text-gray-300 hover:bg-gray-700/50 border border-gray-600/50'
-          }`}
-          onClick={() => setActiveFilter('All')}
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-        >
-          All Projects
-        </motion.button>
-        
-        {technologies.map((tech) => (
+      <div className="flex flex-wrap gap-2 justify-center">
+        {categories.map((category) => (
           <motion.button
-            key={tech}
-            className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-150 flex items-center gap-2 ${
-              activeFilter === tech 
-                ? 'bg-green-500 text-white' 
-                : 'bg-gray-800/50 text-gray-300 hover:bg-gray-700/50 border border-gray-600/50'
+            key={category}
+            onClick={() => setActiveFilter(category)}
+            className={`px-4 py-2 rounded-lg border transition-all duration-200 font-mono text-sm ${
+              activeFilter === category
+                ? "border-green-500/50 bg-green-500/20 text-green-400"
+                : "border-gray-600/50 bg-gray-800/50 text-gray-300 hover:border-gray-500/50 hover:bg-gray-700/50"
             }`}
-            onClick={() => setActiveFilter(tech)}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            <TechLogo tech={tech} />
-            {tech}
+            {category}
           </motion.button>
         ))}
+      </div>
+      
+      {/* Filtre par technologie */}
+      <div className="mt-4">
+                  <h4 className="text-sm font-semibold text-gray-300 mb-2 text-center">Filter by technology:</h4>
+        <div className="flex flex-wrap gap-2 justify-center max-w-4xl mx-auto">
+          {technologies.slice(0, 20).map((tech) => (
+            <motion.button
+              key={tech}
+              onClick={() => setActiveFilter(tech)}
+              className={`px-3 py-1 text-xs rounded-full border transition-all duration-200 ${
+                activeFilter === tech
+                  ? "border-green-500/50 bg-green-500/20 text-green-400"
+                  : "border-gray-600/50 bg-gray-800/50 text-gray-300 hover:border-gray-500/50 hover:bg-gray-700/50"
+              }`}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <TechLogoWithText tech={tech} />
+            </motion.button>
+          ))}
+        </div>
       </div>
     </div>
   );
 }
 
 export default function ProjectsPage() {
-  const [activeFilter, setActiveFilter] = useState('All');
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
+  const [activeFilter, setActiveFilter] = useState("All");
 
+  // Données des projets
   const projects = [
     {
       title: "YouCode",
-      description: "💻 A modern Learning Management System (LMS) built with Next.js, featuring NextAuth authentication and PostgreSQL database for seamless educational content management.",
+      description: "Modern LMS platform with AI integration",
       image: "/YouCode.png",
-      gradient: "linear-gradient(188.62deg, #1E3A8A 49.9%, #3B82F6 81.7%, #60A5FA 93.88%, #93C5FD 113.5%)",
-      technologies: ["Next.js", "NextAuth", "TypeScript", "PostgreSQL"],
+      gradient: "linear-gradient(135deg, #1E3A8A 0%, #3B82F6 100%)",
+      technologies: ["Next.js", "NextAuth", "TypeScript", "PostgreSQL", "Grok AI"],
       liveUrl: "https://youcode-nextjs.vercel.app/",
       githubUrl: "https://github.com/wesleyajavon/youcode-nextjs",
       accentColor: "#3B82F6",
-      features: ["Course Management System", "User-Friendly Learning Experience", "Artificial Intelligence"],
-      category: "Full Stack",
-      difficulty: "Difficult",
+      features: ["Course Management System", "User-Friendly Learning Experience", "Artificial Intelligence", "NextAuth Authentication", "PostgreSQL Database", "Responsive Design"],
+      category: ["Full Stack", "AI/ML"],
+      difficulty: "Difficult"
     },
     {
       title: "Finly",
-      description: "💶 A modern financial dashboard built with Next.js and TypeScript, featuring interactive charts and comprehensive financial data visualization.",
+      description: "Financial dashboard with interactive charts",
       image: "/Finly.png",
-      gradient: "linear-gradient(188.62deg, #065F46 49.9%, #10B981 81.7%, #34D399 93.88%, #6EE7B7 113.5%)",
+      gradient: "linear-gradient(135deg, #065F46 0%, #10B981 100%)",
       technologies: ["Next.js", "React", "TypeScript", "PostgreSQL"],
       liveUrl: "https://finly-nextjs.vercel.app/",
       githubUrl: "https://github.com/wesleyajavon/finly-nextjs",
       accentColor: "#10B981",
-      features: ["Financial Dashboard", "Interactive Charts", "Comprehensive Financial Data Visualization"],
-      category: "Full Stack",
-      difficulty: "Easy",
+      features: ["Financial Dashboard", "Interactive Charts", "Comprehensive Financial Data Visualization", "Real-time Data Updates", "Responsive Design", "Loading State"],
+      category: ["Full Stack"],
+      difficulty: "Easy"
     },
     {
       title: "Task Manager V2.1",
-      description: "📝 A full-stack task management application with MongoDB backend, JWT authentication, and comprehensive CRUD operations for seamless task organization.",
+      description: "Full-stack task management application",
       image: "/TaskManager.png",
-      gradient: "linear-gradient(188.62deg, #7C2D12 49.9%, #EA580C 81.7%, #FB923C 93.88%, #FED7AA 113.5%)",
+      gradient: "linear-gradient(135deg, #7C2D12 0%, #EA580C 100%)",
       technologies: ["React", "Node.js", "Express.js", "MongoDB", "TypeScript", "JWT authentication"],
       liveUrl: "https://task-manager-react-v2.vercel.app/",
       githubUrl: "https://github.com/wesleyajavon/task-manager-react-v2",
       accentColor: "#EA580C",
-      features: ["Task Management", "CRUD Operations", "Authentication"],
-      category: "Full Stack",
+      features: ["Task Management", "CRUD Operations", "JWT Authentication", "MongoDB Backend", "Filtering", "Task Categories"],
+      category: ["Full Stack", "Backend"],
       difficulty: "Intermediate"
     },
     {
       title: "Chef Claude",
-      description: "👨🏾‍🍳 An interactive React app powered by Claude Anthropic AI that generates random recipes with detailed ingredients and cooking instructions.",
+      description: "AI recipe generator powered by Claude",
       image: "/ChefClaude.png",
-      gradient: "linear-gradient(188.62deg, #3D1A7A 49.9%, #7E22CE 81.7%, #C084FC 93.88%, #F9D793 113.5%)",
+      gradient: "linear-gradient(135deg, #3D1A7A 0%, #7E22CE 100%)",
       technologies: ["React", "Claude Anthropic AI", "API"],
       liveUrl: "https://chef-claude-react.vercel.app/",
       githubUrl: "https://github.com/wesleyajavon/chef-claude-react/tree/main/chef_claude",
       accentColor: "#7E22CE",
-      features: ["AI Recipe Generator", "Interactive UI", "Recipe Search"],
-      category: "Full Stack",
+      features: ["AI Recipe Generator", "Interactive UI", "Recipe Search", "Claude AI Integration", "Ingredient Lists"],
+      category: ["Frontend", "AI/ML"],
       difficulty: "Easy"
     },
     {
       title: "Blog",
-      description: "💻 A RESTful Blog API built with Node.js and Express, featuring SQLite database and JWT authentication for secure blog post management.",
+      description: "RESTful Blog API with authentication",
       image: "/Blog.png",
-      gradient: "linear-gradient(188.62deg, #134E4A 49.9%, #14B8A6 81.7%, #5EEAD4 93.88%, #F9D793 113.5%)",
+      gradient: "linear-gradient(135deg, #134E4A 0%, #14B8A6 100%)",
       technologies: ["Node.js", "Express.js", "SQLite", "JWT authentication"],
       liveUrl: "https://blog-nodejs-t006.onrender.com/",
       githubUrl: "https://github.com/wesleyajavon/blog-nodejs",
       accentColor: "#14B8A6",
-      features: ["Blog System", "RESTful API", "Authentication"],
-      category: "Full Stack",
+      features: ["Blog System", "RESTful API", "JWT Authentication", "SQLite Database", "CRUD Operations", "Secure Endpoints"],
+      category: ["Backend", "Full Stack"],
       difficulty: "Intermediate"
     },
     {
       title: "Assembly Endgame",
-      description: "🎮 A modern React-based Hangman game featuring clean UI design, CSS Modules styling, and dynamic word fetching via API integration.",
+      description: "Modern React Hangman game",
       image: "/Assembly.png",
-      gradient: "linear-gradient(188.62deg, #6B0D33 49.9%, #DB2777 81.7%, #F472B6 93.88%, #F9D793 113.5%)",
+      gradient: "linear-gradient(135deg, #6B0D33 0%, #DB2777 100%)",
       technologies: ["React", "JavaScript (ES6+)", "CSS Modules", "Fetch API"],
       liveUrl: "https://assembly-react-endgame.vercel.app/",
       githubUrl: "https://github.com/wesleyajavon/assembly-react-endgame/tree/main/assembly-endgame",
       accentColor: "#DB2777",
-      features: ["Hangman Game", "Dynamic Word Fetching", "CSS Modules"],
-      category: "Frontend",
+      features: ["Hangman Game", "Dynamic Word Fetching", "CSS Modules", "Responsive Design", "Score Tracking"],
+      category: ["Frontend"],
       difficulty: "Easy"
     },
     {
       title: "Tenzies",
-      description: "🎲 A React-based dice game built to reinforce fundamental React concepts with clean component architecture and smooth user interactions.",
+      description: "React dice game with animations",
       image: "/Tenzies.png",
-      gradient: "linear-gradient(188.62deg, #1E3A8A 49.9%, #3B82F6 81.7%, #60A5FA 93.88%, #93C5FD 113.5%)",
+      gradient: "linear-gradient(135deg, #1E3A8A 0%, #3B82F6 100%)",
       technologies: ["React", "JavaScript", "HTML", "CSS"],
       liveUrl: "https://tenzies-react-nine.vercel.app/",
       githubUrl: "https://github.com/wesleyajavon/tenzies-react/tree/main/tenzies",
       accentColor: "#3B82F6",
-      features: ["Dice Game", "React Concepts Reinforcement", "Clean Component Architecture"],
-      category: "Frontend",
+      features: ["Dice Game", "React Concepts Reinforcement", "Clean Component Architecture", "Smooth Animations", "Win Detection", "Game Reset"],
+      category: ["Frontend"],
       difficulty: "Easy"
     },
     {
       title: "Meme Generator",
-      description: "🧑🏾‍💻 An interactive React meme generator that fetches random meme images and allows users to overlay custom top and bottom text.",
+      description: "Interactive meme creation app",
       image: "/MemeGenerator.png",
-      gradient: "linear-gradient(188.62deg, #7C2D12 49.9%, #EA580C 81.7%, #FB923C 93.88%, #FED7AA 113.5%)",
+      gradient: "linear-gradient(135deg, #7C2D12 0%, #EA580C 100%)",
       technologies: ["React", "JavaScript", "HTML", "CSS"],
       liveUrl: "https://meme-generator-react-ten.vercel.app/",
       githubUrl: "https://github.com/wesleyajavon/meme-generator-react/tree/main/meme-generator",
       accentColor: "#EA580C",
-      features: ["Meme Generator", "Image Fetching", "Custom Text Overlay"],
-      category: "Frontend",
+      features: ["Meme Generator", "Image Fetching", "Custom Text Overlay", "Responsive Layout"],
+      category: ["Frontend"],
       difficulty: "Easy"
-    },
+    }
   ];
 
-  // Extraire toutes les technologies uniques
-  const allTechnologies = Array.from(new Set(projects.flatMap(p => p.technologies))).sort();
+  // Extraction de toutes les technologies uniques
+  const allTechnologies = useMemo(() => {
+    const techSet = new Set<string>();
+    projects.forEach(project => {
+      project.technologies.forEach(tech => techSet.add(tech));
+    });
+    return Array.from(techSet).sort();
+  }, []);
 
-  // Filtrer les projets
-  const filteredProjects = projects.filter(project => {
-    const matchesFilter = activeFilter === 'All' || project.technologies.includes(activeFilter);
-    const matchesSearch = project.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                         project.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                         project.technologies.some(tech => tech.toLowerCase().includes(searchQuery.toLowerCase()));
-    return matchesFilter && matchesSearch;
-  });
+  // Filtrage des projets
+  const filteredProjects = useMemo(() => {
+    let filtered = projects;
+
+    // Filtre par catégorie ou technologie
+    if (activeFilter !== "All") {
+      filtered = filtered.filter(project => 
+        project.category.includes(activeFilter) || 
+        project.technologies.includes(activeFilter)
+      );
+    }
+
+    // Filtre par recherche
+    if (searchQuery) {
+      filtered = filtered.filter(project =>
+        project.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        project.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        project.technologies.some(tech => 
+          tech.toLowerCase().includes(searchQuery.toLowerCase())
+        )
+      );
+    }
+
+    return filtered;
+  }, [projects, activeFilter, searchQuery]);
 
   return (
     <div className="min-h-screen bg-black relative overflow-hidden">
       {/* Arrière-plan sophistiqué et esthétique */}
       <SophisticatedBackground />
       <ProjectNetwork />
-      <CreationWaves />
-      <DataFlow />
+      <ConnectionNetwork />
+      <EnergyWaves />
       <TechParticles />
-      <ProjectConstruction />
-      <EnhancedCodeGrid />
+      <MatrixGlitch />
+      <EnergyVortex />
+      <DataFlow />
+      <FloatingTechStack />
+      <TechConnections />
       
       <div className="relative z-10 max-w-7xl mx-auto px-6 pt-20 pb-12">
         {/* Bouton retour - déplacé en dehors de l'en-tête centré */}
@@ -821,36 +500,20 @@ export default function ProjectsPage() {
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5 }}
           >
-            <div className="text-6xl mb-4">🔍</div>
-            <h3 className="text-xl font-semibold text-white mb-2">No projects found</h3>
-            <p className="text-gray-400">Try adjusting your search or filter criteria.</p>
+            <div className="text-gray-400 text-lg mb-4">
+              No projects found for &quot;{searchQuery}&quot; in category &quot;{activeFilter}&quot;
+            </div>
+            <button
+              onClick={() => {
+                setSearchQuery("");
+                setActiveFilter("All");
+              }}
+              className="px-6 py-3 bg-green-600 hover:bg-green-700 text-white rounded-lg transition-colors font-mono"
+            >
+              Reset Filters
+            </button>
           </motion.div>
         )}
-
-        {/* Statistiques */}
-        <motion.div
-          className="mt-20 text-center"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.8 }}
-        >
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-            {[
-              { icon: Code2, value: projects.length, label: "Total Projects", color: "text-cyan-400" },
-              { icon: Star, value: "8", label: "Technologies", color: "text-yellow-400" },
-              { icon: Zap, value: "3", label: "Categories", color: "text-green-400" },
-              { icon: Heart, value: "100%", label: "Passion", color: "text-pink-400" },
-            ].map((stat, index) => (
-              <div key={index} className="text-center">
-                <div className={`text-4xl mb-2 ${stat.color}`}>
-                  <stat.icon className="w-12 h-12 mx-auto" />
-                </div>
-                <div className="text-2xl font-bold text-white mb-1">{stat.value}</div>
-                <div className="text-gray-400 text-sm">{stat.label}</div>
-              </div>
-            ))}
-          </div>
-        </motion.div>
       </div>
     </div>
   );

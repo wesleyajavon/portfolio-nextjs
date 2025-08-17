@@ -1,5 +1,15 @@
 export { SophisticatedBackground } from './SophisticatedBackground';
 export { DataWave } from './DataWave';
 export { LightSource } from './LightSource';
-export { FloatingCodeLine } from './FloatingCodeLine';
 export { TechSymbol } from './TechSymbol';
+export { ConnectionNetwork } from './ConnectionNetwork';
+export { EnergyWaves } from './EnergyWaves';
+export { TechParticles } from './TechParticles';
+export { MatrixGlitch } from './MatrixGlitch';
+export { EnergyVortex } from './EnergyVortex';
+export { DataFlow } from './DataFlow';
+export { FloatingTechStack } from './FloatingTechStack';
+export { TechConnections } from './TechConnections';
+export { SoundWaves } from './SoundWaves';
+export { ContactParticles } from './ContactParticles';
+export { DataGrid } from './DataGrid';
