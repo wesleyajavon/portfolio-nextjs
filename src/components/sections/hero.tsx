@@ -436,7 +436,7 @@ export function Hero() {
             initial={{ opacity: 0, y: 20, scale: 0.9 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
-            className="inline-flex items-center rounded-lg border border-green-500/30 bg-green-500/10 backdrop-blur-sm px-4 py-2 text-sm font-mono text-green-400 mb-8 group hover:bg-green-500/20 hover:border-green-500/50 transition-all duration-300"
+            className="inline-flex items-center rounded-lg border border-green-500/30 bg-green-500/10 backdrop-blur-sm px-4 py-2 text-sm font-mono text-green-400 mb-8 group hover:bg-green-500/20 hover:border-green-500/50 transition-all duration-150"
           >
             <Code2 className="w-4 h-4 mr-2" />
             <span className="text-green-400 font-mono">
@@ -511,7 +511,7 @@ export function Hero() {
               <Link href="/projects">
                 <Button 
                   size="lg" 
-                  className="relative overflow-hidden rounded-lg bg-green-600 hover:bg-green-700 px-8 py-4 text-lg font-mono font-semibold text-white border-0 transition-all duration-300"
+                  className="relative overflow-hidden rounded-lg bg-green-600 hover:bg-green-700 px-8 py-4 text-lg font-mono font-semibold text-white border-0 transition-all duration-150"
                 >
                   <span className="relative z-10 flex items-center">
                     <Code2 className="mr-2 h-5 w-5" />
@@ -528,7 +528,7 @@ export function Hero() {
               <Button 
                 size="lg" 
                 variant="outline"
-                className="rounded-lg border-green-500/50 bg-green-500/10 backdrop-blur-sm px-8 py-4 text-lg font-mono font-semibold text-green-400 hover:bg-green-500/20 hover:border-green-500 transition-all duration-300"
+                className="rounded-lg border-green-500/50 bg-green-500/10 backdrop-blur-sm px-8 py-4 text-lg font-mono font-semibold text-green-400 hover:bg-green-500/20 hover:border-green-500 transition-all duration-150"
                 onClick={handleDownloadCV}
               >
                 <Download className="mr-2 h-5 w-5" />
@@ -552,7 +552,7 @@ export function Hero() {
               <motion.a
                 key={social.label}
                 href={social.href}
-                className={`group flex items-center gap-3 px-6 py-3 rounded-lg border border-gray-700 bg-gray-800/50 backdrop-blur-sm hover:bg-gray-700/50 transition-all duration-300 font-mono ${social.color}`}
+                className={`group flex items-center gap-3 px-6 py-3 rounded-lg border border-gray-700 bg-gray-800/50 backdrop-blur-sm hover:bg-gray-700/50 transition-all duration-150 font-mono ${social.color}`}
                 whileHover={{ scale: 1.05, y: -2 }}
                 whileTap={{ scale: 0.95 }}
                 initial={{ opacity: 0, y: 20 }}
@@ -574,13 +574,9 @@ export function Hero() {
           >
             <div className="flex flex-col items-center text-gray-500 font-mono text-sm">
               <span>scroll.down()</span>
-              <motion.div
-                animate={{ y: [0, 10, 0] }}
-                transition={{ duration: 2, repeat: Infinity }}
-                className="mt-2"
-              >
+              <div className="mt-2">
                 <div className="w-0.5 h-6 bg-green-500"></div>
-              </motion.div>
+              </div>
             </div>
           </motion.div>
         </div>

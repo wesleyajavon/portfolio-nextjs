@@ -52,7 +52,7 @@ export function SophisticatedBackground() {
       ))}
       
       {/* Ondes de données techniques - réduites de 5 à 3 */}
-      {Array.from({ length: 3 }, (_, i) => (
+      {Array.from({ length: 1 }, (_, i) => (
         <DataWave key={`data-wave-${i}`} index={i} />
       ))}
       
@@ -81,7 +81,7 @@ export function SophisticatedBackground() {
       <div className="absolute inset-0 bg-radial-gradient from-transparent via-transparent to-black/25" />
       
       {/* Code technique flottant - réduit de 15 à 8 lignes */}
-      <div className="absolute inset-0 opacity-8">
+      {/* <div className="absolute inset-0 opacity-8">
         {Array.from({ length: 8 }, (_, i) => (
           <FloatingCodeLine 
             key={`tech-code-${i}`}
@@ -100,7 +100,7 @@ export function SophisticatedBackground() {
             ][i]}
           />
         ))}
-      </div>
+      </div> */}
       
       {/* Grille de données techniques - CSS pur */}
       <div className="absolute inset-0 opacity-4">

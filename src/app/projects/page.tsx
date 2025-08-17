@@ -42,14 +42,21 @@ const getTechLogo = (techName: string) => {
     'Tailwind CSS': 'https://img.icons8.com/color/48/tailwind-css.png',
     'Vue.js': 'https://img.icons8.com/color/48/vue-js.png',
     'Vite': 'https://img.icons8.com/color/48/vite.png',
+    'CSS': 'https://img.icons8.com/color/48/css3.png',
+    'CSS Modules': 'https://img.icons8.com/color/48/css3.png',
+    'HTML': 'https://img.icons8.com/color/48/html-5.png',
+    'JavaScript': 'https://img.icons8.com/color/48/javascript.png',
+    'JavaScript (ES6+)': 'https://img.icons8.com/color/48/javascript.png',
     
     // Backend
     'Node.js': 'https://img.icons8.com/color/48/nodejs.png',
     'Express': 'https://img.icons8.com/color/48/express-js.png',
+    'Express.js': 'https://img.icons8.com/color/48/express-js.png',
     'MongoDB': 'https://img.icons8.com/color/48/mongodb.png',
     'PostgreSQL': 'https://img.icons8.com/color/48/postgresql.png',
     'Redis': 'https://img.icons8.com/color/48/redis.png',
     'Docker': 'https://img.icons8.com/color/48/docker.png',
+    'SQLite': 'https://img.icons8.com/color/48/sqlite.png',
     
     // Web Technologies
     'WebSocket': 'https://img.icons8.com/color/48/websocket.png',
@@ -58,6 +65,15 @@ const getTechLogo = (techName: string) => {
     'Monaco Editor': 'https://img.icons8.com/color/48/visual-studio-code.png',
     'D3.js': 'https://img.icons8.com/color/48/d3-js.png',
     'Chart.js': 'https://img.icons8.com/color/48/chart-js.png',
+    'API': 'https://img.icons8.com/color/48/api-settings.png',
+    'Fetch API': 'https://img.icons8.com/color/48/api-settings.png',
+    
+    // Authentication & Security
+    'NextAuth': 'https://img.icons8.com/color/48/authentication.png',
+    'JWT authentication': 'https://img.icons8.com/color/48/authentication.png',
+    
+    // AI & Machine Learning
+    'Claude Anthropic AI': 'https://img.icons8.com/color/48/artificial-intelligence.png',
     
     // Mobile & Others
     'React Native': 'https://img.icons8.com/color/48/react-native.png',
@@ -189,6 +205,8 @@ const getTechLogo = (techName: string) => {
   // Retourner l'icône Icons8 si disponible, sinon l'emoji de fallback
   return techLogos[techName] || techEmojis[techName] || '💻'; // Icône par défaut si rien n'est trouvé
 };
+
+
 
 // Fonction helper pour obtenir l'emoji de fallback d'une technologie
 const getTechEmoji = (techName: string) => {
@@ -442,6 +460,8 @@ function ProjectCard({ project, index }: {
               {project.liveUrl && (
                 <motion.a
                   href={project.liveUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="p-3 rounded-full bg-white/20 backdrop-blur-sm border border-white/30 text-white hover:bg-white/30 transition-colors"
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.95 }}
@@ -452,6 +472,8 @@ function ProjectCard({ project, index }: {
               {project.githubUrl && (
                 <motion.a
                   href={project.githubUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="p-3 rounded-full bg-white/20 backdrop-blur-sm border border-white/30 text-white hover:bg-white/30 transition-colors"
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.95 }}
@@ -502,7 +524,7 @@ function ProjectCard({ project, index }: {
           </div>
           
           <motion.button
-            className="px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300"
+            className="px-4 py-2 rounded-lg text-sm font-medium transition-all duration-150"
             style={{
               backgroundColor: project.accentColor,
               color: 'white',
@@ -533,7 +555,7 @@ function FilterSection({ activeFilter, setActiveFilter, technologies }: {
       
       <div className="flex flex-wrap gap-3">
         <motion.button
-          className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 ${
+          className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-150 ${
             activeFilter === 'All' 
               ? 'bg-green-500 text-white' 
               : 'bg-gray-800/50 text-gray-300 hover:bg-gray-700/50 border border-gray-600/50'
@@ -548,7 +570,7 @@ function FilterSection({ activeFilter, setActiveFilter, technologies }: {
         {technologies.map((tech) => (
           <motion.button
             key={tech}
-            className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 flex items-center gap-2 ${
+            className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-150 flex items-center gap-2 ${
               activeFilter === tech 
                 ? 'bg-green-500 text-white' 
                 : 'bg-gray-800/50 text-gray-300 hover:bg-gray-700/50 border border-gray-600/50'

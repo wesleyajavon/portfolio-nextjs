@@ -363,7 +363,7 @@ export function Contact() {
           {/* Email */}
           <motion.a 
             href="mailto:wesleyajavon2203@hotmail.com"
-            className="text-neutral-300 text-sm sm:text-base hover:text-green-400 transition-colors duration-300 font-mono flex items-center gap-2"
+            className="text-neutral-300 text-sm sm:text-base hover:text-green-400 transition-colors duration-150 font-mono flex items-center gap-2"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
@@ -382,7 +382,7 @@ export function Contact() {
               target="_blank" 
               rel="noreferrer" 
               aria-label="GitHub"
-              className="hover:text-neutral-300 transition-colors duration-300 p-2 rounded-lg hover:bg-gray-800/50"
+              className="hover:text-neutral-300 transition-colors duration-150 p-2 rounded-lg hover:bg-gray-800/50"
               whileHover={{ scale: 1.1, y: -2 }}
               whileTap={{ scale: 0.95 }}
             >
@@ -395,7 +395,7 @@ export function Contact() {
               target="_blank" 
               rel="noreferrer" 
               aria-label="LinkedIn"
-              className="hover:text-neutral-300 transition-colors duration-300 p-2 rounded-lg hover:bg-gray-800/50"
+              className="hover:text-neutral-300 transition-colors duration-150 p-2 rounded-lg hover:bg-gray-800/50"
               whileHover={{ scale: 1.1, y: -2 }}
               whileTap={{ scale: 0.95 }}
             >

@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 
 // Mapping des technologies vers leurs logos Icons8
 const getTechLogo = (techName: string) => {
@@ -551,6 +552,9 @@ function ProjectCard({ project, index, onProjectHover }: {
     liveUrl?: string;
     githubUrl?: string;
     accentColor: string;
+    category: string;
+    difficulty: string;
+    features: string[];
   };
   index: number;
   onProjectHover: (index: number) => void;
@@ -570,10 +574,12 @@ function ProjectCard({ project, index, onProjectHover }: {
       onHoverEnd={() => setIsHovered(false)}
     >
       <div className="flex flex-col lg:mx-10 lg:w-full">
-        <a 
+        <Link  
           draggable="false" 
-          className="relative cursor-pointer overflow-hidden rounded-lg border border-gray-700 bg-gray-900/50 p-1.5 shadow-2xl lg:h-[560px] lg:rounded-xl lg:p-2 hover:border-green-500/50 hover:bg-gray-800/50 transition-all duration-300"
+          className="relative cursor-pointer overflow-hidden rounded-lg border border-gray-700 bg-gray-900/50 p-1.5 shadow-2xl lg:h-[560px] lg:rounded-xl lg:p-2 hover:border-green-500/50 hover:bg-gray-800/50 transition-all duration-150"
           href={project.liveUrl || "#"}
+          target="_blank"
+          rel="noopener noreferrer"
         >
           {/* Ligne de gradient en haut avec style de code */}
           <div 
@@ -583,7 +589,7 @@ function ProjectCard({ project, index, onProjectHover }: {
             }}
           />
           
-          <div className="group relative flex size-full flex-col items-center justify-between overflow-hidden rounded-lg lg:rounded-xl bg-gradient-to-b from-gray-900/50 to-transparent transition-all duration-300">
+          <div className="group relative flex size-full flex-col items-center justify-between overflow-hidden rounded-lg lg:rounded-xl bg-gradient-to-b from-gray-900/50 to-transparent transition-all duration-150">
             {/* Fond avec gradient coloré */}
             <div 
               className="absolute inset-0 -z-10"
@@ -613,7 +619,7 @@ function ProjectCard({ project, index, onProjectHover }: {
               width={1203} 
               height={753} 
               decoding="async"
-              className="lg:group-hover:translate-y-10 w-full max-w-[85%] translate-y-5 -rotate-3 rounded-t-lg border-[1.5px] border-gray-600 transition-all duration-300 will-change-transform lg:block lg:rotate-0 lg:group-hover:scale-[1.08] lg:group-hover:-rotate-3"
+              className="lg:group-hover:translate-y-10 w-full max-w-[85%] translate-y-5 -rotate-3 rounded-t-lg border-[1.5px] border-gray-600 transition-all duration-150 will-change-transform lg:block lg:rotate-0 lg:group-hover:scale-[1.08] lg:group-hover:-rotate-3"
               style={{ 
                 boxShadow: `0 0 30px ${project.accentColor}`,
                 filter: isHovered ? 'brightness(1.1)' : 'brightness(1)'
@@ -622,7 +628,7 @@ function ProjectCard({ project, index, onProjectHover }: {
               unoptimized
             />
           </div>
-        </a>
+        </Link>
       </div>
     </motion.div>
   );
@@ -635,6 +641,7 @@ function ProjectDetails({ selectedProject }: {
     fullDescription: string;
     technologies: string[];
     accentColor: string;
+    features: string[];
   } | null;
 }) {
   if (!selectedProject) return null;
@@ -660,22 +667,12 @@ function ProjectDetails({ selectedProject }: {
             
             {/* Points de détail du projet */}
             <ul className="text-accent-foreground/85 mt-4 flex flex-col gap-y-2 text-base font-mono">
-              <li className="flex items-center text-sm">
-                <div className="mt-1 mr-2 size-5 shrink-0 rounded-full" style={{ backgroundColor: selectedProject.accentColor }}></div>
-                <span>Built with modern web technologies and best practices.</span>
-              </li>
-              <li className="flex items-center text-sm">
-                <div className="mt-1 mr-2 size-5 shrink-0 rounded-full" style={{ backgroundColor: selectedProject.accentColor }}></div>
-                <span>Responsive design optimized for all devices.</span>
-              </li>
-              <li className="flex items-center text-sm">
-                <div className="mt-1 mr-2 size-5 shrink-0 rounded-full" style={{ backgroundColor: selectedProject.accentColor }}></div>
-                <span>Performance-focused with smooth animations.</span>
-              </li>
-              <li className="flex items-center text-sm">
-                <div className="mt-1 mr-2 size-5 shrink-0 rounded-full" style={{ backgroundColor: selectedProject.accentColor }}></div>
-                <span>Clean code architecture and maintainability.</span>
-              </li>
+              {selectedProject.features.map((feature, index) => (
+                <li key={index} className="flex items-center text-sm">
+                  <div className="mt-1 mr-2 size-5 shrink-0 rounded-full" style={{ backgroundColor: selectedProject.accentColor }}></div>
+                  <span>{feature}</span>
+                </li>
+              ))}
             </ul>
 
             {/* Technologies utilisées */}
@@ -712,10 +709,13 @@ export function Projects() {
       fullDescription: "💻 A modern Learning Management System (LMS) built with Next.js, featuring NextAuth authentication and PostgreSQL database for seamless educational content management.",
       image: "/YouCode.png",
       gradient: "linear-gradient(188.62deg, #1E3A8A 49.9%, #3B82F6 81.7%, #60A5FA 93.88%, #93C5FD 113.5%)",
-      technologies: ["Next.js", "NextAuth", "TypeScript", "PostgreSQL"],
+      technologies: ["Next.js", "NextAuth", "TypeScript", "PostgreSQL", "Grok AI"],
       liveUrl: "https://youcode-nextjs.vercel.app/",
       githubUrl: "https://github.com/wesleyajavon/youcode-nextjs",
-      accentColor: "#3B82F6"
+      accentColor: "#3B82F6",
+      features: ["Course Management System", "User-Friendly Learning Experience", "Artificial Intelligence", "NextAuth Authentication", "PostgreSQL Database", "Responsive Design"],
+      category: "Full Stack",
+      difficulty: "Difficult",
     },
     {
       title: "Finly",
@@ -726,7 +726,10 @@ export function Projects() {
       technologies: ["Next.js", "React", "TypeScript", "PostgreSQL"],
       liveUrl: "https://finly-nextjs.vercel.app/",
       githubUrl: "https://github.com/wesleyajavon/finly-nextjs",
-      accentColor: "#10B981"
+      accentColor: "#10B981",
+      features: ["Financial Dashboard", "Interactive Charts", "Comprehensive Financial Data Visualization", "Real-time Data Updates", "Responsive Design", "Loading State"],
+      category: "Full Stack",
+      difficulty: "Easy",
     },
     {
       title: "Task Manager V2.1",
@@ -737,7 +740,10 @@ export function Projects() {
       technologies: ["React", "Node.js", "Express.js", "MongoDB", "TypeScript", "JWT authentication"],
       liveUrl: "https://task-manager-react-v2.vercel.app/",
       githubUrl: "https://github.com/wesleyajavon/task-manager-react-v2",
-      accentColor: "#EA580C"
+      accentColor: "#EA580C",
+      features: ["Task Management", "CRUD Operations", "JWT Authentication", "MongoDB Backend", "Filtering", "Task Categories"],
+      category: "Full Stack",
+      difficulty: "Intermediate"
     },
     {
       title: "Chef Claude",
@@ -748,7 +754,10 @@ export function Projects() {
       technologies: ["React", "Claude Anthropic AI", "API"],
       liveUrl: "https://chef-claude-react.vercel.app/",
       githubUrl: "https://github.com/wesleyajavon/chef-claude-react/tree/main/chef_claude",
-      accentColor: "#7E22CE"
+      accentColor: "#7E22CE",
+      features: ["AI Recipe Generator", "Interactive UI", "Recipe Search", "Claude AI Integration", "Ingredient Lists"],
+      category: "Full Stack",
+      difficulty: "Easy"
     },
     {
       title: "Blog",
@@ -759,7 +768,10 @@ export function Projects() {
       technologies: ["Node.js", "Express.js", "SQLite", "JWT authentication"],
       liveUrl: "https://blog-nodejs-t006.onrender.com/",
       githubUrl: "https://github.com/wesleyajavon/blog-nodejs",
-      accentColor: "#14B8A6"
+      accentColor: "#14B8A6",
+      features: ["Blog System", "RESTful API", "JWT Authentication", "SQLite Database", "CRUD Operations", "Secure Endpoints"],
+      category: "Full Stack",
+      difficulty: "Intermediate"
     },
     {
       title: "Assembly Endgame",
@@ -770,7 +782,10 @@ export function Projects() {
       technologies: ["React", "JavaScript (ES6+)", "CSS Modules", "Fetch API"],
       liveUrl: "https://assembly-react-endgame.vercel.app/",
       githubUrl: "https://github.com/wesleyajavon/assembly-react-endgame/tree/main/assembly-endgame",
-      accentColor: "#DB2777"
+      accentColor: "#DB2777",
+      features: ["Hangman Game", "Dynamic Word Fetching", "CSS Modules", "Responsive Design", "Score Tracking"],
+      category: "Frontend",
+      difficulty: "Easy"
     },
     {
       title: "Tenzies",
@@ -781,7 +796,10 @@ export function Projects() {
       technologies: ["React", "JavaScript", "HTML", "CSS"],
       liveUrl: "https://tenzies-react-nine.vercel.app/",
       githubUrl: "https://github.com/wesleyajavon/tenzies-react/tree/main/tenzies",
-      accentColor: "#3B82F6"
+      accentColor: "#3B82F6",
+      features: ["Dice Game", "React Concepts Reinforcement", "Clean Component Architecture", "Smooth Animations", "Win Detection", "Game Reset"],
+      category: "Frontend",
+      difficulty: "Easy"
     },
     {
       title: "Meme Generator",
@@ -792,7 +810,10 @@ export function Projects() {
       technologies: ["React", "JavaScript", "HTML", "CSS"],
       liveUrl: "https://meme-generator-react-ten.vercel.app/",
       githubUrl: "https://github.com/wesleyajavon/meme-generator-react/tree/main/meme-generator",
-      accentColor: "#EA580C"
+      accentColor: "#EA580C",
+      features: ["Meme Generator", "Image Fetching", "Custom Text Overlay", "Responsive Layout"],
+      category: "Frontend",
+      difficulty: "Easy"
     },
   ];
 
@@ -836,35 +857,17 @@ export function Projects() {
       
       {/* Effet de lumière ambiante */}
       <div className="absolute inset-0">
-        <motion.div
+        <div
           className="absolute top-1/4 left-1/4 w-96 h-96 rounded-full opacity-25 blur-3xl"
           style={{
             background: "radial-gradient(circle, rgba(0, 255, 255, 0.4) 0%, transparent 70%)",
           }}
-          animate={{
-            x: [0, 100, 0],
-            y: [0, -50, 0],
-          }}
-          transition={{
-            duration: 20,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
         />
         
-        <motion.div
+        <div
           className="absolute bottom-1/4 right-1/4 w-80 h-80 rounded-full opacity-20 blur-3xl"
           style={{
             background: "radial-gradient(circle, rgba(139, 92, 246, 0.35) 0%, transparent 70%)",
-          }}
-          animate={{
-            x: [0, -80, 0],
-            y: [0, 60, 0],
-          }}
-          transition={{
-            duration: 25,
-            repeat: Infinity,
-            ease: "easeInOut",
           }}
         />
       </div>
@@ -896,7 +899,7 @@ export function Projects() {
       <div className="relative mx-auto flex w-full">
         {/* Colonne de gauche avec les projets */}
         <div className="mx-auto grid grid-cols-1 gap-x-6 gap-y-6 md:grid-cols-2 lg:flex lg:max-w-[65%] lg:flex-col lg:gap-y-24">
-          {projects.map((project, index) => (
+          {projects.slice(0, 4).map((project, index) => (
             <ProjectCard 
               key={index} 
               project={project} 
@@ -912,22 +915,22 @@ export function Projects() {
 
       {/* Bouton "Voir plus de projets" avec style de code */}
       <motion.a 
-        className="group flex w-fit items-center justify-center gap-2 text-gray-400 transition-colors hover:text-green-400 mx-auto md:mt-20 font-mono"
+        className="group flex w-fit items-center justify-center gap-3 px-6 py-4 rounded-xl bg-gradient-to-r from-green-600 to-blue-600 border-2 border-green-400 text-white transition-all duration-150 hover:from-green-500 hover:to-blue-500 hover:scale-105 mx-auto md:mt-20 font-mono shadow-xl shadow-green-500/30 relative z-20"
         href="/projects"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.5 }}
       >
-        <span className="text-green-400">function</span>{" "}
-        <span className="text-white">viewMoreProjects</span>
+        <span className="text-green-400 font-semibold">function</span>{" "}
+        <span className="text-white font-semibold">viewMoreProjects</span>
         <span className="text-yellow-400">()</span>
-        <div className="size-[25px] overflow-hidden rounded-full border border-gray-600 bg-gray-800 transition-all duration-500 group-hover:bg-green-500/20 group-hover:border-green-500">
+        <div className="size-[30px] overflow-hidden rounded-full border-2 border-green-400 bg-green-500/20 transition-all duration-150 group-hover:bg-green-500/40 group-hover:scale-110">
           <div className="flex w-12 -translate-x-1/2 transition-transform duration-500 ease-in-out group-hover:translate-x-0">
             <span className="flex size-6">
-              <ArrowRight className="m-auto size-[14px]" />
+              <ArrowRight className="m-auto size-[16px] text-green-400" />
             </span>
             <span className="flex size-6">
-              <ArrowRight className="m-auto size-[14px]" />
+              <ArrowRight className="m-auto size-[16px] text-green-400" />
             </span>
           </div>
         </div>

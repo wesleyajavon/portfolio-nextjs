@@ -10,7 +10,7 @@ export function DataWave({ index }: { index: number }) {
   ];
 
   return (
-    <motion.div
+    <div
       className="absolute left-1/2 top-1/2 rounded-full border border-current"
       style={{
         transform: "translate(-50%, -50%)",
@@ -18,16 +18,6 @@ export function DataWave({ index }: { index: number }) {
         height: `${200 + index * 150}px`,
         borderColor: colors[index % 3],
         borderWidth: `${1 + index * 0.3}px`
-      }}
-      initial={{ scale: 0.4, opacity: 0 }}
-      animate={{ 
-        scale: [0.4, 1.4, 0.4],
-        opacity: [0, 0.3, 0],
-      }}
-      transition={{
-        duration: 20 + index * 5,
-        repeat: Infinity,
-        ease: "easeInOut",
       }}
     />
   );

@@ -62,16 +62,16 @@ export function Header() {
   );
 
   const navItems = [
-    { name: "Home", href: "#home", icon: Home },
-    { name: "About", href: "#about", icon: User },
-    { name: "Projects", href: "#projects", icon: Briefcase },
-    { name: "Contact", href: "#contact", icon: MessageSquare },
+    { name: "Home", href: "/#home", icon: Home },
+    { name: "About", href: "/#about", icon: User },
+    { name: "Projects", href: "/#projects", icon: Briefcase },
+    { name: "Contact", href: "/#contact", icon: MessageSquare },
   ];
 
   return (
     <motion.header
       style={{ backgroundColor, backdropFilter }}
-      className="fixed top-0 left-0 right-0 z-50 border-b border-gray-700/50 transition-all duration-300"
+      className="fixed top-0 left-0 right-0 z-50 border-b border-gray-700/50 transition-all duration-150"
     >
       {/* Progress bar */}
       <motion.div
@@ -104,13 +104,13 @@ export function Header() {
               <motion.a
                 key={item.name}
                 href={item.href}
-                className="group relative text-gray-300 hover:text-green-400 transition-colors duration-300 font-mono"
+                className="group relative text-gray-300 hover:text-green-400 transition-colors duration-150 font-mono"
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
               >
                 <span className="flex items-center space-x-2">
-                  <item.icon className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-green-400" />
+                  <item.icon className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity duration-150 text-green-400" />
                   <span>{item.name}</span>
                 </span>
                 <motion.div
@@ -130,7 +130,7 @@ export function Header() {
             transition={{ duration: 0.6, delay: 0.3 }}
             className="hidden md:block"
           >
-            <Button className="rounded-lg bg-gray-800 border border-gray-600 hover:border-green-500/50 px-4 py-2 text-white font-mono hover:bg-gray-700 transition-all duration-300" onClick={handleDownloadResume}>
+            <Button className="rounded-lg bg-gray-800 border border-gray-600 hover:border-green-500/50 px-4 py-2 text-white font-mono hover:bg-gray-700 transition-all duration-150" onClick={handleDownloadResume}>
               <Download className="w-4 h-4 mr-2 text-green-400" />
               Resume
             </Button>
@@ -142,7 +142,7 @@ export function Header() {
             animate={{ opacity: 1 }}
             transition={{ duration: 0.6, delay: 0.4 }}
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="md:hidden p-2 rounded-lg text-gray-300 hover:text-green-400 hover:bg-gray-800/50 transition-colors duration-300 border border-gray-600"
+            className="md:hidden p-2 rounded-lg text-gray-300 hover:text-green-400 hover:bg-gray-800/50 transition-colors duration-150 border border-gray-600"
           >
             {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </motion.button>
@@ -164,7 +164,7 @@ export function Header() {
               <motion.a
                 key={item.name}
                 href={item.href}
-                className="flex items-center space-x-3 text-gray-300 hover:text-green-400 hover:bg-gray-800/50 px-4 py-3 rounded-lg transition-all duration-300 font-mono border border-gray-700/50 hover:border-green-500/50"
+                className="flex items-center space-x-3 text-gray-300 hover:text-green-400 hover:bg-gray-800/50 px-4 py-3 rounded-lg transition-all duration-150 font-mono border border-gray-700/50 hover:border-green-500/50"
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.3, delay: index * 0.1 }}
@@ -181,7 +181,7 @@ export function Header() {
             transition={{ duration: 0.3, delay: 0.4 }}
             className="pt-4 border-t border-gray-700/50"
           >
-            <Button className="w-full rounded-lg bg-gray-800 border border-gray-600 hover:border-green-500/50 px-6 py-3 text-white font-mono hover:bg-gray-700 transition-all duration-300" onClick={handleDownloadResume}>
+            <Button className="w-full rounded-lg bg-gray-800 border border-gray-600 hover:border-green-500/50 px-6 py-3 text-white font-mono hover:bg-gray-700 transition-all duration-150" onClick={handleDownloadResume}>
               <Download className="w-4 h-4 mr-2 text-green-400" />
               Download Resume
             </Button>

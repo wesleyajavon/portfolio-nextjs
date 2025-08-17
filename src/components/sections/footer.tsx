@@ -37,13 +37,9 @@ export function Footer() {
               className="mb-6"
             >
               <div className="flex items-center space-x-3 mb-4">
-                <motion.div
-                  animate={{ rotate: 360 }}
-                  transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                  className="w-10 h-10 rounded-lg bg-gradient-to-r from-green-500 to-blue-500 flex items-center justify-center"
-                >
+                <div className="w-10 h-10 rounded-lg bg-gradient-to-r from-green-500 to-blue-500 flex items-center justify-center">
                   <Code2 className="w-6 h-6 text-white" />
-                </motion.div>
+                </div>
                 <span className="text-2xl font-bold text-white font-mono">Wesley</span>
               </div>
               <p className="text-gray-400 font-mono leading-relaxed">
@@ -70,15 +66,15 @@ export function Footer() {
             </h3>
             <ul className="space-y-3">
               {[
-                { name: "Home", href: "#home" },
-                { name: "About", href: "#about" },
-                { name: "Projects", href: "#projects" },
-                { name: "Contact", href: "#contact" }
+                { name: "Home", href: "/#home" },
+                { name: "About", href: "/#about" },
+                { name: "Projects", href: "/#projects" },
+                { name: "Contact", href: "/#contact" }
               ].map((link, index) => (
                 <li key={index}>
                   <a 
                     href={link.href}
-                    className="text-gray-400 hover:text-green-400 transition-colors duration-300 font-mono text-sm hover:translate-x-1 inline-block"
+                    className="text-gray-400 hover:text-green-400 transition-colors duration-150 font-mono text-sm hover:translate-x-1 inline-block"
                   >
                     <span className="text-green-400">→</span>{" "}
                     {link.name}
@@ -136,14 +132,16 @@ export function Footer() {
               </h4>
               <div className="flex space-x-4">
                 {[
-                  { icon: Github, href: "#", label: "GitHub", color: "hover:text-gray-300" },
-                  { icon: Linkedin, href: "#", label: "LinkedIn", color: "hover:text-blue-400" },
-                  { icon: Mail, href: "#", label: "Email", color: "hover:text-green-400" }
+                  { icon: Github, href: "https://github.com/wesleyajavon", label: "GitHub", color: "hover:text-gray-300" },
+                  { icon: Linkedin, href: "https://www.linkedin.com/in/wesleyajv", label: "LinkedIn", color: "hover:text-blue-400" },
+                  { icon: Mail, href: "mailto:wesleyajavon2203@hotmail.com", label: "Email", color: "hover:text-green-400" }
                 ].map((social) => (
                   <motion.a
+                    target="_blank"
+                    rel="noopener noreferrer"
                     key={social.label}
                     href={social.href}
-                    className={`p-3 rounded-lg border border-gray-700 bg-gray-900/50 text-gray-400 transition-all duration-300 ${social.color} hover:border-green-500/50 hover:bg-gray-800/50`}
+                    className={`p-3 rounded-lg border border-gray-700 bg-gray-900/50 text-gray-400 transition-all duration-150 ${social.color} hover:border-green-500/50 hover:bg-gray-800/50`}
                     whileHover={{ scale: 1.05, y: -2 }}
                     whileTap={{ scale: 0.95 }}
                   >
@@ -156,7 +154,7 @@ export function Footer() {
             {/* Bouton retour en haut */}
             <motion.button
               onClick={scrollToTop}
-              className="group p-4 rounded-lg border border-gray-700 bg-gray-900/50 text-gray-400 hover:text-green-400 hover:border-green-500/50 hover:bg-gray-800/50 transition-all duration-300"
+              className="group p-4 rounded-lg border border-gray-700 bg-gray-900/50 text-gray-400 hover:text-green-400 hover:border-green-500/50 hover:bg-gray-800/50 transition-all duration-150"
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.95 }}
             >

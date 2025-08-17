@@ -14,7 +14,9 @@ import {
   Target,
   User,
   Brain,
-  LucideIcon
+  LucideIcon,
+  ToolCaseIcon,
+  GitBranchIcon
 } from "lucide-react";
 import Image from "next/image";
 
@@ -113,6 +115,8 @@ const getTechLogo = (techName: string) => {
     // Web Technologies
     'Web APIs': '🌍',
     'PWA': '📱',
+    'Grok AI': '🤖',
+    'Redis': '🗂️',
     
     // Génériques
     'Responsive Design': '📱',
@@ -577,14 +581,14 @@ function SkillCard({ skill, index }: {
       initial={{ opacity: 0, y: 50 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8, delay: index * 0.1 }}
-      className="group relative bg-gray-900/50 border border-gray-700 rounded-lg p-6 hover:border-green-500/50 hover:bg-gray-800/50 transition-all duration-300 font-mono"
+      className="group relative bg-gray-900/50 border border-gray-700 rounded-lg p-6 hover:border-green-500/50 hover:bg-gray-800/50 transition-all duration-150 font-mono"
     >
       {/* Icône avec effet de lueur */}
       <div className="flex items-center justify-between mb-4">
         <div className="relative">
           <skill.icon className={`w-8 h-8 ${skill.color === "#00ffff" ? "text-cyan-400" : skill.color === "#10b981" ? "text-green-400" : "text-blue-400"}`} />
           <motion.div
-            className="absolute -inset-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+            className="absolute -inset-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-150"
             style={{ 
               background: `radial-gradient(circle, ${skill.color}20, transparent 70%)`,
               filter: 'blur(8px)'
@@ -596,6 +600,26 @@ function SkillCard({ skill, index }: {
 
       {/* Titre */}
       <h3 className="text-lg font-semibold text-white mb-4">{skill.title}</h3>
+
+      {/* Barre de progression */}
+      <div className="mb-4">
+        <div className="flex items-center justify-between mb-2">
+          <span className="text-sm text-gray-400 font-mono">Level</span>
+          <span className="text-sm text-white font-mono">{skill.level}%</span>
+        </div>
+        <div className="w-full bg-gray-700 rounded-full h-2">
+          <motion.div
+            className="h-2 rounded-full transition-all duration-1000 ease-out"
+            style={{ 
+              backgroundColor: skill.color,
+              width: `${skill.level}%`
+            }}
+            initial={{ width: 0 }}
+            animate={{ width: `${skill.level}%` }}
+            transition={{ duration: 1, delay: index * 0.1 + 0.3 }}
+          />
+        </div>
+      </div>
 
       {/* Badges des compétences */}
       <div className="space-y-3">
@@ -665,7 +689,7 @@ function StatCard({ stat, index }: {
         y: -8,
         transition: { duration: 0.3, ease: "easeOut" }
       }}
-      className="group relative bg-gray-900/50 border border-gray-700 rounded-lg p-6 text-center hover:border-green-500/50 hover:bg-gray-800/50 transition-all duration-300 font-mono cursor-pointer"
+      className="group relative bg-gray-900/50 border border-gray-700 rounded-lg p-6 text-center hover:border-green-500/50 hover:bg-gray-800/50 transition-all duration-150 font-mono cursor-pointer"
     >
       {/* Effet de lueur au survol */}
       <motion.div
@@ -690,7 +714,7 @@ function StatCard({ stat, index }: {
           }}
           transition={{ 
             scale: { duration: 0.3 },
-            rotate: { duration: 0.6, repeat: isHovered ? Infinity : 0, repeatType: "reverse" }
+            rotate: { duration: 0.6 }
           }}
         >
           <stat.icon className="w-12 h-12 text-green-400 mx-auto" />
@@ -698,7 +722,7 @@ function StatCard({ stat, index }: {
         
         {/* Lueur autour de l'icône */}
         <motion.div
-          className="absolute -inset-3 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+          className="absolute -inset-3 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-150"
           style={{ 
             background: `radial-gradient(circle, ${stat.color}30, transparent 70%)`,
             filter: 'blur(12px)'
@@ -796,22 +820,36 @@ export function About() {
     {
       icon: Code2,
       title: "Frontend Development",
-      description: "React, Next.js, TypeScript, Tailwind CSS, Responsive Design",
+      description: "React, Next.js, TypeScript, Tailwind CSS, Responsive Design, ShadCN/UI, TanStack Query",
       level: 85,
       color: "#00ffff"
     },
     {
       icon: Database,
       title: "Backend Development",
-      description: "Node.js, Express, MongoDB, PostgreSQL, REST APIs",
-      level: 75,
+      description: "Node.js, Express, MongoDB, PostgreSQL, REST APIs, Prisma ORM, JWT Authentication",
+      level: 95,
       color: "#10b981"
     },
     {
       icon: Globe,
       title: "Web Technologies",
-      description: "HTML5, CSS3, JavaScript ES6+, Web APIs, PWA",
+      description: "HTML5, CSS3, JavaScript ES6+, Web APIs, PWA, Grok AI, Redis",
       level: 90,
+      color: "#06b6d4"
+    },
+    {
+      icon: GitBranchIcon,
+      title: "Tools & Workflow",
+      description: "Git, GitHub, Postman, VS Code, Cursor",
+      level: 100,
+      color: "#10b981"
+    },
+    {
+      icon: ToolCaseIcon,
+      title: "Deployment & CI/CD",
+      description: "Vercel, Render, CI/CD basics, Docker",
+      level: 80,
       color: "#06b6d4"
     }
   ];
@@ -843,19 +881,7 @@ export function About() {
       <FloatingShape shape="triangle" size={110} color="rgba(54, 162, 235, 0.21)" x={25} y={40} delay={7} duration={21} />
       <FloatingShape shape="hexagon" size={95} color="rgba(255, 205, 86, 0.19)" x={90} y={45} delay={11} duration={14} />
       
-      {/* Lignes de code flottantes - Plus visibles */}
-      <FloatingCodeLine code="const skills = ['React', 'Next.js', 'Node.js'];" x={20} y={30} delay={1} color="#00ffff" />
-      <FloatingCodeLine code="function buildPortfolio() {" x={70} y={40} delay={3} color="#10b981" />
-      <FloatingCodeLine code="  return <Amazing />;" x={25} y={70} delay={5} color="#06b6d4" />
-      <FloatingCodeLine code="}" x={75} y={85} delay={7} color="#8b5cf6" />
-      <FloatingCodeLine code="export default developer;" x={45} y={60} delay={9} color="#f59e0b" />
-      
-      {/* Lignes de code supplémentaires pour plus d'impact */}
-      <FloatingCodeLine code="const passion = 'Coding';" x={15} y={50} delay={2} color="#ec4899" />
-      <FloatingCodeLine code="let future = 'Bright';" x={80} y={25} delay={4} color="#f97316" />
-      <FloatingCodeLine code="class Developer {" x={35} y={85} delay={6} color="#22c55e" />
-      <FloatingCodeLine code="  constructor() {" x={65} y={65} delay={8} color="#a855f7" />
-              <FloatingCodeLine code="    this.skills = 'Growing';" x={40} y={15} delay={10} color="#06b6d4" />
+
       
       {/* Overlay de profondeur avec effet de brouillard */}
       <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-black/90" />
