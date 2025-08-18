@@ -155,7 +155,7 @@ function ProjectCard({ project, index }: {
                 className="px-3 py-1 text-xs rounded-full border border-gray-600/50 bg-gray-800/50 text-gray-300 hover:border-gray-500/50 transition-colors flex items-center gap-2"
               >
                 <TechLogoWithText tech={tech} size="sm" />
-                {tech}
+                
               </span>
             ))}
           </div>

@@ -13,3 +13,5 @@ export { TechConnections } from './TechConnections';
 export { SoundWaves } from './SoundWaves';
 export { ContactParticles } from './ContactParticles';
 export { DataGrid } from './DataGrid';
+export { CreationWaves } from './CreationWaves';
+export { ProjectConstruction } from './ProjectConstruction';
