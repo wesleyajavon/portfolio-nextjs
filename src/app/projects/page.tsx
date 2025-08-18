@@ -26,6 +26,7 @@ import {
 } from "@/components/backgrounds";
 import Image from "next/image";
 import { TechLogoWithText } from "@/components/ui/TechLogo";
+import { useProjects } from "@/hooks/useProjects";
 
 // Utilisation du composant TechLogo centralisé
 
@@ -33,7 +34,8 @@ import { TechLogoWithText } from "@/components/ui/TechLogo";
 function ProjectCard({ project, index }: {
   project: {
     title: string;
-    description: string;
+    shortDescription: string;
+    fullDescription: string;
     image: string;
     gradient: string;
     technologies: string[];
@@ -80,7 +82,7 @@ function ProjectCard({ project, index }: {
               {project.title}
             </h3>
             <p className="text-gray-400 text-sm mb-3">
-              {project.description}
+              {project.shortDescription}
             </p>
             
             {/* Badges de catégorie et difficulté */}
@@ -180,7 +182,7 @@ function ProjectCard({ project, index }: {
 function FilterSection({ 
   activeFilter, 
   setActiveFilter, 
-  technologies 
+  technologies,
 }: { 
   activeFilter: string; 
   setActiveFilter: (filter: string) => void; 
@@ -210,7 +212,9 @@ function FilterSection({
       
       {/* Filtre par technologie */}
       <div className="mt-4">
-                  <h4 className="text-sm font-semibold text-gray-300 mb-2 text-center">Filter by technology:</h4>
+        <h4 className="text-sm font-semibold text-gray-300 mb-2 text-center">
+          Filter by technology:
+        </h4>
         <div className="flex flex-wrap gap-2 justify-center max-w-4xl mx-auto">
           {technologies.slice(0, 20).map((tech) => (
             <motion.button
@@ -238,112 +242,8 @@ export default function ProjectsPage() {
   const [activeFilter, setActiveFilter] = useState("All");
 
   // Données des projets
-  const projects = [
-    {
-      title: "YouCode",
-      description: "Modern LMS platform with AI integration",
-      image: "/YouCode.png",
-      gradient: "linear-gradient(135deg, #1E3A8A 0%, #3B82F6 100%)",
-      technologies: ["Next.js", "NextAuth", "TypeScript", "PostgreSQL", "Grok AI"],
-      liveUrl: "https://youcode-nextjs.vercel.app/",
-      githubUrl: "https://github.com/wesleyajavon/youcode-nextjs",
-      accentColor: "#3B82F6",
-      features: ["Course Management System", "User-Friendly Learning Experience", "Artificial Intelligence", "NextAuth Authentication", "PostgreSQL Database", "Responsive Design"],
-      category: ["Full Stack", "AI/ML"],
-      difficulty: "Difficult"
-    },
-    {
-      title: "Finly",
-      description: "Financial dashboard with interactive charts",
-      image: "/Finly.png",
-      gradient: "linear-gradient(135deg, #065F46 0%, #10B981 100%)",
-      technologies: ["Next.js", "React", "TypeScript", "PostgreSQL"],
-      liveUrl: "https://finly-nextjs.vercel.app/",
-      githubUrl: "https://github.com/wesleyajavon/finly-nextjs",
-      accentColor: "#10B981",
-      features: ["Financial Dashboard", "Interactive Charts", "Comprehensive Financial Data Visualization", "Real-time Data Updates", "Responsive Design", "Loading State"],
-      category: ["Full Stack"],
-      difficulty: "Easy"
-    },
-    {
-      title: "Task Manager V2.1",
-      description: "Full-stack task management application",
-      image: "/TaskManager.png",
-      gradient: "linear-gradient(135deg, #7C2D12 0%, #EA580C 100%)",
-      technologies: ["React", "Node.js", "Express.js", "MongoDB", "TypeScript", "JWT authentication"],
-      liveUrl: "https://task-manager-react-v2.vercel.app/",
-      githubUrl: "https://github.com/wesleyajavon/task-manager-react-v2",
-      accentColor: "#EA580C",
-      features: ["Task Management", "CRUD Operations", "JWT Authentication", "MongoDB Backend", "Filtering", "Task Categories"],
-      category: ["Full Stack", "Backend"],
-      difficulty: "Intermediate"
-    },
-    {
-      title: "Chef Claude",
-      description: "AI recipe generator powered by Claude",
-      image: "/ChefClaude.png",
-      gradient: "linear-gradient(135deg, #3D1A7A 0%, #7E22CE 100%)",
-      technologies: ["React", "Claude Anthropic AI", "API"],
-      liveUrl: "https://chef-claude-react.vercel.app/",
-      githubUrl: "https://github.com/wesleyajavon/chef-claude-react/tree/main/chef_claude",
-      accentColor: "#7E22CE",
-      features: ["AI Recipe Generator", "Interactive UI", "Recipe Search", "Claude AI Integration", "Ingredient Lists"],
-      category: ["Frontend", "AI/ML"],
-      difficulty: "Easy"
-    },
-    {
-      title: "Blog",
-      description: "RESTful Blog API with authentication",
-      image: "/Blog.png",
-      gradient: "linear-gradient(135deg, #134E4A 0%, #14B8A6 100%)",
-      technologies: ["Node.js", "Express.js", "SQLite", "JWT authentication"],
-      liveUrl: "https://blog-nodejs-t006.onrender.com/",
-      githubUrl: "https://github.com/wesleyajavon/blog-nodejs",
-      accentColor: "#14B8A6",
-      features: ["Blog System", "RESTful API", "JWT Authentication", "SQLite Database", "CRUD Operations", "Secure Endpoints"],
-      category: ["Backend", "Full Stack"],
-      difficulty: "Intermediate"
-    },
-    {
-      title: "Assembly Endgame",
-      description: "Modern React Hangman game",
-      image: "/Assembly.png",
-      gradient: "linear-gradient(135deg, #6B0D33 0%, #DB2777 100%)",
-      technologies: ["React", "JavaScript (ES6+)", "CSS Modules", "Fetch API"],
-      liveUrl: "https://assembly-react-endgame.vercel.app/",
-      githubUrl: "https://github.com/wesleyajavon/assembly-react-endgame/tree/main/assembly-endgame",
-      accentColor: "#DB2777",
-      features: ["Hangman Game", "Dynamic Word Fetching", "CSS Modules", "Responsive Design", "Score Tracking"],
-      category: ["Frontend"],
-      difficulty: "Easy"
-    },
-    {
-      title: "Tenzies",
-      description: "React dice game with animations",
-      image: "/Tenzies.png",
-      gradient: "linear-gradient(135deg, #1E3A8A 0%, #3B82F6 100%)",
-      technologies: ["React", "JavaScript", "HTML", "CSS"],
-      liveUrl: "https://tenzies-react-nine.vercel.app/",
-      githubUrl: "https://github.com/wesleyajavon/tenzies-react/tree/main/tenzies",
-      accentColor: "#3B82F6",
-      features: ["Dice Game", "React Concepts Reinforcement", "Clean Component Architecture", "Smooth Animations", "Win Detection", "Game Reset"],
-      category: ["Frontend"],
-      difficulty: "Easy"
-    },
-    {
-      title: "Meme Generator",
-      description: "Interactive meme creation app",
-      image: "/MemeGenerator.png",
-      gradient: "linear-gradient(135deg, #7C2D12 0%, #EA580C 100%)",
-      technologies: ["React", "JavaScript", "HTML", "CSS"],
-      liveUrl: "https://meme-generator-react-ten.vercel.app/",
-      githubUrl: "https://github.com/wesleyajavon/meme-generator-react/tree/main/meme-generator",
-      accentColor: "#EA580C",
-      features: ["Meme Generator", "Image Fetching", "Custom Text Overlay", "Responsive Layout"],
-      category: ["Frontend"],
-      difficulty: "Easy"
-    }
-  ];
+  // Utiliser le hook pour récupérer les projets depuis MongoDB
+  const { projects, loading, error } = useProjects();
 
   // Extraction de toutes les technologies uniques
   const allTechnologies = useMemo(() => {
@@ -352,7 +252,7 @@ export default function ProjectsPage() {
       project.technologies.forEach(tech => techSet.add(tech));
     });
     return Array.from(techSet).sort();
-  }, []);
+  }, [projects]);
 
   // Filtrage des projets
   const filteredProjects = useMemo(() => {
@@ -370,7 +270,7 @@ export default function ProjectsPage() {
     if (searchQuery) {
       filtered = filtered.filter(project =>
         project.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        project.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        project.shortDescription.toLowerCase().includes(searchQuery.toLowerCase()) ||
         project.technologies.some(tech => 
           tech.toLowerCase().includes(searchQuery.toLowerCase())
         )

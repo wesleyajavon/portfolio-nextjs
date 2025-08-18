@@ -14,7 +14,7 @@ const hardcodedProjects = [
     githubUrl: "https://github.com/wesleyajavon/youcode-nextjs",
     accentColor: "#3B82F6",
     features: ["Course Management System", "User-Friendly Learning Experience", "Artificial Intelligence", "NextAuth Authentication", "PostgreSQL Database", "Responsive Design"],
-    category: "Full Stack",
+    category: ["Full Stack", "AI/ML"],
     difficulty: "Difficult",
     order: 1
   },
@@ -29,7 +29,7 @@ const hardcodedProjects = [
     githubUrl: "https://github.com/wesleyajavon/finly-nextjs",
     accentColor: "#10B981",
     features: ["Financial Dashboard", "Interactive Charts", "Comprehensive Financial Data Visualization", "Real-time Data Updates", "Responsive Design", "Loading State"],
-    category: "Full Stack",
+    category: ["Full Stack"],
     difficulty: "Easy",
     order: 2
   },
@@ -44,7 +44,7 @@ const hardcodedProjects = [
     githubUrl: "https://github.com/wesleyajavon/task-manager-react-v2",
     accentColor: "#EA580C",
     features: ["Task Management", "CRUD Operations", "JWT Authentication", "MongoDB Backend", "Filtering", "Task Categories"],
-    category: "Full Stack",
+    category: ["Full Stack"],
     difficulty: "Intermediate",
     order: 3
   },
@@ -59,7 +59,7 @@ const hardcodedProjects = [
     githubUrl: "https://github.com/wesleyajavon/chef-claude-react/tree/main/chef_claude",
     accentColor: "#7E22CE",
     features: ["AI Recipe Generator", "Interactive UI", "Recipe Search", "Claude AI Integration", "Ingredient Lists"],
-    category: "Full Stack",
+    category: ["Frontend", "AI/ML"],
     difficulty: "Easy",
     order: 4
   },
@@ -74,7 +74,7 @@ const hardcodedProjects = [
     githubUrl: "https://github.com/wesleyajavon/blog-nodejs",
     accentColor: "#14B8A6",
     features: ["Blog System", "RESTful API", "JWT Authentication", "SQLite Database", "CRUD Operations", "Secure Endpoints"],
-    category: "Full Stack",
+    category: ["Backend"],
     difficulty: "Intermediate",
     order: 5
   },
@@ -89,7 +89,7 @@ const hardcodedProjects = [
     githubUrl: "https://github.com/wesleyajavon/assembly-endgame-react",
     accentColor: "#DB2777",
     features: ["Hangman Game", "Interactive UI", "Word Fetching API", "CSS Modules", "Responsive Design", "Game Logic"],
-    category: "Frontend",
+    category: ["Frontend"],
     difficulty: "Easy",
     order: 6
   },
@@ -104,7 +104,7 @@ const hardcodedProjects = [
     githubUrl: "https://github.com/wesleyajavon/tenzies-react-game",
     accentColor: "#3B82F6",
     features: ["Dice Game", "Interactive Gameplay", "Smooth Animations", "Local Storage", "Responsive Design", "Game Statistics"],
-    category: "Frontend",
+    category: ["Frontend"],
     difficulty: "Easy",
     order: 7
   },
@@ -119,7 +119,7 @@ const hardcodedProjects = [
     githubUrl: "https://github.com/wesleyajavon/meme-generator-react-app",
     accentColor: "#EA580C",
     features: ["Meme Generation", "Image Upload", "Text Overlay", "Canvas Manipulation", "Download Functionality", "Responsive Design"],
-    category: "Frontend",
+    category: ["Frontend"],
     difficulty: "Easy",
     order: 8
   }

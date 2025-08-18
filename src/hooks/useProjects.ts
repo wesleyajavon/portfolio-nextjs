@@ -11,7 +11,7 @@ export interface Project {
   liveUrl?: string;
   githubUrl?: string;
   accentColor: string;
-  category: string;
+  category: string[];
   difficulty: string;
   features: string[];
   isPublished: boolean;

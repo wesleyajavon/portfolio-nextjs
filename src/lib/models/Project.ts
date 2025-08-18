@@ -59,10 +59,10 @@ const ProjectSchema = new mongoose.Schema({
     }
   },
   category: {
-    type: String,
+    type: [String],
     required: [true, 'Category is required'],
-    enum: ['Frontend', 'Backend', 'Full Stack', 'Mobile', 'Other'],
-    default: 'Other'
+    enum: ['Frontend', 'Backend', 'Full Stack', 'AI/ML'],
+    default: ['Other']
   },
   difficulty: {
     type: String,
