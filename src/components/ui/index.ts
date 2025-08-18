@@ -4,3 +4,8 @@ export { Badge } from "./badge";
 export { TechLogo, TechLogoWithText } from "./TechLogo";
 export { ProjectCard } from "./ProjectCard";
 export { ProjectDetails } from "./ProjectDetails";
+export { TechBadge } from "./TechBadge";
+export { FloatingCircles } from "./FloatingCircles";
+export { FloatingCodeLines } from "./FloatingCodeLines";
+export { SkillCard } from "./SkillCard";
+export { AnimatedStat } from "./AnimatedStat";

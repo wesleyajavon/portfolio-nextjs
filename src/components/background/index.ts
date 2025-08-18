@@ -15,3 +15,6 @@ export { ContactParticles } from './ContactParticles';
 export { DataGrid } from './DataGrid';
 export { CreationWaves } from './CreationWaves';
 export { ProjectConstruction } from './ProjectConstruction';
+export { ParticleGrid } from './ParticleGrid';
+export { AnimatedGradient } from './AnimatedGradient';
+export { CodePattern } from './CodePattern';

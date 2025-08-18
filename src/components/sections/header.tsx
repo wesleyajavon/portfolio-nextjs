@@ -17,19 +17,42 @@ import { Button } from "@/components/ui/button";
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [documentHeight, setDocumentHeight] = useState(0);
+  const [maxScroll, setMaxScroll] = useState(0);
   const { scrollY } = useScroll();
   
-  // Obtenir la hauteur totale du document
+  // Calculer la hauteur maximale de scroll de manière plus précise
   useEffect(() => {
-    const updateDocumentHeight = () => {
-      setDocumentHeight(document.documentElement.scrollHeight - window.innerHeight);
+    const calculateMaxScroll = () => {
+      const scrollHeight = document.documentElement.scrollHeight;
+      const clientHeight = document.documentElement.clientHeight;
+      const maxScrollValue = scrollHeight - clientHeight;
+      setMaxScroll(maxScrollValue);
     };
+
+    // Calculer au chargement initial
+    calculateMaxScroll();
     
-    updateDocumentHeight();
-    window.addEventListener('resize', updateDocumentHeight);
+    // Recalculer lors du redimensionnement
+    window.addEventListener('resize', calculateMaxScroll);
     
-    return () => window.removeEventListener('resize', updateDocumentHeight);
+    // Recalculer après un délai pour s'assurer que tout le contenu est chargé
+    const timer = setTimeout(calculateMaxScroll, 1000);
+    
+    // Observer les changements dans le DOM pour recalculer automatiquement
+    const observer = new MutationObserver(() => {
+      setTimeout(calculateMaxScroll, 100);
+    });
+    
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true
+    });
+    
+    return () => {
+      window.removeEventListener('resize', calculateMaxScroll);
+      clearTimeout(timer);
+      observer.disconnect();
+    };
   }, []);
   
   // Fonction pour télécharger le CV
@@ -54,10 +77,10 @@ export function Header() {
     ["blur(0px)", "blur(20px)"]
   );
 
-  // Barre de progression qui atteint 100% seulement au bas de la page
+  // Barre de progression corrigée avec une marge de sécurité
   const progressWidth = useTransform(
     scrollY,
-    [0, documentHeight],
+    [0, Math.max(maxScroll, 1)], // Éviter la division par zéro
     ["0%", "100%"]
   );
 
