@@ -1,7 +1,5 @@
 "use client";
 
-import { motion } from "framer-motion";
-
 export function DataWave({ index }: { index: number }) {
   const colors = [
     "rgba(0, 255, 255, 0.06)",

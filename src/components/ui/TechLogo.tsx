@@ -11,7 +11,7 @@ interface TechLogoProps {
   className?: string;
 }
 
-export function TechLogo({ tech, size = "md", showText = false, className = "" }: TechLogoProps) {
+export function TechLogo({ tech, size = "md", className = "" }: TechLogoProps) {
   const [imageError, setImageError] = useState(false);
   const logo = getTechLogo(tech);
 
