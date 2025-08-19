@@ -15,12 +15,13 @@ interface ValidatorError extends MongooseError.ValidatorError {
 // GET - Récupérer un projet par ID
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     await connectDB();
     
-    const project = await Project.findById(params.id).lean();
+    const { id } = await params;
+    const project = await Project.findById(id).lean();
     
     if (!project) {
       return NextResponse.json(
@@ -46,16 +47,17 @@ export async function GET(
 // PUT - Mettre à jour un projet
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     await connectDB();
     
+    const { id } = await params;
     const body = await request.json();
     
     // Mettre à jour le projet
     const updatedProject = await Project.findByIdAndUpdate(
-      params.id,
+      id,
       { ...body, updatedAt: new Date() },
       { new: true, runValidators: true }
     ).lean();
@@ -94,12 +96,13 @@ export async function PUT(
 // DELETE - Supprimer un projet
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     await connectDB();
     
-    const deletedProject = await Project.findByIdAndDelete(params.id).lean();
+    const { id } = await params;
+    const deletedProject = await Project.findByIdAndDelete(id).lean();
     
     if (!deletedProject) {
       return NextResponse.json(
