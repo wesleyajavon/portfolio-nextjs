@@ -191,9 +191,9 @@ export function Projects() {
             <span className="text-yellow-400">=</span>
             <span className="text-cyan-400">()</span>
             <span className="text-green-400">=&gt;</span>
-            <span className="text-white">"</span>
+            <span className="text-white">&quot;</span>
             <span className="text-cyan-400">View All Projects</span>
-            <span className="text-white">"</span>
+            <span className="text-white">&quot;</span>
           </div>
           
           {/* Icône animée avec effet de code */}

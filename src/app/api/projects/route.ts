@@ -1,6 +1,23 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { connectDB } from '@/lib/mongodb';
 import Project from '@/lib/models/Project';
+import { Error as MongooseError } from 'mongoose';
+
+// Types pour les erreurs
+interface ValidationError extends MongooseError.ValidationError {
+  errors: Record<string, MongooseError.ValidatorError>;
+}
+
+interface ValidatorError extends MongooseError.ValidatorError {
+  message: string;
+}
+
+// Type pour le filtre de requête
+interface ProjectFilter {
+  isPublished: boolean;
+  category?: string;
+  difficulty?: string;
+}
 
 // GET - Récupérer tous les projets
 export async function GET(request: NextRequest) {
@@ -14,7 +31,7 @@ export async function GET(request: NextRequest) {
     const limit = parseInt(searchParams.get('limit') || '10');
     
     // Construire le filtre
-    let filter: any = { isPublished: true };
+    const filter: ProjectFilter = { isPublished: true };
     
     if (category) {
       filter.category = category;
@@ -76,12 +93,13 @@ export async function POST(request: NextRequest) {
       data: project
     }, { status: 201 });
     
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('Error creating project:', error);
     
     // Gérer les erreurs de validation Mongoose
-    if (error.name === 'ValidationError') {
-      const validationErrors = Object.values(error.errors).map((err: any) => err.message);
+    if (error instanceof Error && error.name === 'ValidationError') {
+      const validationError = error as ValidationError;
+      const validationErrors = Object.values(validationError.errors).map((err: ValidatorError) => err.message);
       return NextResponse.json(
         { success: false, error: 'Validation failed', details: validationErrors },
         { status: 400 }

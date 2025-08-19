@@ -1,6 +1,16 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { connectDB } from '@/lib/mongodb';
 import Project from '@/lib/models/Project';
+import { Error as MongooseError } from 'mongoose';
+
+// Types pour les erreurs
+interface ValidationError extends MongooseError.ValidationError {
+  errors: Record<string, MongooseError.ValidatorError>;
+}
+
+interface ValidatorError extends MongooseError.ValidatorError {
+  message: string;
+}
 
 // GET - Récupérer un projet par ID
 export async function GET(
@@ -62,11 +72,12 @@ export async function PUT(
       data: updatedProject
     });
     
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('Error updating project:', error);
     
-    if (error.name === 'ValidationError') {
-      const validationErrors = Object.values(error.errors).map((err: any) => err.message);
+    if (error instanceof Error && error.name === 'ValidationError') {
+      const validationError = error as ValidationError;
+      const validationErrors = Object.values(validationError.errors).map((err: ValidatorError) => err.message);
       return NextResponse.json(
         { success: false, error: 'Validation failed', details: validationErrors },
         { status: 400 }

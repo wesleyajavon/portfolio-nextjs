@@ -8,18 +8,14 @@ import {
   Database,
   BookOpen,
   Globe, 
-  Star,
   CheckCircle,
-  Terminal,
   Target,
   User,
   Brain,
-  LucideIcon,
   ToolCaseIcon,
   GitBranchIcon,
   GraduationCapIcon
 } from "lucide-react";
-import Image from "next/image";
 import { TechBadge, SkillCard, AnimatedStat } from "@/components/ui";
 import { 
   ConnectionNetwork, 
@@ -32,17 +28,6 @@ import {
   AnimatedGradient,
   CodePattern
 } from "../background";
-
-
-
-
-
-
-
-
-
-
-
 
 export function About() {
   const [selectedCategory, setSelectedCategory] = useState("all");
@@ -149,7 +134,7 @@ export function About() {
           <p className="text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed font-mono">
             <span className="text-white">Passionate about creating innovative solutions and pushing the boundaries</span>
             <br />
-            <span className="text-white">of what's possible in web development.</span>
+            <span className="text-white">of what&apos;s possible in web development.</span>
           </p>
         </motion.div>
 

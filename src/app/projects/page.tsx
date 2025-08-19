@@ -8,8 +8,6 @@ import {
   Terminal, 
   ExternalLink, 
   Github,
-  Eye,
-  Heart
 } from "lucide-react";
 import Link from "next/link";
 import {
@@ -245,18 +243,21 @@ export default function ProjectsPage() {
   // Utiliser le hook pour récupérer les projets depuis MongoDB
   const { projects, loading, error } = useProjects();
 
+  // Stabiliser la référence des projets pour éviter les re-rendus inutiles
+  const stableProjects = useMemo(() => projects, [projects]);
+
   // Extraction de toutes les technologies uniques
   const allTechnologies = useMemo(() => {
     const techSet = new Set<string>();
-    projects.forEach(project => {
+    stableProjects.forEach(project => {
       project.technologies.forEach(tech => techSet.add(tech));
     });
     return Array.from(techSet).sort();
-  }, [projects]);
+  }, [stableProjects]);
 
   // Filtrage des projets
   const filteredProjects = useMemo(() => {
-    let filtered = projects;
+    let filtered = stableProjects;
 
     // Filtre par catégorie ou technologie
     if (activeFilter !== "All") {
@@ -278,7 +279,7 @@ export default function ProjectsPage() {
     }
 
     return filtered;
-  }, [projects, activeFilter, searchQuery]);
+  }, [stableProjects, activeFilter, searchQuery]);
 
   return (
     <div className="min-h-screen bg-black relative overflow-hidden">
