@@ -45,15 +45,15 @@ function CodeLine({ code, delay = 0, isTyping = false }: {
       initial={{ opacity: 0, x: -20 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.5, delay }}
-      className="flex items-center space-x-2 text-green-400 font-mono text-sm"
+      className="flex items-center space-x-1.5 sm:space-x-2 text-green-400 font-mono text-xs sm:text-sm mb-1 sm:mb-2"
     >
       <span className="text-blue-400">$</span>
-      <span className="text-white">{isTyping ? displayedCode : code}</span>
+      <span className="text-white break-all">{isTyping ? displayedCode : code}</span>
       {isTyping && currentIndex < code.length && (
         <motion.span
           animate={{ opacity: [1, 0] }}
           transition={{ duration: 0.5, repeat: Infinity }}
-          className="w-2 h-4 bg-green-400"
+          className="w-1.5 h-3 sm:w-2 sm:h-4 bg-green-400"
         />
       )}
     </motion.div>
@@ -67,20 +67,20 @@ function TerminalWindow() {
       initial={{ opacity: 0, scale: 0.9 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.8, delay: 0.3 }}
-      className="relative w-full max-w-4xl mx-auto mb-12"
+      className="relative w-full max-w-4xl mx-auto mb-8 sm:mb-12 px-4 sm:px-0"
     >
       {/* Barre de titre du terminal */}
-      <div className="bg-gray-800 rounded-t-lg px-4 py-2 flex items-center space-x-2">
-        <div className="flex space-x-2">
-          <div className="w-3 h-3 bg-red-500 rounded-full"></div>
-          <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
-          <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+      <div className="bg-gray-800 rounded-t-lg px-3 sm:px-4 py-2 flex items-center space-x-2">
+        <div className="flex space-x-1.5 sm:space-x-2">
+          <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 bg-red-500 rounded-full"></div>
+          <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 bg-yellow-500 rounded-full"></div>
+          <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 bg-green-500 rounded-full"></div>
         </div>
-        <span className="text-gray-400 text-sm ml-4">terminal</span>
+        <span className="text-gray-400 text-xs sm:text-sm ml-3 sm:ml-4">terminal</span>
       </div>
       
       {/* Contenu du terminal */}
-      <div className="bg-black rounded-b-lg p-6 font-mono text-sm">
+      <div className="bg-black rounded-b-lg p-4 sm:p-6 font-mono text-xs sm:text-sm">
         <CodeLine code="npm install @developer/portfolio" delay={0.5} isTyping={true} />
         <CodeLine code="cd portfolio && npm run dev" delay={1.5} />
         <CodeLine code="// Starting development server..." delay={2.5} />
@@ -164,7 +164,7 @@ export function Hero() {
       
       <motion.div 
         style={{ y, opacity }}
-        className="relative z-10 max-w-7xl mx-auto px-6 py-24 lg:py-32"
+        className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 py-16 sm:py-24 lg:py-32"
       >
         <div className="text-center">
           {/* Badge de statut développeur */}
@@ -172,10 +172,10 @@ export function Hero() {
             initial={{ opacity: 0, y: 20, scale: 0.9 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
-            className="inline-flex items-center rounded-lg border border-green-500/30 bg-green-500/10 backdrop-blur-sm px-4 py-2 text-sm font-mono text-green-400 mb-8 group hover:bg-green-500/20 hover:border-green-500/50 transition-all duration-150"
+            className="inline-flex items-center rounded-lg border border-green-500/30 bg-green-500/10 backdrop-blur-sm px-3 sm:px-4 py-2 text-xs sm:text-sm font-mono text-green-400 mb-6 sm:mb-8 group hover:bg-green-500/20 hover:border-green-500/50 transition-all duration-150"
           >
-            <Code2 className="w-4 h-4 mr-2" />
-            <span className="text-green-400 font-mono">
+            <Code2 className="w-3 h-3 sm:w-4 sm:h-4 mr-2" />
+            <span className="text-green-400 font-mono text-xs sm:text-sm">
               STATUS: AVAILABLE_FOR_HIRE
             </span>
           </motion.div>
@@ -188,9 +188,9 @@ export function Hero() {
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.1, ease: "easeOut" }}
-            className="mb-8"
+            className="mb-6 sm:mb-8"
           >
-            <h1 className="text-4xl font-mono font-bold text-white sm:text-6xl lg:text-7xl mb-6 leading-tight">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-mono font-bold text-white mb-4 sm:mb-6 leading-tight px-2">
               <motion.span 
                 className="block text-blue-400"
                 initial={{ opacity: 0, x: -50 }}
@@ -223,11 +223,11 @@ export function Hero() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.7, ease: "easeOut" }}
-            className="text-lg text-gray-400 max-w-4xl mx-auto mb-12 leading-relaxed font-mono"
+            className="text-base sm:text-lg text-gray-400 max-w-4xl mx-auto mb-8 sm:mb-12 leading-relaxed font-mono px-4"
           >
             <span className="text-green-400">{"//"}</span>{" "}
             <span className="text-white">Full-stack developer passionate about clean code and innovative solutions.</span>
-            <br />
+            <br className="hidden sm:block" />
             <span className="text-green-400">{"//"}</span>{" "}
             <span className="text-white">Specialized in React, Next.js, Node.js with 10+ projects built from scratch.</span>
           </motion.p>
@@ -237,20 +237,20 @@ export function Hero() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.8, ease: "easeOut" }}
-            className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-16"
+            className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center items-center mb-12 sm:mb-16 px-4"
           >
             <motion.div
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.95 }}
-              className="group"
+              className="group w-full sm:w-auto"
             >
-              <Link href="/projects">
+              <Link href="/projects" className="block w-full">
                 <Button 
                   size="lg" 
-                  className="relative overflow-hidden rounded-lg bg-green-600 hover:bg-green-700 px-8 py-4 text-lg font-mono font-semibold text-white border-0 transition-all duration-150"
+                  className="relative overflow-hidden rounded-lg bg-green-600 hover:bg-green-700 px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg font-mono font-semibold text-white border-0 transition-all duration-150 w-full sm:w-auto"
                 >
-                  <span className="relative z-10 flex items-center">
-                    <Code2 className="mr-2 h-5 w-5" />
+                  <span className="relative z-10 flex items-center justify-center">
+                    <Code2 className="mr-2 h-4 w-4 sm:h-5 sm:w-5" />
                     View Projects
                   </span>
                 </Button>
@@ -260,14 +260,15 @@ export function Hero() {
             <motion.div
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.95 }}
+              className="w-full sm:w-auto"
             >
               <Button 
                 size="lg" 
                 variant="outline"
-                className="rounded-lg border-green-500/50 bg-green-500/10 backdrop-blur-sm px-8 py-4 text-lg font-mono font-semibold text-green-400 hover:bg-green-500/20 hover:border-green-500 transition-all duration-150"
+                className="rounded-lg border-green-500/50 bg-green-500/10 backdrop-blur-sm px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg font-mono font-semibold text-green-400 hover:bg-green-500/20 hover:border-green-500 transition-all duration-150 w-full sm:w-auto"
                 onClick={handleDownloadCV}
               >
-                <Download className="mr-2 h-5 w-5" />
+                <Download className="mr-2 h-4 w-4 sm:h-5 sm:w-5" />
                 Download CV
               </Button>
             </motion.div>
@@ -278,24 +279,24 @@ export function Hero() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.9, ease: "easeOut" }}
-            className="flex justify-center items-center gap-8"
+            className="flex flex-col sm:flex-row justify-center items-center gap-4 sm:gap-8 px-4"
           >
             {[
               { icon: Github, label: "GitHub", href: "https://github.com/wesleyajavon", color: "text-gray-400 hover:text-white" },
-              { icon: Linkedin, label: "LinkedIn", href: "https://www.linkedin.com/in/wesleyajv/", color: "text-blue-400 hover:text-blue-300" },
+              { icon: Linkedin, label: "LinkedIn", href: "https://www.linkedin.com/in/wesleyajav/", color: "text-blue-400 hover:text-blue-300" },
               { icon: Mail, label: "Email", href: "mailto:wesleyajavon2203@hotmail.com", color: "text-green-400 hover:text-green-300" }
             ].map((social, index) => (
               <motion.a
                 key={social.label}
                 href={social.href}
-                className={`group flex items-center gap-3 px-6 py-3 rounded-lg border border-gray-700 bg-gray-800/50 backdrop-blur-sm hover:bg-gray-700/50 transition-all duration-150 font-mono ${social.color}`}
+                className={`group flex items-center gap-2 sm:gap-3 px-4 sm:px-6 py-2 sm:py-3 rounded-lg border border-gray-700 bg-gray-800/50 backdrop-blur-sm hover:bg-gray-700/50 transition-all duration-150 font-mono ${social.color} w-full sm:w-auto justify-center`}
                 whileHover={{ scale: 1.05, y: -2 }}
                 whileTap={{ scale: 0.95 }}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 1 + index * 0.1 }}
               >
-                <social.icon className="h-5 w-5" />
+                <social.icon className="h-4 w-4 sm:h-5 sm:w-5" />
                 <span className="text-sm font-medium">{social.label}</span>
               </motion.a>
             ))}
@@ -306,12 +307,12 @@ export function Hero() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 1, delay: 1.2 }}
-            className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
+            className="absolute bottom-4 sm:bottom-8 left-1/2 transform -translate-x-1/2"
           >
-            <div className="flex flex-col items-center text-gray-500 font-mono text-sm">
+            <div className="flex flex-col items-center text-gray-500 font-mono text-xs sm:text-sm">
               <span>scroll.down()</span>
               <div className="mt-2">
-                <div className="w-0.5 h-6 bg-green-500"></div>
+                <div className="w-0.5 h-4 sm:h-6 bg-green-500"></div>
               </div>
             </div>
           </motion.div>

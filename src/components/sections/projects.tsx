@@ -119,14 +119,14 @@ export function Projects() {
         
         {/* Effet de lumière ambiante */}
         <div
-          className="absolute top-1/4 left-1/4 w-96 h-96 rounded-full opacity-25 blur-3xl"
+          className="hidden md:block absolute top-1/4 left-1/4 w-96 h-96 rounded-full opacity-25 blur-3xl"
           style={{
             background: "radial-gradient(circle, rgba(0, 255, 255, 0.4) 0%, transparent 70%)",
           }}
         />
         
         <div
-          className="absolute bottom-1/4 right-1/4 w-80 h-80 rounded-full opacity-20 blur-3xl"
+          className="hidden md:block absolute bottom-1/4 right-1/4 w-80 h-80 rounded-full opacity-20 blur-3xl"
           style={{
             background: "radial-gradient(circle, rgba(139, 92, 246, 0.35) 0%, transparent 70%)",
           }}
@@ -178,35 +178,35 @@ export function Projects() {
 
         {/* Bouton "Voir plus de projets" avec style de code */}
         <motion.a 
-          className="group flex w-fit items-center justify-center gap-3 px-6 py-4 rounded-xl bg-gradient-to-r from-slate-800 to-gray-900 border border-gray-600/50 text-white transition-all duration-300 hover:from-slate-700 hover:to-gray-800 hover:border-green-500/50 hover:scale-105 mx-auto md:mt-20 font-mono shadow-xl shadow-black/50 relative z-20 backdrop-blur-sm"
+          className="group flex w-fit items-center justify-center gap-2 px-4 py-3 md:px-6 md:py-4 rounded-lg md:rounded-xl bg-gradient-to-r from-slate-800 to-gray-900 border border-gray-600/50 text-white transition-all duration-300 hover:from-slate-700 hover:to-gray-800 hover:border-green-500/50 hover:scale-105 mx-auto mt-10 md:mt-20 font-mono shadow-lg md:shadow-xl shadow-black/50 relative z-20 backdrop-blur-sm text-sm md:text-base"
           href="/projects"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.5 }}
           whileHover={{ y: -5 }}
         >
-          <div className="flex items-center gap-3">
-            <span className="text-green-400 font-semibold">const</span>
-            <span className="text-white font-semibold">explorePortfolio</span>
-            <span className="text-yellow-400">=</span>
-            <span className="text-cyan-400">()</span>
-            <span className="text-green-400">=&gt;</span>
-            <span className="text-white">&quot;</span>
-            <span className="text-cyan-400">View All Projects</span>
-            <span className="text-white">&quot;</span>
+          <div className="flex items-center gap-1 md:gap-3">
+            <span className="text-green-400 font-semibold text-xs md:text-sm">const</span>
+            <span className="text-white font-semibold text-xs md:text-sm">explorePortfolio</span>
+            <span className="text-yellow-400 text-xs md:text-sm">=</span>
+            <span className="text-cyan-400 text-xs md:text-sm">()</span>
+            <span className="text-green-400 text-xs md:text-sm">=&gt;</span>
+            <span className="text-white text-xs md:text-sm">&quot;</span>
+            <span className="text-cyan-400 text-xs md:text-sm">View All Projects</span>
+            <span className="text-white text-xs md:text-sm">&quot;</span>
           </div>
           
           {/* Icône animée avec effet de code */}
-          <div className="relative ml-2">
-            <div className="w-8 h-8 rounded-lg border border-green-500/50 bg-green-500/10 transition-all duration-300 group-hover:border-green-400 group-hover:bg-green-500/20 group-hover:scale-110">
+          <div className="relative ml-1 md:ml-2">
+            <div className="w-6 h-6 md:w-8 md:h-8 rounded-md md:rounded-lg border border-green-500/50 bg-green-500/10 transition-all duration-300 group-hover:border-green-400 group-hover:bg-green-500/20 group-hover:scale-110">
               <div className="flex items-center justify-center h-full">
-                <ArrowRight className="w-4 h-4 text-green-400 transition-transform duration-300 group-hover:translate-x-1" />
+                <ArrowRight className="w-3 h-3 md:w-4 md:h-4 text-green-400 transition-transform duration-300 group-hover:translate-x-1" />
               </div>
             </div>
             
             {/* Effet de particule au survol */}
             <motion.div
-              className="absolute -top-1 -right-1 w-2 h-2 bg-green-400 rounded-full opacity-0"
+              className="absolute -top-1 -right-1 w-1.5 h-1.5 md:w-2 md:h-2 bg-green-400 rounded-full opacity-0"
               animate={{
                 scale: [0, 1, 0],
                 opacity: [0, 1, 0],

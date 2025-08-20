@@ -111,7 +111,7 @@ export function About() {
       {/* Overlay subtil */}
       <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-black/50" />
       
-      <div className="relative z-10 max-w-7xl mx-auto px-6">
+      <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8">
         {/* En-tête de section */}
         <motion.div
           className="text-center mb-20"
@@ -124,23 +124,23 @@ export function About() {
             about.js
           </div>
           
-          <h2 className="text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight font-mono">
+          <h2 className="text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight font-mono px-2">
             <span className="text-blue-400">const</span>{" "}
             <span className="text-green-400">aboutMe</span>{" "}
             <span className="text-yellow-400">=</span>{" "}
             <span className="text-cyan-400">&quot;Developer&quot;;</span>
           </h2>
           
-          <p className="text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed font-mono">
+          <p className="text-lg md:text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed font-mono px-4">
             <span className="text-white">Passionate about creating innovative solutions and pushing the boundaries</span>
-            <br />
+            <br className="hidden sm:block" />
             <span className="text-white">of what&apos;s possible in web development.</span>
           </p>
         </motion.div>
 
         {/* Statistiques */}
         <motion.div
-          className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-20"
+          className="grid grid-cols-2 md:grid-cols-4 gap-6 lg:gap-8 mb-20"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
@@ -182,7 +182,7 @@ export function About() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
         >
-          <h3 className="text-3xl font-bold text-white text-center mb-12 font-mono">
+          <h3 className="text-3xl font-bold text-white text-center mb-12 font-mono px-2">
             <span className="text-blue-400">function</span>{" "}
             <span className="text-green-400">getSkills</span>
             <span className="text-yellow-400">()</span>
@@ -241,7 +241,7 @@ export function About() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.6 }}
         >
-          <h3 className="text-3xl font-bold text-white text-center mb-12 font-mono">
+          <h3 className="text-2xl sm:text-3xl font-bold text-white text-center mb-8 sm:mb-12 font-mono px-2">
             <span className="text-blue-400">const</span>{" "}
             <span className="text-green-400">techStack</span>{" "}
             <span className="text-yellow-400">=</span>{" "}
@@ -249,12 +249,12 @@ export function About() {
           </h3>
           
           {/* Filtres de catégorie */}
-          <div className="flex flex-wrap gap-3 justify-center mb-8">
+          <div className="flex flex-wrap gap-2 sm:gap-3 justify-center mb-6 sm:mb-8 px-4">
             {categories.map((category) => (
               <motion.button
                 key={category.id}
                 onClick={() => setSelectedCategory(category.id)}
-                className={`flex items-center gap-2 px-4 py-2 rounded-lg border transition-all duration-200 font-mono text-sm ${
+                className={`flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 rounded-lg border transition-all duration-200 font-mono text-xs sm:text-sm ${
                   selectedCategory === category.id
                     ? "border-green-500/50 bg-green-500/20 text-green-400"
                     : "border-gray-600/50 bg-gray-800/50 text-gray-300 hover:border-gray-500/50 hover:bg-gray-700/50"
@@ -262,14 +262,14 @@ export function About() {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                <category.icon className="w-4 h-4" />
+                <category.icon className="w-3 h-3 sm:w-4 sm:h-4" />
                 {category.label}
               </motion.button>
             ))}
           </div>
           
           {/* Grille des technologies */}
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 sm:gap-4 px-4">
             {filteredTechs.map((tech, index) => (
               <motion.div
                 key={tech}
@@ -285,31 +285,31 @@ export function About() {
 
         {/* Mon parcours */}
         <motion.div
-          className="mb-20"
+          className="mb-16 sm:mb-20"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.8 }}
         >
-          <h3 className="text-3xl font-bold text-white text-center mb-12 font-mono">
+          <h3 className="text-2xl sm:text-3xl font-bold text-white text-center mb-8 sm:mb-12 font-mono px-2">
             <span className="text-blue-400">function</span>{" "}
             <span className="text-green-400">myJourney</span>
             <span className="text-yellow-400">()</span>
           </h3>
           
-          <div className="max-w-4xl mx-auto">
-            <div className="space-y-8">
+          <div className="max-w-4xl mx-auto px-4">
+            <div className="space-y-6 sm:space-y-8">
               <motion.div
-                className="flex items-start gap-6"
+                className="flex items-start gap-4 sm:gap-6"
                 initial={{ opacity: 0, x: -50 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.8, delay: 0.1 }}
               >
-                <div className="flex-shrink-0 w-12 h-12 rounded-full bg-blue-500/20 border border-blue-500/40 flex items-center justify-center">
-                  <Code2 className="w-6 h-6 text-blue-400" />
+                <div className="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-blue-500/20 border border-blue-500/40 flex items-center justify-center">
+                  <Code2 className="w-5 h-5 sm:w-6 sm:h-6 text-blue-400" />
                 </div>
                 <div>
-                  <h4 className="text-xl font-bold text-white mb-2 font-mono">Self-Taught Developer</h4>
-                  <p className="text-gray-400 leading-relaxed">
+                  <h4 className="text-lg sm:text-xl font-bold text-white mb-2 font-mono">Self-Taught Developer</h4>
+                  <p className="text-gray-400 leading-relaxed text-sm sm:text-base">
                     Started my journey by learning web development fundamentals through online resources, 
                     tutorials, and hands-on projects. Built a strong foundation in HTML, CSS, and JavaScript.
                   </p>
@@ -317,17 +317,17 @@ export function About() {
               </motion.div>
               
               <motion.div
-                className="flex items-start gap-6"
+                className="flex items-start gap-4 sm:gap-6"
                 initial={{ opacity: 0, x: -50 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.8, delay: 0.2 }}
               >
-                <div className="flex-shrink-0 w-12 h-12 rounded-full bg-green-500/20 border border-green-500/40 flex items-center justify-center">
-                  <BookOpen className="w-6 h-6 text-green-400" />
+                <div className="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-green-500/20 border border-green-500/40 flex items-center justify-center">
+                  <BookOpen className="w-5 h-5 sm:w-6 sm:h-6 text-green-400" />
                 </div>
                 <div>
-                  <h4 className="text-xl font-bold text-white mb-2 font-mono">Framework Mastery</h4>
-                  <p className="text-gray-400 leading-relaxed">
+                  <h4 className="text-lg sm:text-xl font-bold text-white mb-2 font-mono">Framework Mastery</h4>
+                  <p className="text-gray-400 leading-relaxed text-sm sm:text-base">
                     Progressed to modern frameworks like React and Next.js, learning state management, 
                     routing, and advanced concepts. Explored backend development with Node.js and databases.
                   </p>
@@ -335,17 +335,17 @@ export function About() {
               </motion.div>
               
               <motion.div
-                className="flex items-start gap-6"
+                className="flex items-start gap-4 sm:gap-6"
                 initial={{ opacity: 0, x: -50 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.8, delay: 0.3 }}
               >
-                <div className="flex-shrink-0 w-12 h-12 rounded-full bg-purple-500/20 border border-purple-500/40 flex items-center justify-center">
-                  <Target className="w-6 h-6 text-purple-400" />
+                <div className="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-purple-500/20 border border-purple-500/40 flex items-center justify-center">
+                  <Target className="w-5 h-5 sm:w-6 sm:h-6 text-purple-400" />
                 </div>
                 <div>
-                  <h4 className="text-xl font-bold text-white mb-2 font-mono">Project Portfolio</h4>
-                  <p className="text-gray-400 leading-relaxed">
+                  <h4 className="text-lg sm:text-xl font-bold text-white mb-2 font-mono">Project Portfolio</h4>
+                  <p className="text-gray-400 leading-relaxed text-sm sm:text-base">
                     Built a diverse portfolio of 10+ projects showcasing different technologies and 
                     problem-solving approaches. Each project represents a learning milestone and skill demonstration.
                   </p>
@@ -362,41 +362,41 @@ export function About() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 1.0 }}
         >
-          <h3 className="text-3xl font-bold text-white mb-12 font-mono">
+          <h3 className="text-2xl sm:text-3xl font-bold text-white mb-8 sm:mb-12 font-mono px-2">
             <span className="text-blue-400">function</span>{" "}
             <span className="text-green-400">whyChooseMe</span>
             <span className="text-yellow-400">()</span>
           </h3>
           
-          <div className="max-w-4xl mx-auto">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="max-w-4xl mx-auto px-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
               <motion.div
-                className="text-center p-6 rounded-2xl border border-gray-700/50 bg-gray-900/30 backdrop-blur-sm"
+                className="text-center p-4 sm:p-6 rounded-2xl border border-gray-700/50 bg-gray-900/30 backdrop-blur-sm"
                 initial={{ opacity: 0, y: 50 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.1 }}
               >
-                <div className="w-16 h-16 rounded-full bg-green-500/20 border border-green-500/40 flex items-center justify-center mx-auto mb-4">
-                  <CheckCircle className="w-8 h-8 text-green-400" />
+                <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-full bg-green-500/20 border border-green-500/40 flex items-center justify-center mx-auto mb-3 sm:mb-4">
+                  <CheckCircle className="w-6 h-6 sm:w-8 sm:h-8 text-green-400" />
                 </div>
-                <h4 className="text-xl font-bold text-white mb-3 font-mono">Proven Track Record</h4>
-                <p className="text-gray-400">
+                <h4 className="text-lg sm:text-xl font-bold text-white mb-2 sm:mb-3 font-mono">Proven Track Record</h4>
+                <p className="text-gray-400 text-sm sm:text-base">
                   Demonstrated ability to deliver high-quality projects with clean code, 
                   modern architecture, and excellent user experience.
                 </p>
               </motion.div>
               
               <motion.div
-                className="text-center p-6 rounded-2xl border border-gray-700/50 bg-gray-900/30 backdrop-blur-sm"
+                className="text-center p-4 sm:p-6 rounded-2xl border border-gray-700/50 bg-gray-900/30 backdrop-blur-sm"
                 initial={{ opacity: 0, y: 50 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.2 }}
               >
-                <div className="w-16 h-16 rounded-full bg-blue-500/20 border border-blue-500/40 flex items-center justify-center mx-auto mb-4">
-                  <GitBranchIcon className="w-8 h-8 text-blue-400" />
+                <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-full bg-blue-500/20 border border-blue-500/40 flex items-center justify-center mx-auto mb-3 sm:mb-4">
+                  <GitBranchIcon className="w-6 h-6 sm:w-8 sm:h-8 text-blue-400" />
                 </div>
-                <h4 className="text-xl font-bold text-white mb-3 font-mono">Continuous Learning</h4>
-                <p className="text-gray-400">
+                <h4 className="text-lg sm:text-xl font-bold text-white mb-2 sm:mb-3 font-mono">Continuous Learning</h4>
+                <p className="text-gray-400 text-sm sm:text-base">
                   Always staying updated with the latest technologies and best practices, 
                   ensuring modern and efficient solutions.
                 </p>
