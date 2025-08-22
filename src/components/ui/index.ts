@@ -3,7 +3,9 @@ export { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 export { Badge } from "./badge";
 export { TechLogo, TechLogoWithText } from "./TechLogo";
 export { ProjectCard } from "./ProjectCard";
+export { ProjectCardUpgraded } from "./ProjectCardUpgraded";
 export { ProjectDetails } from "./ProjectDetails";
+export { FilterSection } from "./FilterSection";
 export { TechBadge } from "./TechBadge";
 export { FloatingCircles } from "./FloatingCircles";
 export { FloatingCodeLines } from "./FloatingCodeLines";

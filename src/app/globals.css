@@ -503,3 +503,32 @@ h1, h2, h3, h4, h5, h6 {
     backdrop-filter: none;
   }
 }
+
+/* Animations pour les badges flottants */
+@keyframes about-float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.about-animate-float {
+  animation: about-float 3s ease-in-out infinite;
+}
+
+@keyframes about-breathe {
+  0%, 100% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.05);
+  }
+}
+
+.about-animate-breathe {
+  animation: about-breathe 4s ease-in-out infinite;
+}
