@@ -59,17 +59,18 @@ export default function AboutPage() {
 
     const pianoVideos = [
         {
-            id: "4rY7QimLuYE",
-            title: "Piano Cover",
-            description: "Nocif by Damso & Hamza",
-            type: "video"
-        },
-        {
             id: "KA4rEjYAibs",
             title: "Piano Cover",
             description: "Die with a Smile by Bruno Mars & Lady Gaga",
             type: "video"
         },
+        {
+            id: "4rY7QimLuYE",
+            title: "Piano Cover",
+            description: "Nocif by Damso & Hamza",
+            type: "video"
+        },
+
         {
             id: "bohemian-local",
             title: "Piano Cover",
@@ -77,7 +78,7 @@ export default function AboutPage() {
             type: "local"
         },
         {
-            id: "memories-local",
+            id: "upk1W2bkI2A",
             title: "Piano Cover",
             description: "Memories by Maroon 5",
             type: "local"
