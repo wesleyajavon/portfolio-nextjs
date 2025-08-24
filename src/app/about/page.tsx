@@ -377,20 +377,20 @@ export default function AboutPage() {
                         <div className="bg-gray-900/30 backdrop-blur-sm border border-gray-700/50 rounded-2xl p-8 lg:p-12">
                             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
                                 <div>
-                                    <h3 className="text-2xl font-bold text-white mb-4">Hey, I'm Wesley! 👋</h3>
+                                    <h3 className="text-2xl font-bold text-white mb-4">Hey, I&apos;m Wesley! 👋</h3>
                                     <div className="space-y-4 text-gray-300 leading-relaxed">
                                         <p>
-                                            I'm a passionate Belgian international student who believes in the power of continuous growth and learning.
+                                            I&apos;m a passionate Belgian international student who believes in the power of continuous growth and learning.
                                             My journey has been shaped by diverse experiences that have taught me resilience, discipline,
                                             and the importance of pursuing what truly matters.
                                         </p>
                                         <p>
                                             From the soccer field to the piano keys, from the classroom to the coding environment,
-                                            I've learned that excellence comes from dedication, practice, and a genuine love for what you do.
+                                            I&apos;ve learned that excellence comes from dedication, practice, and a genuine love for what you do.
                                         </p>
                                         <p>
-                                            I'm based in Columbia, SC, 
-                                            where I'm pursuing my Master's degree while building my skills as a full-stack developer. 
+                                            I&apos;m based in Columbia, SC, 
+                                                                                         where I&apos;m pursuing my Master&apos;s degree while building my skills as a full-stack developer. 
                                             Every day is an opportunity to learn something new and push my boundaries further.
                                         </p>
                                     </div>
@@ -664,7 +664,7 @@ export default function AboutPage() {
                                         development and problem-solving.
                                     </p>
                                     <p>
-                                        Whether it's on the field or in the code, I believe in giving 100% effort and continuously
+                                        Whether it&apos;s on the field or in the code, I believe in giving 100% effort and continuously
                                         improving through dedicated practice and learning from every experience.
                                     </p>
                                 </div>
@@ -847,7 +847,7 @@ export default function AboutPage() {
                                         Both require practice, patience, and a deep understanding of fundamentals.
                                     </p>
                                     <p>
-                                        Whether I'm composing melodies or writing code, I find the same sense of flow and
+                                        Whether I&apos;m composing melodies or writing code, I find the same sense of flow and
                                         satisfaction in creating something that serves a purpose and brings joy to others.
                                     </p>
                                 </div>
@@ -866,8 +866,8 @@ export default function AboutPage() {
                     <div className="bg-gray-900/30 backdrop-blur-sm border border-gray-700/50 rounded-2xl p-8 lg:p-12 max-w-2xl mx-auto">
                         <h3 className="text-2xl font-bold text-white mb-4 font-mono">Ready to Connect?</h3>
                         <p className="text-gray-400 mb-6 leading-relaxed">
-                            I'm always open to new opportunities, collaborations, or just interesting conversations.
-                            Let's discuss how we can work together or share our experiences.
+                            I&apos;m always open to new opportunities, collaborations, or just interesting conversations.
+                                                          Let&apos;s discuss how we can work together or share our experiences.
                         </p>
                         <div className="flex flex-col sm:flex-row gap-4 justify-center">
                             <a
